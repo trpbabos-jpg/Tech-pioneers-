@@ -7,6 +7,8 @@ Die wichtigsten Schritte, Entscheidungen und Änderungen in zeitlicher Reihenfol
 **16.10.2026: Pitch**
 - Idee, Bauteilrecherche und Mind Map (`doku/mindmap_v1.pdf`, Miro-Board) vorgestellt
 - Thema Batman: Ultraschall wie die Echoortung einer Fledermaus
+- Folien: `doku/praesentationen/2026-10-16_pitch.pdf`, Datenblatt-Auszüge: `bom/datenblaetter/`
+- Erste Formskizze ECHO: Differentialantrieb mit je einem Rad links und rechts, Stützkugel vorne (`cad/skizzen/2026-10-16_echo_form_draufsicht.png`)
 
 **19.10.2026: erster Code**
 - Testprogramme für Ultraschallsensor und Motor geschrieben

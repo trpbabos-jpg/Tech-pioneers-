@@ -22,6 +22,8 @@ https://miro.com/app/board/uXjVEZ6PCT0=/
 - Aktuelle Pinbelegung und frühere Stände: `elektronik/pinbelegung.md`
 - Einstellwerte im Code: `code/einstellwerte.md`
 - Messwerte: `doku/messwerte.md`
+- Folien der Präsentationen: `doku/praesentationen/`
+- Datenblätter der Bauteile: `bom/datenblaetter/`
 
 ## Termine
 
@@ -38,11 +40,11 @@ https://miro.com/app/board/uXjVEZ6PCT0=/
 | --- | --- |
 | `code/` | MicroPython-Programme für den ESP32, `main.py` ist das Fahrprogramm |
 | `code/tests/` | Testprogramme für einzelne Bauteile (aufheben, werden wieder gebraucht) |
-| `cad/` | Creo-Dateien (Teile und Baugruppe), technische Zeichnung als PDF, DXF für den Laser |
+| `cad/` | Creo-Dateien (Teile und Baugruppe), technische Zeichnung als PDF, DXF für den Laser, Skizzen |
 | `elektronik/` | Schaltplan und Pinbelegung |
-| `bom/` | Materialliste |
+| `bom/` | Materialliste, Auszüge aus den Datenblättern |
 | `fotos/` | Fotos vom Aufbau und von Tests |
-| `doku/` | Änderungsverlauf, Messwerte, Testtabelle, Mind Map, später Projektkarte und Abschlussdoku |
+| `doku/` | Änderungsverlauf, Messwerte, Testtabelle, Mind Map, Präsentationen, später Projektkarte und Abschlussdoku |
 
 ## Code auf den ESP32 bringen
 

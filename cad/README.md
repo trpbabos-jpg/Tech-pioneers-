@@ -4,6 +4,7 @@
 - Technische Zeichnung der Grundplatte als PDF
 - DXF-Datei für den Lasercutter
 - STL-Dateien der 3D-Druckteile (Halterungen, Podest, Haube)
+- `skizzen/`: Formskizzen, z. B. die ECHO-Form in der Draufsicht vom 16.10. (Fledermaus-Ohren vorne, Umhang hinten, je ein Rad links und rechts)
 
 Vor dem Hochladen in Creo alte Versionen aufräumen (Datei > Verwalten > Alte Versionen löschen), sonst landen `.prt.1`, `.prt.2` usw. im Repo.
 
