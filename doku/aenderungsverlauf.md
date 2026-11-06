@@ -25,7 +25,7 @@ Die wichtigsten Schritte, Entscheidungen und Änderungen in zeitlicher Reihenfol
 **23.10.2026: Taster und Encoder**
 - Taster an GPIO27, Encoder beider Motoren an 13, 14, 19 und 4
 - GPIO18 verworfen, weil es ihn auf dem ESP32-PICO-V3 nicht gibt
-- Pinwahl mit Herstellerunterlagen begründet
+- Pinwahl mit Herstellerunterlagen begründet (Folien: `doku/praesentationen/2026-10-23_encoder-pins.pdf`)
 - Drehzahlmessung über die Encoder: 244 und 247 U/min (`doku/messwerte.md`)
 
 ## KW 44
@@ -33,6 +33,7 @@ Die wichtigsten Schritte, Entscheidungen und Änderungen in zeitlicher Reihenfol
 **Ende Oktober: Frankenstein-Modell**
 - Grundplatte v1 in Creo konstruiert und aus 5 mm Sperrholz gelasert, Motoren oben auf der Platte, Stützrad vorne
 - Dient als fahrtüchtiger Prototyp für Encoder-Tests und Kalibrierung
+- Folien vom 30.10.: `doku/praesentationen/2026-10-30_frankenstein-modell-und-encoder.pdf`
 
 **29.10.2026: neu verkabelt und kalibriert**
 - Steckbrett komplett neu belegt, damit sich keine Kabel kreuzen (`elektronik/pinbelegung.md`)
@@ -56,3 +57,4 @@ Die wichtigsten Schritte, Entscheidungen und Änderungen in zeitlicher Reihenfol
 - Drei Ultraschallsensoren statt einem, weil die Seitenwände nicht gerade sind
 - Wippschalter wird Hauptschalter und Startknopf
 - Team ist jetzt zu viert, Planung mit Kanban und Zeitplan im Miro-Board, dieses Repository angelegt
+- Weekly Closing KW 45: `doku/praesentationen/2026-11-06_weekly-closing-kw45.pdf` (die drei Testvideos sind im PDF nur als Standbild)
