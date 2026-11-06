@@ -58,3 +58,9 @@ Die wichtigsten Schritte, Entscheidungen und Änderungen in zeitlicher Reihenfol
 - Wippschalter wird Hauptschalter und Startknopf
 - Team ist jetzt zu viert, Planung mit Kanban und Zeitplan im Miro-Board, dieses Repository angelegt
 - Weekly Closing KW 45: `doku/praesentationen/2026-11-06_weekly-closing-kw45.pdf` (die drei Testvideos sind im PDF nur als Standbild)
+
+**06.11.2026: Grundplatte v2 fertig zum Lasern**
+- Rückwand gestrichen, das Heck der Batmobil-Haube wird die Anlagefläche an der Startwand
+- 7 Löcher für die Haube, MDD3A direkt mit 4 × M3 auf Abstandshülsen, keine Langlöcher mehr
+- Laserdatei, Zeichnung und Maßtabelle hochgeladen (`cad/`, `bom/`)
+- Vor dem Lasern noch messen: Lochbild MDD3A, Abstand Schalterloch bis Stößelspitze, Plattendicke
