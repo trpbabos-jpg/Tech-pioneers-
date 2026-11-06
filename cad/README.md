@@ -12,7 +12,7 @@ Vor dem Hochladen in Creo alte Versionen aufräumen (Datei > Verwalten > Alte Ve
 
 Diese Dateien gibt es schon, sie liegen aber noch nicht im Repo. Bitte hochladen:
 
-- Grundplatte v1 (Frankenstein-Modell): Creo-Dateien und Laser-Datei
+- Grundplatte v1 (Frankenstein-Modell): Creo-Dateien und Laser-Datei (die technische Zeichnung liegt schon hier)
 - Creo-Dateien der Grundplatte v2, der Druckteile und der Baugruppe
 - STL-Dateien der Druckteile
 
@@ -24,3 +24,9 @@ Diese Dateien gibt es schon, sie liegen aber noch nicht im Repo. Bitte hochladen
 - Maßtabelle mit Lage, Schwerpunkt und Grenzwerten: `bom/Grundplatte_Masse_Gewicht_V2.xlsx`
 
 Die Entscheidungen zur Grundplatte v2 stehen in `grundplatte-v2-entscheidungen.md`.
+
+## Grundplatte v1 (Frankenstein-Modell)
+
+- `Grundplatte_V1_Zeichnung_A3.pdf`: technische Zeichnung A3 1:1 als Vorlage für Creo. Platte 170 × 250 × 5 mm (Sperrholz Creative-Deco), Ecken R5, Ursprung hintere linke Ecke.
+- Bohrungen mit Koordinatentabelle: 4 × Ø3,4 für die Pololu-Motorwinkel #2676 (je 2 Schrauben über Kreuz an den Randkerben, M3×12 Senkkopf von unten, Mutter oben) und 2 × Ø2,5 für die Stützkugel Pololu #955 (Lochabstand 15,5 mm, ohne Abstandshalter, Höhe passt zu 20,5 mm Bodenfreiheit).
+- Laserwerte laut Testkarte Creative-Deco 5 mm: schneidet bei 5 mm/s ab 60 % und bei 7 mm/s ab 80 %.

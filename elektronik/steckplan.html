@@ -1,0 +1,292 @@
+<title>Steckplan Batmänner</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: Draufsicht oben, darunter Steckliste in Bauschritten, unten die Pins für den Code */
+:root{
+  --bg:#eef0ec; --surface:#f9faf7; --ink:#1c211f; --muted:#5e6762; --rule:#cfd5d0;
+  --accent:#b58300; --warn:#a3261b; --warnbg:#fbe4e1; --ok:#2b7a47; --okbg:#dcefe2;
+  --hl:#f2b705;
+  --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --f-body:"Barlow","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121614; --surface:#1a201d; --ink:#e4e9e6; --muted:#9ba6a0; --rule:#2e3833;
+  --accent:#e2b13c; --warn:#ff8a7a; --warnbg:#3b1a16; --ok:#86d6a2; --okbg:#173326; --hl:#f2c230; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121614; --surface:#1a201d; --ink:#e4e9e6; --muted:#9ba6a0; --rule:#2e3833;
+  --accent:#e2b13c; --warn:#ff8a7a; --warnbg:#3b1a16; --ok:#86d6a2; --okbg:#173326; --hl:#f2c230; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto;padding-block:24px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:32px}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;line-height:1.1;margin:0;text-wrap:balance}
+h1{font-size:clamp(32px,7vw,48px)} h2{font-size:26px} h3{font-size:19px;font-weight:600}
+p{margin:0;max-width:68ch}
+.eyebrow{font-family:var(--f-display);font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+header,section{display:flex;flex-direction:column;gap:12px}
+.lead{color:var(--muted);font-size:17px}
+.alert{border:2px solid var(--warn);background:var(--warnbg);padding:12px 14px;border-radius:6px;display:flex;flex-direction:column;gap:4px;max-width:72ch}
+.alert b{color:var(--warn)}
+.scene{background:#f6efe2;border:1.5px solid var(--rule);border-radius:10px;overflow-x:auto}
+.scene svg{display:block;width:100%;min-width:760px;height:auto}
+.hint{font-size:14px;color:var(--muted)}
+svg .net{transition:opacity .15s}
+.focus svg .net{opacity:.12}
+.focus svg .net.on{opacity:1}
+.pintab{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.pintab>div{display:flex;flex-direction:column;gap:8px;min-width:0}
+.pintab table{border-collapse:collapse;width:100%;background:var(--surface);border:1px solid var(--rule);font-size:15px}
+.pintab td{padding:6px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+.pintab td.p{font-family:var(--f-mono);font-weight:500;white-space:nowrap;width:1%;font-variant-numeric:tabular-nums}
+.pintab tr.off td{color:var(--muted)}
+.pintab tr.off td.p{color:var(--warn)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.step{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:0;cursor:pointer}
+.step.on{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 35%,transparent)}
+.step .head{display:flex;align-items:baseline;gap:10px}
+.step .n{font-family:var(--f-display);font-weight:700;font-size:22px;color:var(--accent);min-width:22px}
+.step ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.step li{display:flex;gap:10px;align-items:flex-start}
+.step input{margin-top:4px;width:18px;height:18px;accent-color:var(--ok);flex:none}
+.step label{cursor:pointer}
+.step li.done label{color:var(--muted);text-decoration:line-through}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid rgba(0,0,0,.35);vertical-align:-1px;margin-right:6px}
+.pin{font-family:var(--f-mono);font-weight:500;background:color-mix(in srgb,var(--accent) 16%,transparent);padding:0 5px;border-radius:3px;white-space:nowrap}
+.warn{color:var(--warn);font-weight:600}
+.progress{font-size:14px;color:var(--muted)}
+.codebox{position:relative;background:var(--surface);border:1px solid var(--rule);border-radius:8px;overflow-x:auto}
+pre{margin:0;padding:14px 16px;font-family:var(--f-mono);font-size:14px;line-height:1.55}
+button{font-family:var(--f-body);font-weight:600;font-size:14px;border:1.5px solid var(--ink);background:var(--surface);color:var(--ink);padding:5px 12px;border-radius:4px;cursor:pointer}
+button:focus-visible,.step:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.copy{position:absolute;top:10px;right:10px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Mobiler Roboter · Neuverkabelung</div>
+    <h1>Steckplan Batmänner</h1>
+    <p class="lead">Draufsicht wie auf deinem Foto: vorne oben, linker Motor links. Jeder Motor hängt an den Pins auf seiner Seite, der Motortreiber an den Pins in der Mitte. So kreuzen sich die Motor- und Encoderkabel nicht mehr.</p>
+  </header>
+
+  <div class="alert" role="note">
+    <b>Die rote Reihe bleibt 5 V. Die Encoder dürfen dort nicht dran.</b>
+    <span>Die Encoder bekommen 3,3 V direkt vom <span class="pin">3V3</span>-Pin. Hängen sie an 5 V, kommen ihre Signale mit 5 V am ESP32 an, und das hält er nicht aus. Für den linken Motor gibt es dafür einen eigenen 3V3-Punkt links neben dem ESP32 (grünes Kabel).</span>
+  </div>
+
+  <section aria-labelledby="h-pins">
+    <h2 id="h-pins">Pinbelegung auf einen Blick</h2>
+    <div class="pintab">
+      <div>
+        <h3>Untere Pinreihe (zu Motoren und Treiber)</h3>
+        <table>
+          <tr><td class="p">25</td><td>Encoder Motor 2 (links), gelb</td></tr>
+          <tr><td class="p">26</td><td>Encoder Motor 2 (links), grün</td></tr>
+          <tr><td class="p">32</td><td>MDD3A M2B</td></tr>
+          <tr><td class="p">33</td><td>MDD3A M2A</td></tr>
+          <tr><td class="p">27</td><td>MDD3A M1A</td></tr>
+          <tr><td class="p">14</td><td>MDD3A M1B</td></tr>
+          <tr class="off"><td class="p">12</td><td>frei lassen</td></tr>
+          <tr><td class="p">13</td><td>Encoder Motor 1 (rechts), gelb</td></tr>
+          <tr class="off"><td class="p">15, 2</td><td>frei lassen</td></tr>
+          <tr><td class="p">4</td><td>Encoder Motor 1 (rechts), grün</td></tr>
+          <tr class="off"><td class="p">0</td><td>frei lassen</td></tr>
+          <tr><td class="p">3V3</td><td>Encoder blau (beide), nicht an die rote Reihe</td></tr>
+          <tr><td class="p">GND</td><td>blaue Reihe</td></tr>
+          <tr><td class="p">5V</td><td>rote Reihe</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3>Obere Pinreihe (nach vorne)</h3>
+        <table>
+          <tr><td class="p">22</td><td>Stoßschalter, Kontakt 1</td></tr>
+          <tr><td class="p">19</td><td>HC-SR04 Trig</td></tr>
+          <tr><td class="p">35</td><td>HC-SR04 Echo über den Spannungsteiler (Mitte)</td></tr>
+          <tr class="off"><td class="p">21, 34</td><td>Reserve für einen zweiten Sensor</td></tr>
+        </table>
+        <h3>Schienen</h3>
+        <table>
+          <tr><td class="p">+ rot</td><td>5 V: HC-SR04 VCC</td></tr>
+          <tr><td class="p">− blau</td><td>GND: ESP32, MDD3A, HC-SR04, 2,2 kΩ, Encoder schwarz, Stoßschalter Kontakt 2</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-plan">
+    <div class="row" style="justify-content:space-between">
+      <h2 id="h-plan">Draufsicht</h2>
+      <button type="button" id="showall">Alle Kabel zeigen</button>
+    </div>
+    <div class="scene" id="scene"><svg id="plan" viewBox="0 0 1110 1060" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Draufsicht auf die Grundplatte mit allen Kabeln vom ESP32 zu Motoren, Motortreiber, Ultraschallsensor und Stoßschalter"><g font-family="Barlow, Arial, sans-serif"><rect x="30" y="20" width="1050" height="1020" rx="14" fill="#e8d3ad" stroke="#b89c6c" stroke-width="2"/><text x="555" y="48" font-size="16" text-anchor="middle" fill="#5a4626" font-weight="600" class="">vorne · Richtung Wand ↑</text><rect x="62" y="318" width="976" height="312" rx="8" fill="#f4f2ec" stroke="#cfc9bb" stroke-width="1.5"/><line x1="70" y1="590" x2="1030" y2="590" stroke="#d33a2c" stroke-width="2"/><line x1="70" y1="612" x2="1030" y2="612" stroke="#2a62c9" stroke-width="2"/><text x="1036" y="594" font-size="13" text-anchor="start" fill="#b3261e" font-weight="600" class="">+ 5 V</text><text x="1036" y="616" font-size="13" text-anchor="start" fill="#1f4fa3" font-weight="600" class="">− GND</text><rect x="150" y="372" width="700" height="176" rx="8" fill="#1d1f22"/><text x="500" y="465" font-size="18" text-anchor="middle" fill="#e9e9e9" font-weight="600" class="">ESP32-PICO-KIT</text><text x="500" y="488" font-size="13" text-anchor="middle" fill="#9aa0a6" font-weight="400" class="">USB rechts</text><circle cx="169.4" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="169.44" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">20</text><circle cx="208.3" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="208.32999999999998" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">21</text><circle cx="247.2" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="247.22" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">22</text><circle cx="286.1" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="286.11" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">19</text><circle cx="325.0" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="325.0" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">8</text><circle cx="363.9" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="363.89" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">7</text><circle cx="402.8" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="402.78" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">5</text><circle cx="441.7" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="441.67" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">10</text><circle cx="480.6" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="480.56" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">9</text><circle cx="519.5" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="519.45" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">RX</text><circle cx="558.3" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="558.3399999999999" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">TX</text><circle cx="597.2" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="597.23" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">35</text><circle cx="636.1" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="636.12" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">34</text><circle cx="675.0" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="675.01" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">38</text><circle cx="713.9" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="713.9000000000001" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">37</text><circle cx="752.8" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="752.79" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">EN</text><circle cx="791.7" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="791.6800000000001" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">GND</text><circle cx="830.6" cy="360" r="7" fill="#c9a227" stroke="#7a611a"/><text x="830.5699999999999" y="390" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">3V3</text><circle cx="169.4" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="169.44" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">·</text><circle cx="208.3" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="208.32999999999998" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">·</text><circle cx="247.2" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="247.22" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">VN</text><circle cx="286.1" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="286.11" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">25</text><circle cx="325.0" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="325.0" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">26</text><circle cx="363.9" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="363.89" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">32</text><circle cx="402.8" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="402.78" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">33</text><circle cx="441.7" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="441.67" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">27</text><circle cx="480.6" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="480.56" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">14</text><circle cx="519.5" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="519.45" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">12</text><circle cx="558.3" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="558.3399999999999" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">13</text><circle cx="597.2" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="597.23" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">15</text><circle cx="636.1" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="636.12" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">2</text><circle cx="675.0" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="675.01" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">4</text><circle cx="713.9" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="713.9000000000001" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">0</text><circle cx="752.8" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="752.79" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">3V3</text><circle cx="791.7" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="791.6800000000001" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">GND</text><circle cx="830.6" cy="560" r="7" fill="#c9a227" stroke="#7a611a"/><text x="830.5699999999999" y="540" font-size="13" text-anchor="middle" fill="#f1f1f1" font-weight="400" class="">5V</text><path d="M513.5,572 l12,12 M525.5,572 l-12,12" stroke="#d42a2a" stroke-width="2.4"/><path d="M591.2,572 l12,12 M603.2,572 l-12,12" stroke="#d42a2a" stroke-width="2.4"/><path d="M630.1,572 l12,12 M642.1,572 l-12,12" stroke="#d42a2a" stroke-width="2.4"/><path d="M707.9,572 l12,12 M719.9,572 l-12,12" stroke="#d42a2a" stroke-width="2.4"/><text x="519.45" y="602" font-size="12" text-anchor="middle" fill="#b3261e" font-weight="600" class="">frei</text><text x="616.675" y="602" font-size="12" text-anchor="middle" fill="#b3261e" font-weight="600" class="">frei</text><text x="713.9000000000001" y="602" font-size="12" text-anchor="middle" fill="#b3261e" font-weight="600" class="">frei</text><rect x="860" y="60" width="200" height="115" rx="6" fill="#1f5fa8"/><circle cx="905" cy="102" r="32" fill="#d9dde2" stroke="#9aa1a8" stroke-width="2"/><circle cx="905" cy="102" r="20" fill="#b8bec5"/><circle cx="1015" cy="102" r="32" fill="#d9dde2" stroke="#9aa1a8" stroke-width="2"/><circle cx="1015" cy="102" r="20" fill="#b8bec5"/><text x="960" y="148" font-size="14" text-anchor="middle" fill="#ffffff" font-weight="600" class="">HC-SR04</text><rect x="909" y="175" width="6" height="12" fill="#c9a227"/><text x="912" y="168" font-size="11" text-anchor="middle" fill="#ffffff" font-weight="600" class="">GND</text><rect x="941" y="175" width="6" height="12" fill="#c9a227"/><text x="944" y="168" font-size="11" text-anchor="middle" fill="#ffffff" font-weight="600" class="">Echo</text><rect x="973" y="175" width="6" height="12" fill="#c9a227"/><text x="976" y="168" font-size="11" text-anchor="middle" fill="#ffffff" font-weight="600" class="">Trig</text><rect x="1005" y="175" width="6" height="12" fill="#c9a227"/><text x="1008" y="168" font-size="11" text-anchor="middle" fill="#ffffff" font-weight="600" class="">VCC</text><rect x="935" y="202" width="18" height="34" rx="3" fill="#3f6b55" stroke="#22382c" stroke-width="1.5"/><rect x="935" y="210" width="18" height="4" fill="#6b3d1e"/><rect x="935" y="218" width="18" height="4" fill="#111"/><rect x="935" y="226" width="18" height="4" fill="#d42a2a"/><text x="960" y="224" font-size="13" text-anchor="start" fill="#1b1b1b" font-weight="600" class="">1 kΩ</text><rect x="935" y="266" width="18" height="34" rx="3" fill="#d8c39a" stroke="#6b5530" stroke-width="1.5"/><rect x="935" y="274" width="18" height="4" fill="#d42a2a"/><rect x="935" y="282" width="18" height="4" fill="#d42a2a"/><rect x="935" y="290" width="18" height="4" fill="#d42a2a"/><text x="960" y="288" font-size="13" text-anchor="start" fill="#1b1b1b" font-weight="600" class="">2,2 kΩ</text><rect x="160" y="80" width="170" height="64" rx="6" fill="#2b2b2b"/><text x="245" y="108" font-size="15" text-anchor="middle" fill="#ffffff" font-weight="600" class="">Stoßschalter</text><text x="245" y="128" font-size="12" text-anchor="middle" fill="#bdbdbd" font-weight="400" class="">vorne</text><rect x="195" y="144" width="10" height="12" fill="#c9a227"/><rect x="263" y="144" width="10" height="12" fill="#c9a227"/><rect x="385" y="652" width="230" height="62" rx="6" fill="#2a2a2a"/><rect x="398" y="662" width="44" height="42" rx="6" fill="#f2f2f2" opacity=".9"/><rect x="451" y="662" width="44" height="42" rx="6" fill="#f2f2f2" opacity=".9"/><rect x="504" y="662" width="44" height="42" rx="6" fill="#f2f2f2" opacity=".9"/><rect x="557" y="662" width="44" height="42" rx="6" fill="#f2f2f2" opacity=".9"/><rect x="385" y="760" width="220" height="170" rx="8" fill="#22262b"/><rect x="392" y="752" width="70" height="26" rx="3" fill="#111"/><rect x="462" y="752" width="66" height="26" rx="3" fill="#2f8f5b"/><rect x="528" y="752" width="70" height="26" rx="3" fill="#111"/><circle cx="409" cy="765" r="8" fill="#cfd3d8" stroke="#666"/><circle cx="445" cy="765" r="8" fill="#cfd3d8" stroke="#666"/><circle cx="478" cy="765" r="8" fill="#cfd3d8" stroke="#666"/><circle cx="512" cy="765" r="8" fill="#cfd3d8" stroke="#666"/><circle cx="545" cy="765" r="8" fill="#cfd3d8" stroke="#666"/><circle cx="581" cy="765" r="8" fill="#cfd3d8" stroke="#666"/><text x="378" y="918" font-size="16" text-anchor="end" fill="#1b1b1b" font-weight="700" class="">MDD3A</text><rect x="415" y="910" width="10" height="20" fill="#c9a227"/><text x="420" y="952" font-size="12" text-anchor="middle" fill="#1b1b1b" font-weight="600" class="">M2B</text><rect x="445" y="910" width="10" height="20" fill="#c9a227"/><text x="450" y="952" font-size="12" text-anchor="middle" fill="#1b1b1b" font-weight="600" class="">M2A</text><rect x="475" y="910" width="10" height="20" fill="#c9a227"/><text x="480" y="952" font-size="12" text-anchor="middle" fill="#1b1b1b" font-weight="600" class="">GND</text><rect x="505" y="910" width="10" height="20" fill="#c9a227"/><text x="510" y="952" font-size="12" text-anchor="middle" fill="#1b1b1b" font-weight="600" class="">5VO</text><rect x="535" y="910" width="10" height="20" fill="#c9a227"/><text x="540" y="952" font-size="12" text-anchor="middle" fill="#1b1b1b" font-weight="600" class="">M1B</text><rect x="565" y="910" width="10" height="20" fill="#c9a227"/><text x="570" y="952" font-size="12" text-anchor="middle" fill="#1b1b1b" font-weight="600" class="">M1A</text><text x="510" y="972" font-size="11" text-anchor="middle" fill="#b3261e" font-weight="600" class="">5VO frei</text><rect x="448" y="722" width="22" height="22" rx="3" fill="#111"/><rect x="60" y="800" width="236" height="60" rx="10" fill="#cdd2d7" stroke="#8a9096" stroke-width="2"/><text x="178.0" y="836" font-size="15" text-anchor="middle" fill="#1b1b1b" font-weight="600" class="">Motor 2 · links</text><rect x="704" y="800" width="336" height="60" rx="10" fill="#cdd2d7" stroke="#8a9096" stroke-width="2"/><text x="872.0" y="836" font-size="15" text-anchor="middle" fill="#1b1b1b" font-weight="600" class="">Motor 1 · rechts</text><rect x="34" y="740" width="22" height="180" rx="6" fill="#2b2b2b"/><rect x="1052" y="740" width="22" height="180" rx="6" fill="#2b2b2b"/><rect x="296" y="798" width="40" height="64" rx="4" fill="#fbfbfb" stroke="#999"/><rect x="664" y="798" width="40" height="64" rx="4" fill="#fbfbfb" stroke="#999"/><rect x="104" y="570" width="16" height="16" rx="3" fill="#5c940d"/><g class="net" data-net="gnd_front"><path d="M912.0,187.0 L912.0,612.0" fill="none" stroke="#f6efe2" stroke-width="8.2" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M912.0,187.0 L912.0,612.0" fill="none" stroke="#1e1e1e" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="v5"><path d="M1008.0,187.0 L1008.0,590.0" fill="none" stroke="#f6efe2" stroke-width="8.2" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M1008.0,187.0 L1008.0,590.0" fill="none" stroke="#d42a2a" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="echo"><path d="M944.0,187.0 L944.0,202.0" fill="none" stroke="#f6efe2" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M944.0,187.0 L944.0,202.0" fill="none" stroke="#7a7a7a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="echo"><path d="M944.0,236.0 L944.0,252.0" fill="none" stroke="#f6efe2" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M944.0,236.0 L944.0,252.0" fill="none" stroke="#7a7a7a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="gnd_front"><path d="M944.0,252.0 L944.0,266.0" fill="none" stroke="#f6efe2" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M944.0,252.0 L944.0,266.0" fill="none" stroke="#1e1e1e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="gnd_front"><path d="M944.0,300.0 L944.0,612.0" fill="none" stroke="#f6efe2" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M944.0,300.0 L944.0,612.0" fill="none" stroke="#1e1e1e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="echo"><path d="M944.0,252.0 L597.2,252.0 L597.2,352.0" fill="none" stroke="#f6efe2" stroke-width="8.2" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M944.0,252.0 L597.2,252.0 L597.2,352.0" fill="none" stroke="#7a7a7a" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></g><circle cx="944" cy="252" r="5" fill="#7a7a7a" stroke="#333"/><g class="net" data-net="trig"><path d="M976.0,187.0 L976.0,196.0 L286.1,196.0 L286.1,352.0" fill="none" stroke="#f6efe2" stroke-width="8.2" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M976.0,187.0 L976.0,196.0 L286.1,196.0 L286.1,352.0" fill="none" stroke="#0b7285" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="taster"><path d="M268.0,156.0 L268.0,178.0 L247.2,178.0 L247.2,352.0" fill="none" stroke="#f6efe2" stroke-width="8.2" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M268.0,156.0 L268.0,178.0 L247.2,178.0 L247.2,352.0" fill="none" stroke="#5f3dc4" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="gnd_taster"><path d="M200.0,156.0 L200.0,172.0 L78.0,172.0 L78.0,612.0" fill="none" stroke="#f6efe2" stroke-width="8.2" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M200.0,156.0 L200.0,172.0 L78.0,172.0 L78.0,612.0" fill="none" stroke="#1e1e1e" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="strom"><path d="M512.0,714.0 L512.0,757.0" fill="none" stroke="#f6efe2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M512.0,714.0 L512.0,757.0" fill="none" stroke="#1e1e1e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="strom"><path d="M478.0,714.0 L478.0,722.0" fill="none" stroke="#f6efe2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M478.0,714.0 L478.0,722.0" fill="none" stroke="#d42a2a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="strom"><path d="M478.0,744.0 L478.0,757.0" fill="none" stroke="#f6efe2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M478.0,744.0 L478.0,757.0" fill="none" stroke="#d42a2a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="strom"><path d="M478,722 L459,722 L459,744 L478,744" fill="none" stroke="#d42a2a" stroke-width="3"/></g><g class="net" data-net="enc2"><path d="M300.0,800.0 L112.0,582.0" fill="none" stroke="#f6efe2" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M300.0,800.0 L112.0,582.0" fill="none" stroke="#2f6fd6" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="enc2"><path d="M310.0,800.0 L200.0,612.0" fill="none" stroke="#f6efe2" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M310.0,800.0 L200.0,612.0" fill="none" stroke="#1e1e1e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="enc2"><path d="M320.0,800.0 L286.1,568.0" fill="none" stroke="#f6efe2" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M320.0,800.0 L286.1,568.0" fill="none" stroke="#e0b000" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="enc2"><path d="M330.0,800.0 L325.0,568.0" fill="none" stroke="#f6efe2" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M330.0,800.0 L325.0,568.0" fill="none" stroke="#1f9d55" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="mot2"><path d="M336.0,836.0 L355.0,836.0 L355.0,738.0 L445.0,738.0 L445.0,757.0" fill="none" stroke="#f6efe2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M336.0,836.0 L355.0,836.0 L355.0,738.0 L445.0,738.0 L445.0,757.0" fill="none" stroke="#d42a2a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="mot2"><path d="M336.0,852.0 L366.0,852.0 L366.0,746.0 L409.0,746.0 L409.0,757.0" fill="none" stroke="#555" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M336.0,852.0 L366.0,852.0 L366.0,746.0 L409.0,746.0 L409.0,757.0" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="enc1"><path d="M668.0,800.0 L558.3,568.0" fill="none" stroke="#f6efe2" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M668.0,800.0 L558.3,568.0" fill="none" stroke="#e0b000" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="enc1"><path d="M678.0,800.0 L675.0,568.0" fill="none" stroke="#f6efe2" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M678.0,800.0 L675.0,568.0" fill="none" stroke="#1f9d55" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="enc1"><path d="M688.0,800.0 L752.8,568.0" fill="none" stroke="#f6efe2" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M688.0,800.0 L752.8,568.0" fill="none" stroke="#2f6fd6" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="enc1"><path d="M698.0,800.0 L812.0,612.0" fill="none" stroke="#f6efe2" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M698.0,800.0 L812.0,612.0" fill="none" stroke="#1e1e1e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="mot1"><path d="M664.0,836.0 L645.0,836.0 L645.0,738.0 L545.0,738.0 L545.0,757.0" fill="none" stroke="#f6efe2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M664.0,836.0 L645.0,836.0 L645.0,738.0 L545.0,738.0 L545.0,757.0" fill="none" stroke="#d42a2a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="mot1"><path d="M664.0,852.0 L634.0,852.0 L634.0,746.0 L581.0,746.0 L581.0,757.0" fill="none" stroke="#555" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M664.0,852.0 L634.0,852.0 L634.0,746.0 L581.0,746.0 L581.0,757.0" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="mdd"><path d="M363.9,568.0 L420.0,902.0" fill="none" stroke="#f6efe2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M363.9,568.0 L420.0,902.0" fill="none" stroke="#f08c00" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="mdd"><path d="M402.8,568.0 L450.0,902.0" fill="none" stroke="#f6efe2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M402.8,568.0 L450.0,902.0" fill="none" stroke="#9c36b5" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="mdd"><path d="M441.7,568.0 L570.0,902.0" fill="none" stroke="#f6efe2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M441.7,568.0 L570.0,902.0" fill="none" stroke="#8a5a2b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="mdd"><path d="M480.6,568.0 L540.0,902.0" fill="none" stroke="#f6efe2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M480.6,568.0 L540.0,902.0" fill="none" stroke="#d6336c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="mdd"><path d="M480.0,902.0 L433.0,612.0" fill="none" stroke="#f6efe2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M480.0,902.0 L433.0,612.0" fill="none" stroke="#1e1e1e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="rail"><path d="M830.6,568.0 L830.6,590.0" fill="none" stroke="#f6efe2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M830.6,568.0 L830.6,590.0" fill="none" stroke="#d42a2a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="v33"><path d="M752.8,556.0 L733.0,548.0 L733.0,512.0 L112.0,512.0 L112.0,576.0" fill="none" stroke="#f6efe2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M752.8,556.0 L733.0,548.0 L733.0,512.0 L112.0,512.0 L112.0,576.0" fill="none" stroke="#5c940d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g><g class="net" data-net="rail"><path d="M791.7,568.0 L791.7,612.0" fill="none" stroke="#f6efe2" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path class="core" d="M791.7,568.0 L791.7,612.0" fill="none" stroke="#1e1e1e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g><rect x="854.0" y="239" width="56.0" height="20" rx="10" fill="#fffaf0" stroke="#8a7a5c" stroke-width="1"/><text x="882" y="254" font-size="13" font-weight="700" text-anchor="middle" fill="#1b1b1b">Mitte</text><rect x="411.6" y="787" width="30.8" height="20" rx="10" fill="#fffaf0" stroke="#8a7a5c" stroke-width="1"/><text x="427" y="802" font-size="13" font-weight="700" text-anchor="middle" fill="#1b1b1b">M2</text><rect x="458.6" y="787" width="72.8" height="20" rx="10" fill="#fffaf0" stroke="#8a7a5c" stroke-width="1"/><text x="495" y="802" font-size="13" font-weight="700" text-anchor="middle" fill="#1b1b1b">Akku+/−</text><rect x="547.6" y="787" width="30.8" height="20" rx="10" fill="#fffaf0" stroke="#8a7a5c" stroke-width="1"/><text x="563" y="802" font-size="13" font-weight="700" text-anchor="middle" fill="#1b1b1b">M1</text><rect x="551.2" y="677" width="47.6" height="20" rx="10" fill="#fffaf0" stroke="#8a7a5c" stroke-width="1"/><text x="575" y="692" font-size="13" font-weight="700" text-anchor="middle" fill="#1b1b1b">Akku</text><rect x="92.4" y="533" width="39.2" height="20" rx="10" fill="#fffaf0" stroke="#8a7a5c" stroke-width="1"/><text x="112" y="548" font-size="13" font-weight="700" text-anchor="middle" fill="#1b1b1b">3V3</text><rect x="300" y="1004" width="16" height="16" rx="3" fill="#111"/><text x="324" y="1017" font-size="14" fill="#1b1b1b">= Wippschalter im roten Akkukabel</text></g></svg></div>
+    <p class="hint">Tipp auf einen Bauschritt unten, dann siehst du nur dessen Kabel. Die vier Kabel zum Motortreiber liegen über Akku und Treiber, weil die Stiftleiste am hinteren Rand sitzt. Rote Kreuze: Pins, die frei bleiben müssen.</p>
+  </section>
+
+  <section aria-labelledby="h-steps">
+    <div class="row" style="justify-content:space-between">
+      <h2 id="h-steps">Stecken in dieser Reihenfolge</h2>
+      <span class="progress" id="progress"></span>
+    </div>
+    <p>Vorher Wippschalter aus und USB ab. Die Farben der Steckkabel sind Vorschläge, nur Motor- und Encoderadern haben feste Farben.</p>
+    <div class="steps" id="steps">
+
+      <div class="step" data-net="rail" tabindex="0">
+        <div class="head"><span class="n">1</span><h3>Schienen</h3></div>
+        <ul>
+          <li><input type="checkbox" id="c1a"><label for="c1a"><span class="sw" style="background:#d42a2a"></span>ESP32 <span class="pin">5V</span> unten → rote Reihe</label></li>
+          <li><input type="checkbox" id="c1b"><label for="c1b"><span class="sw" style="background:#1e1e1e"></span>ESP32 <span class="pin">GND</span> unten → blaue Reihe</label></li>
+          <li><input type="checkbox" id="c1c"><label for="c1c"><span class="sw" style="background:#5c940d"></span>ESP32 <span class="pin">3V3</span> unten → freie Spalte links neben dem ESP32 (3V3-Punkt). Das Kabel liegt quer über dem ESP32.</label></li>
+        </ul>
+      </div>
+
+      <div class="step" data-net="enc2" tabindex="0">
+        <div class="head"><span class="n">2</span><h3>Encoder Motor 2 (links)</h3></div>
+        <ul>
+          <li><input type="checkbox" id="c2a"><label for="c2a"><span class="sw" style="background:#e0b000"></span>gelb → <span class="pin">25</span></label></li>
+          <li><input type="checkbox" id="c2b"><label for="c2b"><span class="sw" style="background:#1f9d55"></span>grün → <span class="pin">26</span></label></li>
+          <li><input type="checkbox" id="c2c"><label for="c2c"><span class="sw" style="background:#2f6fd6"></span>blau → 3V3-Punkt links, <span class="warn">nicht</span> rote Reihe</label></li>
+          <li><input type="checkbox" id="c2d"><label for="c2d"><span class="sw" style="background:#1e1e1e"></span>schwarz → blaue Reihe</label></li>
+        </ul>
+      </div>
+
+      <div class="step" data-net="mdd" tabindex="0">
+        <div class="head"><span class="n">3</span><h3>Motortreiber MDD3A</h3></div>
+        <ul>
+          <li><input type="checkbox" id="c3a"><label for="c3a"><span class="sw" style="background:#f08c00"></span><span class="pin">32</span> → M2B</label></li>
+          <li><input type="checkbox" id="c3b"><label for="c3b"><span class="sw" style="background:#9c36b5"></span><span class="pin">33</span> → M2A</label></li>
+          <li><input type="checkbox" id="c3c"><label for="c3c"><span class="sw" style="background:#1e1e1e"></span>MDD3A GND → blaue Reihe</label></li>
+          <li><input type="checkbox" id="c3d"><label for="c3d"><span class="sw" style="background:#8a5a2b"></span><span class="pin">27</span> → M1A</label></li>
+          <li><input type="checkbox" id="c3e"><label for="c3e"><span class="sw" style="background:#d6336c"></span><span class="pin">14</span> → M1B</label></li>
+          <li><input type="checkbox" id="c3f"><label for="c3f">5VO bleibt <span class="warn">frei</span></label></li>
+        </ul>
+        <p class="hint">Stiftleiste von links gelesen: M2B, M2A, GND, 5VO, M1B, M1A. 27 und 14 sind absichtlich über Kreuz gesteckt, damit beide Räder beim selben Befehl in dieselbe Richtung drehen.</p>
+      </div>
+
+      <div class="step" data-net="enc1" tabindex="0">
+        <div class="head"><span class="n">4</span><h3>Encoder Motor 1 (rechts)</h3></div>
+        <ul>
+          <li><input type="checkbox" id="c4a"><label for="c4a"><span class="sw" style="background:#e0b000"></span>gelb → <span class="pin">13</span></label></li>
+          <li><input type="checkbox" id="c4b"><label for="c4b"><span class="sw" style="background:#1f9d55"></span>grün → <span class="pin">4</span></label></li>
+          <li><input type="checkbox" id="c4c"><label for="c4c"><span class="sw" style="background:#2f6fd6"></span>blau → <span class="pin">3V3</span> unten am ESP32</label></li>
+          <li><input type="checkbox" id="c4d"><label for="c4d"><span class="sw" style="background:#1e1e1e"></span>schwarz → blaue Reihe</label></li>
+        </ul>
+        <p class="hint">Zwischen 14 und 13 liegt <span class="pin">12</span>. Der bleibt frei, sonst startet der ESP32 nicht.</p>
+      </div>
+
+      <div class="step" data-net="mot" tabindex="0">
+        <div class="head"><span class="n">5</span><h3>Motorkabel an die Klemmen</h3></div>
+        <ul>
+          <li><input type="checkbox" id="c5a"><label for="c5a"><span class="sw" style="background:#d42a2a"></span><span class="sw" style="background:#fff"></span>Motor 2 (links) → Klemme M2</label></li>
+          <li><input type="checkbox" id="c5b"><label for="c5b"><span class="sw" style="background:#d42a2a"></span><span class="sw" style="background:#fff"></span>Motor 1 (rechts) → Klemme M1</label></li>
+        </ul>
+        <p class="hint">Welche Ader links in der Klemme sitzt, ist egal. Die Drehrichtung stellen wir im Code ein.</p>
+      </div>
+
+      <div class="step" data-net="sensor" tabindex="0">
+        <div class="head"><span class="n">6</span><h3>Ultraschall HC-SR04</h3></div>
+        <ul>
+          <li><input type="checkbox" id="c6f"><label for="c6f"><span class="sw" style="background:#1e1e1e"></span>GND → blaue Reihe</label></li>
+          <li><input type="checkbox" id="c6c"><label for="c6c">Echo → <b>1 kΩ (grün)</b> → freie Spalte (Mitte)</label></li>
+          <li><input type="checkbox" id="c6d"><label for="c6d"><span class="sw" style="background:#7a7a7a"></span>Mitte → <span class="pin">35</span> (obere Reihe)</label></li>
+          <li><input type="checkbox" id="c6e"><label for="c6e">Mitte → <b>2,2 kΩ (rot-rot-rot)</b> → <span class="warn">blaue</span> Reihe</label></li>
+          <li><input type="checkbox" id="c6b"><label for="c6b"><span class="sw" style="background:#0b7285"></span>Trig → <span class="pin">19</span> (obere Reihe)</label></li>
+          <li><input type="checkbox" id="c6a"><label for="c6a"><span class="sw" style="background:#d42a2a"></span>VCC → rote Reihe (5 V)</label></li>
+        </ul>
+        <p class="hint">Von hinten gesehen, so wie auf deinem Foto, liegen die Pins von links: GND, Echo, Trig, VCC. Der 2,2 kΩ muss in die Reihe an der <b>blauen</b> Linie, nie an die rote.</p>
+      </div>
+
+      <div class="step" data-net="taster" tabindex="0">
+        <div class="head"><span class="n">7</span><h3>Stoßschalter</h3></div>
+        <ul>
+          <li><input type="checkbox" id="c7a"><label for="c7a"><span class="sw" style="background:#5f3dc4"></span>Kontakt 1 → <span class="pin">22</span> (obere Reihe)</label></li>
+          <li><input type="checkbox" id="c7b"><label for="c7b"><span class="sw" style="background:#1e1e1e"></span>Kontakt 2 → blaue Reihe, linkes Ende</label></li>
+        </ul>
+        <p class="hint">Kein Widerstand nötig. Im Code mit <code>Pin.PULL_UP</code>, gedrückt = 0.</p>
+      </div>
+
+      <div class="step" data-net="strom" tabindex="0">
+        <div class="head"><span class="n">8</span><h3>Strom zuletzt</h3></div>
+        <ul>
+          <li><input type="checkbox" id="c8a"><label for="c8a"><span class="sw" style="background:#d42a2a"></span>Akku rot → Wippschalter → VB+</label></li>
+          <li><input type="checkbox" id="c8b"><label for="c8b"><span class="sw" style="background:#1e1e1e"></span>Akku schwarz → VB−</label></li>
+        </ul>
+        <p class="hint">Akku-Plus kommt nie ans Steckbrett. Beim Testen erst USB anstecken, dann den Wippschalter einschalten.</p>
+      </div>
+    </div>
+    <div class="row"><button type="button" id="reset">Haken zurücksetzen</button></div>
+  </section>
+
+  <section aria-labelledby="h-code">
+    <h2 id="h-code">Pins für den Code</h2>
+    <div class="codebox">
+      <button type="button" class="copy" id="copy">Kopieren</button>
+<pre id="pins"># Motortreiber MDD3A
+M2B, M2A = 32, 33   # Motor 2, links
+M1A, M1B = 27, 14   # Motor 1, rechts (über Kreuz gesteckt)
+
+# Encoder (Pin.IN, Pin.PULL_UP)
+ENC2_A, ENC2_B = 25, 26   # Motor 2, links
+ENC1_A, ENC1_B = 13, 4    # Motor 1, rechts
+
+# Ultraschall HC-SR04
+TRIG = 19
+ECHO = 35   # nur Eingang, ohne Pull-up
+
+# Stoßschalter (Pin.PULL_UP, gedrückt = 0)
+TASTER = 22
+
+# Reserve für einen zweiten HC-SR04
+# TRIG2 = 21
+# ECHO2 = 34   # eigener Spannungsteiler
+
+# Frei lassen: 0, 2, 12, 15 (Startpins)</pre>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  const KEY="steckplan-batmaenner-v1";
+  const boxes=[...document.querySelectorAll('.step input[type=checkbox]')];
+  let saved={};
+  try{saved=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){saved={}}
+  function upd(){
+    let n=0;
+    boxes.forEach(b=>{b.closest('li').classList.toggle('done',b.checked); if(b.checked)n++;});
+    document.getElementById('progress').textContent=n+" von "+boxes.length+" gesteckt";
+  }
+  boxes.forEach(b=>{
+    b.checked=!!saved[b.id];
+    b.addEventListener('change',()=>{saved[b.id]=b.checked;try{localStorage.setItem(KEY,JSON.stringify(saved))}catch(e){}upd()});
+    b.addEventListener('click',e=>e.stopPropagation());
+  });
+  document.querySelectorAll('.step label').forEach(l=>l.addEventListener('click',e=>e.stopPropagation()));
+  upd();
+  document.getElementById('reset').addEventListener('click',()=>{boxes.forEach(b=>{b.checked=false;saved[b.id]=false});try{localStorage.setItem(KEY,"{}")}catch(e){}upd()});
+
+  const groups={rail:["rail","v33"],enc2:["enc2"],mdd:["mdd"],enc1:["enc1"],mot:["mot1","mot2"],sensor:["trig","echo","gnd_front","v5"],taster:["taster","gnd_taster"],strom:["strom"]};
+  const scene=document.getElementById('scene');
+  const steps=[...document.querySelectorAll('.step')];
+  let active=null;
+  function focus(key){
+    active=(active===key)?null:key;
+    steps.forEach(s=>s.classList.toggle('on',s.dataset.net===active));
+    scene.classList.toggle('focus',!!active);
+    scene.querySelectorAll('.net').forEach(g=>g.classList.toggle('on',!!active&&groups[active].includes(g.dataset.net)));
+  }
+  steps.forEach(s=>{
+    s.addEventListener('click',()=>{focus(s.dataset.net);try{scene.scrollIntoView({block:"nearest",behavior:"smooth"})}catch(e){}});
+    s.addEventListener('keydown',e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();focus(s.dataset.net)}});
+  });
+  document.getElementById('showall').addEventListener('click',()=>{active=null;steps.forEach(s=>s.classList.remove('on'));scene.classList.remove('focus');scene.querySelectorAll('.net').forEach(g=>g.classList.remove('on'));});
+  document.getElementById('copy').addEventListener('click',async(e)=>{
+    const t=document.getElementById('pins').textContent;
+    try{await navigator.clipboard.writeText(t);e.target.textContent="Kopiert"}catch(err){
+      const r=document.createRange();r.selectNodeContents(document.getElementById('pins'));const s=getSelection();s.removeAllRanges();s.addRange(r);e.target.textContent="Markiert"}
+    setTimeout(()=>e.target.textContent="Kopieren",1600);
+  });
+})();
+</script>
