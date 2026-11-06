@@ -16,6 +16,13 @@ Ein kleiner, radgetriebener Roboter mit ESP32, der 200 cm geradeaus auf eine Wan
 Planung (Kanban, Zeitplan, Regeln): Miro-Board unter der Mind Map
 https://miro.com/app/board/uXjVEZ6PCT0=/
 
+## Wo steht was
+
+- Was wann passiert ist: `doku/aenderungsverlauf.md`
+- Aktuelle Pinbelegung und frühere Stände: `elektronik/pinbelegung.md`
+- Einstellwerte im Code: `code/einstellwerte.md`
+- Messwerte: `doku/messwerte.md`
+
 ## Termine
 
 | Datum | Was |
@@ -35,7 +42,7 @@ https://miro.com/app/board/uXjVEZ6PCT0=/
 | `elektronik/` | Schaltplan und Pinbelegung |
 | `bom/` | Materialliste |
 | `fotos/` | Fotos vom Aufbau und von Tests |
-| `doku/` | Testtabelle, Projektkarte, Projektverlauf, Projektergebnisse |
+| `doku/` | Änderungsverlauf, Messwerte, Testtabelle, Mind Map, später Projektkarte und Abschlussdoku |
 
 ## Code auf den ESP32 bringen
 

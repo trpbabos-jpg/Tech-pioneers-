@@ -1,25 +1,30 @@
-Bauteil;Anzahl;Herkunft;Bemerkung
-ESP32-Mikrocontroller;1;vorgegeben;steckt im Steckbrett
-Ultraschall-Abstandssensor;3;vorgegeben;vorne, links, rechts
-Motor mit Encoder;2;vorgegeben;
-Motortreiber Cytron MDD3A;1;vorgegeben;4 x M3 mit Abstandshülsen 5 mm direkt auf der Platte
-AA-Akku;?;vorgegeben;Anzahl eintragen
-Akkuhalter;1;vorgegeben;vorne als Trimmgewicht
-Ladegerät AA;1;vorgegeben;
-Wippschalter (Hauptschalter und Start);1;zusätzlich;zwischen Akku und MDD3A
-Taster;1;vorgegeben;
-Leuchtdioden;?;vorgegeben;
-Widerstände;?;vorgegeben;
-Steckbrett;1;vorgegeben;in gedruckter Wanne hinten
-Jumperkabel;?;vorgegeben;
-USB-Kabel;1;vorgegeben;
-Kugel;1;vorgegeben;Ball auf der Schale
-Kunststoffteller (Schale);1;vorgegeben;
-Kugelrolle;1;zusätzlich;2 x M2
-Sperrholzplatte 5 mm;1;zusätzlich;256 x 170 mm, gelasert
-3D-Druckteile (Podest, Haube, Steckbrett-Wanne, Halterungen);?;zusätzlich;STL im Ordner cad
-Schraube M3;?;zusätzlich;Länge eintragen
-Mutter M3;?;zusätzlich;
-Gewindeeinsatz M3;7;zusätzlich;für die Haube
-Abstandshülse 5 mm M3;4;zusätzlich;für MDD3A
-Schraube M2;2;zusätzlich;Kugelrolle
+Bauteil;Anzahl im Kit;Verbaut;Herkunft;Bemerkung
+Controller ESP32-PICO-KIT V1;1;1;Starter Kit;Chip ESP32-PICO-V3, GPIO18 und 23 nicht herausgeführt
+USB-A auf Micro-USB Kabel;1;0;Starter Kit;nur zum Programmieren
+Ultraschallsensor HC-SR04;4;3;Starter Kit;vorne, links, rechts; Echo jeweils über Spannungsteiler 1 kOhm / 2,2 kOhm
+Stoßschalter Marquardt 01115.2101-02;1;1;Starter Kit;vorne, erkennt die Wand
+Wippschalter Marquardt 01552.3102-00;1;1;Starter Kit;Hauptschalter zwischen Akku und MDD3A, gleichzeitig Start
+Motortreiber Cytron MDD3A;1;1;Starter Kit;4 x M3 mit Abstandshülsen 5 mm direkt auf der Platte
+Gleichstrommotor DFRobot FIT0520 mit Encoder;2;2;Starter Kit;224 Impulse pro Radumdrehung
+Schnell-Ladegerät Panasonic BQ-CC55;1;0;Starter Kit;
+Akku Panasonic Eneloop AA;4;4;Starter Kit;zusammen ca. 4,8 V
+Steckbrett;1;1;Starter Kit;in gedruckter Wanne hinten
+Jumperkabel (Sortiment);1;?;Starter Kit;
+Akkuhalter;1;1;Starter Kit;vorne als Trimmgewicht
+Batterieclip;1;1;Starter Kit;
+Flachsteckerhülse 1,5 bis 2,5 mm²;2;?;Starter Kit;
+Flachsteckerhülse 0,5 bis 1,5 mm²;2;?;Starter Kit;
+Räder 80 mm (2er Set);1;1;Starter Kit;
+Stützrad (Kugel);1;1;Starter Kit;vorne, 2 x M2
+Stützräder (Roller);2;0;Starter Kit;nicht verwendet
+Motorhalterungen (2er Set);1;1;Starter Kit;
+M3 Schrauben, Muttern, Scheiben (Sortiment);1;?;Starter Kit;Stückzahlen eintragen
+Tischtennisball;1;1;Starter Kit;liegt in der Schale
+Widerstand 1 kOhm;;3;Labor;Spannungsteiler oben, einer pro Ultraschallsensor
+Widerstand 2,2 kOhm;;3;Labor;Spannungsteiler unten, einer pro Ultraschallsensor
+Sperrholzplatte 5 mm;;1;Labor;256 x 170 mm, gelasert
+3D-Druckteile (Podest, Haube, Steckbrett-Wanne, Halterungen);;?;3D-Drucker;STL im Ordner cad
+Gewindeeinsatz M3;;7;zusätzlich;für die Haube
+Abstandshülse M3 5 mm;;4;zusätzlich;für den MDD3A
+Schraube M2;;2;zusätzlich;Stützrad
+Schale für den Ball;;1;?;Ø 102 mm, Herkunft prüfen
