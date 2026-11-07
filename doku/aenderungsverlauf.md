@@ -41,7 +41,20 @@ Die wichtigsten Schritte, Entscheidungen und Änderungen in zeitlicher Reihenfol
 - Kalibrierung: Anlauf 20 %, Faktor links 0,94 (`code/einstellwerte.md`)
 - Erste Fahrt auf dem Boden mit sanftem Bremsen, Stopp bei 13,1 cm
 
+**30.10.2026: main.py vereinfacht**
+- Statt der Zustände nur noch drei Schritte: hinfahren, sanft bremsen bis der Stoßschalter auslöst, rückwärts dieselbe Strecke zurück
+- Ultraschall über den Median der letzten 3 Messungen
+- Erkenntnis: Der Ultraschall sitzt ca. 10 cm hinter dem Stoßschalter, deshalb Bremsbeginn später auf 45 bis 50 cm
+- Code: `code/fahren_v2_vereinfacht.py`
+
 ## KW 45
+
+**03.11.2026: schneller fahren, Korrektur abhängig vom Tempo**
+- Erst VMAX 100 ausprobiert (`code/fahren_v3_vmax100.py`), dann VMAX 80 und Kriechen 20 %
+- Beim Kriechen an der Wand fuhr er schief, weil die Korrektur von ±8 % bei 20 % zu stark war. Jetzt wird die Grenze mit dem Tempo kleiner
+- Eigener Faktor links für die Rückfahrt (`FAKTOR_LINKS_ZURUECK`)
+- Faktor links auf 0,7 gesetzt, gleicht die Mechanik aus, wird mit der Grundplatte v2 neu bestimmt
+- Aktueller Stand: `code/main.py`, Werte in `code/einstellwerte.md`
 
 **Anfang November: main.py erweitert**
 - Ablauf: Hinfahrt, sanft bremsen, Wand mit Stoßschalter berühren, rückwärts über die Encoder zur Startwand (ohne Wenden)
