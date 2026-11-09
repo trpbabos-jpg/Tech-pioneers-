@@ -77,3 +77,10 @@ Die wichtigsten Schritte, Entscheidungen und Änderungen in zeitlicher Reihenfol
 - 7 Löcher für die Haube, MDD3A direkt mit 4 × M3 auf Abstandshülsen, keine Langlöcher mehr
 - Laserdatei, Zeichnung und Maßtabelle hochgeladen (`cad/`, `bom/`)
 - Vor dem Lasern noch messen: Lochbild MDD3A, Abstand Schalterloch bis Stößelspitze, Plattendicke
+
+## KW 46
+
+**09.11.2026: Grundplatte v2 gelasert**
+- Platte aus 5 mm Sperrholz gelasert, alle Löcher passen
+- Motoren, Räder, Kugelrolle, MDD3A und Stoßschalter werden direkt auf die Platte geschraubt
+- Nächster Schritt: Steckbrett-Wanne, Akku-Wanne und Bedienpult in Creo zeichnen und drucken
