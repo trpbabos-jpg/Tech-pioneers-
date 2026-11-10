@@ -84,3 +84,12 @@ Die wichtigsten Schritte, Entscheidungen und Änderungen in zeitlicher Reihenfol
 - Platte aus 5 mm Sperrholz gelasert, alle Löcher passen
 - Motoren, Räder, Kugelrolle, MDD3A und Stoßschalter werden direkt auf die Platte geschraubt
 - Nächster Schritt: Steckbrett-Wanne, Akku-Wanne und Bedienpult in Creo zeichnen und drucken
+
+**09.11.2026: erster Aufbau auf der Grundplatte v2**
+- Motoren, Kugelrolle, MDD3A, Stoßschalter und Akku probeweise aufgebaut (Fotos in `fotos/`, 09.11.)
+- Problem: Die M2-Schrauben der Kugelrolle stehen oben über, der Stoßschalter lag darauf und kippte nach vorne. Umdrehen ging nicht, weil die Schrauben dann die Kugel berühren
+- Lösung: unter beide Schrauben des Stoßschalters je zwei M3-Muttern gestapelt, er steht jetzt gerade ca. 5 mm höher
+- Problem: Der Stoßschalter ist mit Flachsteckhülsen 50 bis 55 mm lang und kommt der Akku-Wanne in die Quere. Lösung offen: gewinkelte Steckhülsen oder Akku-Wanne bis 8 mm nach hinten
+- Idee: Die zwei langen M3-Schrauben des Stoßschalters tragen gleich den Halter für den vorderen Ultraschallsensor. Die zwei Pfosten fallen weg, die Löcher bei x 163 bleiben frei
+- Noch messen: Abstand Stößelspitze bis Plattenvorderkante, danach Stoßfänger mit Finger zum Stößel drucken
+

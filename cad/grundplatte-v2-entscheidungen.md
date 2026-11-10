@@ -9,6 +9,7 @@ Maßgrundlage ist die Excel des Teams (Grundplatte_Masse_Gewicht). PDF der Varia
 - Variante A des Teams anhand der Problemliste bewertet.
 - 06.11.: Rückwand und Zapfen gestrichen. Das Heck der Batmobil-Haube übernimmt die Anlage an der Startwand.
 - 06.11.: MDD3A ohne Druckteil direkt auf die Platte (4 × M3, Abstandshülsen 5 mm).
+- 09.11.: Stoßschalter auf je zwei M3-Muttern unterlegt, weil die Kugelrollen-Schrauben oben überstehen. Frontsensor-Halter sitzt auf den zwei Schrauben des Stoßschalters statt auf eigenen Pfosten.
 - 06.11.: Keine Langlöcher mehr. Stoßschalter mit 2 runden M3-Löchern, Schaltpunkt wird am gedruckten Bügel eingestellt.
 
 ## Freiraum (Regel 4)
