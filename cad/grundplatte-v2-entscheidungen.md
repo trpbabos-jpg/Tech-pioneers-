@@ -19,7 +19,7 @@ Maßgrundlage ist die Excel des Teams (Grundplatte_Masse_Gewicht). PDF der Varia
 
 ## Schale (laut Excel)
 - Ø102 am Rand, Nabe Ø43,2 mit 6 Laschen zum Verschrauben, 26 g mit Ball.
-- Podest-Kopf Ø62 × 4 mit Mulde Ø43,6 × 2 und 6 Löchern für die Laschen, 45°-Fase darunter. Kopf-Oberkante über Platte = 79,5 − Schalenhöhe.
+- Podest-Kopf Ø62 × 4 mit Mulde Ø43,6 × 2 und 6 Löchern für die Laschen, 45°-Fase darunter. Kopf-Oberkante über Platte = 81,5 − Schalenhöhe (2 mm Mulde für die Nabe eingerechnet), bei 12,3 also 69,2. Skizze: `skizzen/2026-11-11_podest_schnitt.png`.
 - Noch messen: Gesamthöhe der Schale, Lochkreis und Loch-Ø der Laschen.
 
 ## Start und Strom
