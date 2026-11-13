@@ -18,7 +18,7 @@ Diese Dateien gibt es schon, sie liegen aber noch nicht im Repo. Bitte hochladen
 
 ## Baugruppe Roboter (Stand 13.11.2026)
 
-Teilweise fertig, Screenshots in `screenshots/`. Enthalten: Grundplatte v2, Motoren mit Winkeln, Räder, Kugelrolle, MDD3A, Steckbrett mit ESP32, Podest für die Schale, drei Ultraschallsensoren mit Haltern. Es fehlen noch Haube, Akku mit Wanne, Bedienpult und Stoßfänger.
+Teilweise fertig, Screenshots in `../fotos/2026-11-13_cad_baugruppe/`. Enthalten: Grundplatte v2, Motoren mit Winkeln, Räder, Kugelrolle, MDD3A, Steckbrett mit ESP32, Podest für die Schale, drei Ultraschallsensoren mit Haltern. Es fehlen noch Haube, Akku mit Wanne, Bedienpult und Stoßfänger.
 
 ## Grundplatte v2
 
