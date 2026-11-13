@@ -1,6 +1,6 @@
 # Kaufteile: CAD-Modelle für die Baugruppe Roboter
 
-Woher wir die 3D-Modelle der Kaufteile für die Creo-Baugruppe nehmen. Die Bauteile stehen in `bom/materialliste.csv`. STEP-Dateien in Creo über Datei > Öffnen importieren und als `.prt` speichern.
+Woher wir die 3D-Modelle der Kaufteile für die Creo-Baugruppe nehmen. Die Bauteile stehen in `bom/materialliste.md`. STEP-Dateien in Creo über Datei > Öffnen importieren und als `.prt` speichern.
 
 Heruntergeladene STEP-Dateien bitte in `cad/kaufteile/` ablegen, Dateiname wie in der Spalte „Datei“.
 
