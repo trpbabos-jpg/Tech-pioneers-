@@ -16,6 +16,10 @@ Diese Dateien gibt es schon, sie liegen aber noch nicht im Repo. Bitte hochladen
 - Creo-Dateien der Grundplatte v2, der Druckteile und der Baugruppe
 - STL-Dateien der Druckteile
 
+## Baugruppe Roboter (Stand 13.11.2026)
+
+Teilweise fertig, Screenshots in `screenshots/`. Enthalten: Grundplatte v2, Motoren mit Winkeln, Räder, Kugelrolle, MDD3A, Steckbrett mit ESP32, Podest für die Schale, drei Ultraschallsensoren mit Haltern. Es fehlen noch Haube, Akku mit Wanne, Bedienpult und Stoßfänger.
+
 ## Grundplatte v2
 
 - `Grundplatte_V2_Laser.dxf`: Laserdatei, 1:1 in mm, nur Schnittlinien (256 × 170, 47 Löcher)

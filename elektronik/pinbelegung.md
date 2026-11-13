@@ -24,6 +24,10 @@ Neu verkabelt, damit sich auf dem festen Steckbrett keine Kabel mehr kreuzen.
 
 Frei bleiben die Startpins 0, 2, 12 und 15. Reserviert für einen zweiten HC-SR04: Trig 21, Echo 34. Die LED ist nicht mehr verbaut.
 
+## Stand 13.11.2026
+
+Die Elektronik ist auf der Grundplatte v2 komplett verkabelt (Foto: `fotos/2026-11-13_elektronik_verkabelt.jpg`). Die neue Belegung mit den drei Ultraschallsensoren bitte hier als Tabelle eintragen, die Tabelle vom 29.10. bleibt als früherer Stand stehen.
+
 ## Geplant für Grundplatte v2
 
 - Drei HC-SR04 (vorne, links, rechts), weil die Seitenwände aus Blöcken bestehen und nicht gerade sind. Pins für links und rechts noch festlegen und hier eintragen.

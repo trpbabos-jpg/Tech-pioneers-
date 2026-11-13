@@ -93,3 +93,9 @@ Die wichtigsten Schritte, Entscheidungen und Änderungen in zeitlicher Reihenfol
 - Idee: Die zwei langen M3-Schrauben des Stoßschalters tragen gleich den Halter für den vorderen Ultraschallsensor. Die zwei Pfosten fallen weg, die Löcher bei x 163 bleiben frei
 - Noch messen: Abstand Stößelspitze bis Plattenvorderkante, danach Stoßfänger mit Finger zum Stößel drucken
 
+
+**13.11.2026: Echo-Halterung, Verkabelung, CAD-Baugruppe**
+- Echo-Halterung für den vorderen Ultraschallsensor gedruckt und montiert, sie sitzt auf den Schrauben des Stoßschalters
+- Elektronik auf der Grundplatte v2 komplett verkabelt (Foto: `fotos/2026-11-13_elektronik_verkabelt.jpg`)
+- CAD-Baugruppe des Roboters in Creo teilweise fertig: Grundplatte v2, Motoren mit Winkeln, Räder, Kugelrolle, MDD3A, Steckbrett mit ESP32, Podest für die Schale, drei Ultraschallsensoren mit Haltern (vorne über dem Stoßschalter, links und rechts). Screenshots in `cad/screenshots/`
+- Noch nicht in der Baugruppe: Haube, Akku mit Wanne, Bedienpult mit Wippschalter, Stoßfänger
