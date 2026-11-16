@@ -18,7 +18,7 @@ https://miro.com/app/board/uXjVEZ6PCT0=/
 
 ## Wo steht was
 
-- Was wann passiert ist: `doku/aenderungsverlauf.md`
+- Projektprotokoll (was wann passiert ist, wer, wie lange, offene Punkte): `doku/aenderungsverlauf.md`
 - Aktuelle Pinbelegung und frühere Stände: `elektronik/pinbelegung.md`
 - Einstellwerte im Code: `code/einstellwerte.md`
 - Messwerte: `doku/messwerte.md`

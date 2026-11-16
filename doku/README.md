@@ -1,6 +1,6 @@
 # Doku
 
-- `aenderungsverlauf.md`: wichtigste Schritte und Entscheidungen mit Datum, Grundlage für den Projektverlauf
+- `aenderungsverlauf.md`: Projektprotokoll der Gruppe mit Übersicht (Datum, Wer, Zeit), Einträgen, offenen Punkten, Wiedervorlagen und Zeitaufwand. Grundlage für den Projektverlauf
 - `messwerte.md`: Drehzahl, Geschwindigkeit, Bremsweg
 - `testtabelle.md`: jeder Test mit Erwartung vorher und Ergebnis
 - `mindmap_v1.pdf`: Mind Map vom Pitch (16.10.)
