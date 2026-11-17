@@ -40,14 +40,15 @@ VMAX = 80                 # Hoechstgeschwindigkeit in %
 KRIECHEN = 15             # Tempo kurz vor der Wand in %
 SCHRITT_HOCH = 6          # % schneller pro Takt
 SCHRITT_RUNTER = 7        # % langsamer pro Takt
-SCHRITT_HOCH_ZURUECK = 2  # % schneller pro Takt beim Rueckwaerts-Anfahren (17.11.: 6 war zu ruckig)
+SCHRITT_HOCH_ZURUECK = 4  # % schneller pro Takt beim Rueckwaerts-Anfahren (17.11.: 6 zu ruckig, 2 zu langsam)
 PAUSE_AN_WAND_MS = 800    # so lange an der Wand stehen, bevor er zurueckfaehrt
 BREMSEN_AB = 40           # Echo: ab diesem Abstand in cm bremsen
 LANGSAM_AB = 15           # Echo: ab hier nur noch KRIECHEN
 WAND_CM = 11              # Echo: Ersatz, falls der Taster beim Start kaputt ist
 MIN_ZEIT_MS = 300         # so lange nach dem Losfahren wird keine Wand akzeptiert
 TASTER_GEDRUECKT = 1      # was taster.value() liefert, wenn er gedrueckt ist
-BREMSEN_AB_ZURUECK = 45   # Encoder: rueckwaerts ab dieser Reststrecke in cm bremsen
+BREMSEN_AB_ZURUECK = 60   # Encoder: rueckwaerts ab dieser Reststrecke in cm bremsen
+                          # (bremst gleichmaessig bis 0 cm Rest, dort steht er)
 EXTRA_ZURUECK = 15        # Encoder: so viele cm darf er hinter der Startposition noch suchen
 STEHT_MS = 200            # Encoder: Raeder so lange ohne Impuls = Startwand erreicht
 CM_PRO_IMPULS = 3.1416 * 8.0 / 224   # Radumfang 8 cm / 224 Impulse pro Umdrehung
@@ -317,19 +318,26 @@ try:
             rest = strecke - gefahren_cm()
             if rest <= 0:
                 break
-            bremsen = rest < BREMSEN_AB_ZURUECK
+            # wie an der Wand: je weniger Reststrecke, desto langsamer
+            # (gleichmaessig von VMAX bei BREMSEN_AB_ZURUECK auf KRIECHEN bei 0 cm Rest)
+            anteil = min(rest / BREMSEN_AB_ZURUECK, 1)
+            g_ziel = KRIECHEN + (VMAX - KRIECHEN) * anteil
         else:
             rest_s = dauer - sekunden_seit(t_zurueck)
             if rest_s <= 0:
                 break
-            bremsen = rest_s < BREMSEN_ZURUECK_S
-        if bremsen:
-            g = max(g - SCHRITT_RUNTER, KRIECHEN)
-        else:
-            g = min(g + SCHRITT_HOCH_ZURUECK, VMAX)
+            rest = 0
+            if rest_s < BREMSEN_ZURUECK_S:
+                g_ziel = KRIECHEN
+            else:
+                g_ziel = VMAX
+        # hoch hoechstens SCHRITT_HOCH_ZURUECK, runter hoechstens SCHRITT_RUNTER pro Takt
+        g = max(g - SCHRITT_RUNTER, min(g + SCHRITT_HOCH_ZURUECK, g_ziel))
         fahren(-g)
-        log("ZURUECK", 0, g)
+        log("ZURUECK", rest, g)
         time.sleep_ms(TAKT_MS)
+    stopp()
+    print("Strecke zurueck erreicht:", round(gefahren_cm()), "von", round(strecke), "cm")
     zeige_diff("zurueck")
 
     # 4. Langsam rueckwaerts an die Startwand
