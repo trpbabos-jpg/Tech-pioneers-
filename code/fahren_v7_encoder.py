@@ -53,6 +53,8 @@ MIN_ZEIT_MS = 300         # so lange nach dem Losfahren wird keine Wand akzeptie
 TASTER_GEDRUECKT = 1      # was taster.value() liefert, wenn er gedrueckt ist
 BREMSEN_AB_ZURUECK = 40   # Encoder: rueckwaerts ab dieser Reststrecke in cm bremsen
                           # (bremst gleichmaessig bis 0 cm Rest, dort steht er)
+EINZELN_STOPPEN = True    # True: jedes Rad dreht seine eigenen Impulse zurueck (stoppt einzeln)
+                          # False: beide stoppen gleichzeitig, wenn der Durchschnitt erreicht ist
 EXTRA_ZURUECK = 15        # Encoder: so viele cm darf er hinter der Startposition noch suchen
 STEHT_MS = 200            # Encoder: Raeder so lange ohne Impuls = Startwand erreicht
 CM_PRO_IMPULS = 3.1416 * 8.0 / 224   # Radumfang 8 cm / 224 Impulse pro Umdrehung
@@ -334,10 +336,17 @@ try:
         if encoder_ok:
             rest_l = hin_links - impulse_links
             rest_r = hin_rechts - impulse_rechts
-            if rest_l <= 0 and rest_r <= 0:
-                break
-            # gebremst wird nach dem Rad, das noch am meisten vor sich hat
-            rest = max(rest_l, rest_r) * CM_PRO_IMPULS
+            if EINZELN_STOPPEN:
+                if rest_l <= 0 and rest_r <= 0:
+                    break
+                # gebremst wird nach dem Rad, das noch am meisten vor sich hat
+                rest = max(rest_l, rest_r) * CM_PRO_IMPULS
+            else:
+                # beide zusammen: Durchschnitt beider Raeder
+                rest = (rest_l + rest_r) / 2 * CM_PRO_IMPULS
+                if rest <= 0:
+                    break
+                rest_l = rest_r = 1     # beide Raeder laufen weiter, bis der Durchschnitt erreicht ist
             # wie an der Wand: je weniger Reststrecke, desto langsamer
             # (gleichmaessig von VMAX bei BREMSEN_AB_ZURUECK auf KRIECHEN bei 0 cm Rest)
             anteil = min(rest / BREMSEN_AB_ZURUECK, 1)
