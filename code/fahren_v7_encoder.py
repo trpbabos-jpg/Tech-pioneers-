@@ -40,11 +40,12 @@ VMAX = 70                 # Hoechstgeschwindigkeit in %
 KRIECHEN = 15             # Tempo kurz vor der Wand in %
 SCHRITT_HOCH = 5          # % schneller pro Takt
 SCHRITT_RUNTER = 6        # % langsamer pro Takt
-SCHRITT_HOCH_ZURUECK = 6  # % schneller pro Takt beim Rueckwaerts-Anfahren
+SCHRITT_HOCH_ZURUECK = 6  # % : groesster Schritt pro Takt beim Rueckwaerts-Anfahren
+EXP_START = 0.5           # % : erster Schritt rueckwaerts (ganz sanft)
+EXP_ANTEIL = 0.15         # jeder Schritt ist 0,5 % + 15 % vom aktuellen Tempo
+                          # -> Schritte wachsen langsam (leicht exponentiell) bis SCHRITT_HOCH_ZURUECK
 SCHRITT_RUNTER_ZURUECK = 8  # % langsamer pro Takt beim Rueckwaerts-Bremsen
 PAUSE_AN_WAND_MS = 500    # so lange an der Wand stehen bleiben, bevor er zurueckfaehrt
-LANGSAM_ZURUECK = 10      # % : nach der Wand erst langsam rueckwaerts (statt warten),
-LANGSAM_ZURUECK_MS = 800  # so lange, bis der Ball ruhig liegt, dann normal beschleunigen
 BREMSEN_AB = 40           # Echo: ab diesem Abstand in cm bremsen
 LANGSAM_AB = 15           # Echo: ab hier nur noch KRIECHEN
 WAND_CM = 11              # Echo: Ersatz, falls der Taster beim Start kaputt ist
@@ -309,9 +310,9 @@ try:
     print("Warte", PAUSE_AN_WAND_MS, "ms an der Wand")
     time.sleep_ms(PAUSE_AN_WAND_MS)
 
-    # 3. Rueckwaerts: erst LANGSAM_ZURUECK_MS langsam, dann normal beschleunigen
+    # 3. Rueckwaerts: sanft (leicht exponentiell) beschleunigen,
     #    mit Encodern dieselbe Strecke, sonst auf Zeit
-    print("Zurueck: erst", LANGSAM_ZURUECK_MS, "ms langsam, dann normal")
+    print("Zurueck")
     encoder_null()
     t_zurueck = time.ticks_ms()
     dauer = t_hin * ZURUECK_ANTEIL
@@ -336,12 +337,10 @@ try:
                 g_ziel = KRIECHEN
             else:
                 g_ziel = VMAX
-        if time.ticks_diff(time.ticks_ms(), t_zurueck) < LANGSAM_ZURUECK_MS:
-            # erst langsam los, damit der Ball sich beruhigt
-            g = min(LANGSAM_ZURUECK, g_ziel)
-        else:
-            # hoch hoechstens SCHRITT_HOCH_ZURUECK, runter hoechstens SCHRITT_RUNTER_ZURUECK pro Takt
-            g = max(g - SCHRITT_RUNTER_ZURUECK, min(g + SCHRITT_HOCH_ZURUECK, g_ziel))
+        # Schritt waechst mit dem Tempo: am Anfang winzig, spaeter bis SCHRITT_HOCH_ZURUECK
+        schritt = min(EXP_START + g * EXP_ANTEIL, SCHRITT_HOCH_ZURUECK)
+        # hoch um schritt, runter hoechstens SCHRITT_RUNTER_ZURUECK pro Takt
+        g = max(g - SCHRITT_RUNTER_ZURUECK, min(g + schritt, g_ziel))
         fahren(-g)
         log("ZURUECK", rest, g)
         time.sleep_ms(TAKT_MS)
