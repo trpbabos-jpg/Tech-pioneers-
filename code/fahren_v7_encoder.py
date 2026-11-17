@@ -33,7 +33,7 @@ DREHEN_RECHTS = 1
 # ----- Geradeaus (ohne Encoder nur hierueber!) -----
 ANLAUF = 20                 # unter 20 % dreht kein Rad
 FAKTOR_LINKS = 1.04          # zieht er nach rechts -> kleiner, nach links -> groesser
-FAKTOR_LINKS_ZURUECK = 1.06  # dasselbe fuer rueckwaerts
+FAKTOR_LINKS_ZURUECK = 1.08  # dasselbe fuer rueckwaerts
 
 # ----- Fahren -----
 VMAX = 70                 # Hoechstgeschwindigkeit in %
@@ -45,7 +45,7 @@ EXP_START = 0.5           # % : erster Schritt rueckwaerts (ganz sanft)
 EXP_ANTEIL = 0.15         # jeder Schritt ist 0,5 % + 15 % vom aktuellen Tempo
                           # -> Schritte wachsen langsam (leicht exponentiell) bis SCHRITT_HOCH_ZURUECK
 SCHRITT_RUNTER_ZURUECK = 8  # % langsamer pro Takt beim Rueckwaerts-Bremsen
-PAUSE_AN_WAND_MS = 500    # so lange an der Wand stehen bleiben, bevor er zurueckfaehrt
+PAUSE_AN_WAND_MS = 700    # so lange an der Wand stehen bleiben, bevor er zurueckfaehrt
 BREMSEN_AB = 40           # Echo: ab diesem Abstand in cm bremsen
 LANGSAM_AB = 15           # Echo: ab hier nur noch KRIECHEN
 WAND_CM = 11              # Echo: Ersatz, falls der Taster beim Start kaputt ist
@@ -59,7 +59,7 @@ CM_PRO_IMPULS = 3.1416 * 8.0 / 224   # Radumfang 8 cm / 224 Impulse pro Umdrehun
 # nur ohne Encoder:
 ZURUECK_ANTEIL = 1.3      # Rueckfahrzeit = Hinfahrzeit * diesen Wert (zu kurz -> groesser)
                           # 1.3 weil er rueckwaerts langsamer anfaehrt
-BREMSEN_ZURUECK_S = 0.8   # die letzten 0,8 s der Rueckfahrt abbremsen
+BREMSEN_ZURUECK_S = 1.3   # die letzten 0,8 s der Rueckfahrt abbremsen
 SUCHEN_S = 1.5            # danach so lange langsam rueckwaerts an die Startwand
 TAKT_MS = 50
 LOG_JEDER = 4             # jeden 4. Takt Messwerte in die Shell
@@ -92,6 +92,15 @@ def fahren(g):
     else:
         motor(m2a, m2b, DREHEN_LINKS * g * FAKTOR_LINKS_ZURUECK)
     motor(m1a, m1b, DREHEN_RECHTS * g)
+
+
+def fahren_einzeln(gl, gr):
+    # jedes Rad eigenes Tempo (fuer die Rueckfahrt nach Impulsen)
+    if gl >= 0:
+        motor(m2a, m2b, DREHEN_LINKS * gl * FAKTOR_LINKS)
+    else:
+        motor(m2a, m2b, DREHEN_LINKS * gl * FAKTOR_LINKS_ZURUECK)
+    motor(m1a, m1b, DREHEN_RECHTS * gr)
 
 
 def stopp():
@@ -302,6 +311,8 @@ try:
         melde_wand("BREMSEN", d, g)
     t_hin = sekunden_seit(start)
     strecke = gefahren_cm()
+    hin_links = impulse_links       # diese Impulse muss jedes Rad rueckwaerts wieder drehen
+    hin_rechts = impulse_rechts
     print("Wand beruehrt nach", t_hin, "s und", round(strecke), "cm")
     zeige_diff("hin")
     encoder_ok = strecke > 20
@@ -311,8 +322,8 @@ try:
     time.sleep_ms(PAUSE_AN_WAND_MS)
 
     # 3. Rueckwaerts: sanft (leicht exponentiell) beschleunigen,
-    #    mit Encodern dieselbe Strecke, sonst auf Zeit
-    print("Zurueck")
+    #    mit Encodern: jedes Rad dreht genau so viele Impulse zurueck wie hin, sonst auf Zeit
+    print("Zurueck: Ziel L", hin_links, "R", hin_rechts, "Impulse")
     encoder_null()
     t_zurueck = time.ticks_ms()
     dauer = t_hin * ZURUECK_ANTEIL
@@ -321,9 +332,12 @@ try:
         if zu_lange(start):
             raise SystemExit
         if encoder_ok:
-            rest = strecke - gefahren_cm()
-            if rest <= 0:
+            rest_l = hin_links - impulse_links
+            rest_r = hin_rechts - impulse_rechts
+            if rest_l <= 0 and rest_r <= 0:
                 break
+            # gebremst wird nach dem Rad, das noch am meisten vor sich hat
+            rest = max(rest_l, rest_r) * CM_PRO_IMPULS
             # wie an der Wand: je weniger Reststrecke, desto langsamer
             # (gleichmaessig von VMAX bei BREMSEN_AB_ZURUECK auf KRIECHEN bei 0 cm Rest)
             anteil = min(rest / BREMSEN_AB_ZURUECK, 1)
@@ -341,11 +355,17 @@ try:
         schritt = min(EXP_START + g * EXP_ANTEIL, SCHRITT_HOCH_ZURUECK)
         # hoch um schritt, runter hoechstens SCHRITT_RUNTER_ZURUECK pro Takt
         g = max(g - SCHRITT_RUNTER_ZURUECK, min(g + schritt, g_ziel))
-        fahren(-g)
+        if encoder_ok:
+            # Rad, das seine Impulse schon geschafft hat, bleibt stehen
+            gl = g if rest_l > 0 else 0
+            gr = g if rest_r > 0 else 0
+            fahren_einzeln(-gl, -gr)
+        else:
+            fahren(-g)
         log("ZURUECK", rest, g)
         time.sleep_ms(TAKT_MS)
     stopp()
-    print("Strecke zurueck erreicht:", round(gefahren_cm()), "von", round(strecke), "cm")
+    print("Zurueck geschafft: L", impulse_links, "von", hin_links, "| R", impulse_rechts, "von", hin_rechts, "Impulse")
     zeige_diff("zurueck")
 
     # 4. Langsam rueckwaerts an die Startwand
