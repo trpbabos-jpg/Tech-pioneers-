@@ -28,7 +28,7 @@ DREHEN_RECHTS = 1
 # ----- Geradeaus (ohne Encoder nur hierueber!) -----
 ANLAUF = 20                 # unter 20 % dreht kein Rad
 FAKTOR_LINKS = 0.9          # zieht er nach rechts -> kleiner, nach links -> groesser
-FAKTOR_LINKS_ZURUECK = 0.9  # dasselbe fuer rueckwaerts
+FAKTOR_LINKS_ZURUECK = 0.95 # rueckwaerts: zieht er nach links -> groesser (17.11.: 0.9 zog links)
 
 # ----- Fahren -----
 VMAX = 80                 # Hoechstgeschwindigkeit in %
