@@ -71,11 +71,13 @@ def motor(pin_a, pin_b, geschwindigkeit):
 
 
 def motoren(links, rechts):
+    # Test 17.11.: bei beiden Motoren A = rueckwaerts, B = vorwaerts
+    # -> beide Seiten umdrehen, damit positiv = vorwaerts
     if links >= 0:
-        motor(m2a, m2b, links * FAKTOR_LINKS)
+        motor(m2a, m2b, -links * FAKTOR_LINKS)
     else:
-        motor(m2a, m2b, links * FAKTOR_LINKS_ZURUECK)
-    motor(m1a, m1b, -rechts)      # rechter Motor ist gespiegelt eingebaut
+        motor(m2a, m2b, -links * FAKTOR_LINKS_ZURUECK)
+    motor(m1a, m1b, -rechts)
 
 
 def stopp():
