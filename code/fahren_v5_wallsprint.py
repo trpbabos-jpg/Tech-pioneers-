@@ -34,6 +34,7 @@ SCHRITT_RUNTER = 7        # % langsamer pro Takt
 BREMSEN_AB = 50           # Echo: ab diesem Abstand in cm bremsen
 LANGSAM_AB = 15           # Echo: ab hier nur noch KRIECHEN
 WAND_CM = 11              # Echo: Wand erreicht (Echo sitzt ca. 10 cm hinter dem Stossschalter)
+MIN_STRECKE = 100         # cm: vorher wird keine Wand akzeptiert (Bahn ist 200 cm)
 TASTER_GEDRUECKT = 1      # was taster.value() liefert, wenn er gedrueckt ist
 BREMSEN_AB_ZURUECK = 45   # rueckwaerts: ab dieser Reststrecke in cm bremsen
 TAKT_MS = 50
@@ -118,7 +119,10 @@ def taster_gedrueckt():
 
 
 def wand_beruehrt(abstand):
-    # Wand = Stossschalter gedrueckt ODER Echo sehr nah
+    # Wand = Stossschalter gedrueckt ODER Echo sehr nah,
+    # aber erst nach MIN_STRECKE (sonst stoert z. B. ein Echo vom eigenen Aufbau)
+    if gefahren_cm() < MIN_STRECKE:
+        return False
     return taster_gedrueckt() or abstand <= WAND_CM
 
 
@@ -173,6 +177,9 @@ try:
     if taster_gedrueckt():
         taster_an = False
         print("ACHTUNG: Stossschalter meldet schon gedrueckt -> wird ignoriert, Wand nur per Echo")
+    for i in range(3):
+        print("Echo vorne beim Start:", round(messen()), "cm")
+        time.sleep_ms(100)
     time.sleep(3)                     # Regel: 2 bis 10 s an der Startwand
     start = time.ticks_ms()
 
@@ -181,7 +188,7 @@ try:
     encoder_null()
     g = 0
     d = median.neu(messen())
-    while d > BREMSEN_AB and not wand_beruehrt(d):
+    while (d > BREMSEN_AB or gefahren_cm() < MIN_STRECKE - BREMSEN_AB) and not wand_beruehrt(d):
         if zu_lange(start):
             raise SystemExit
         g = min(g + SCHRITT_HOCH, VMAX)
