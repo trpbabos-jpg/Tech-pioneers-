@@ -21,6 +21,12 @@ taster = Pin(22, Pin.IN, Pin.PULL_UP)        # Stossschalter vorne
 enc_links = Pin(25, Pin.IN, Pin.PULL_UP)
 enc_rechts = Pin(13, Pin.IN, Pin.PULL_UP)
 
+# ----- Drehrichtung -----
+# Faehrt ein Rad falsch herum: bei dem Rad 1 <-> -1 tauschen
+# Test 17.11. nachmittags: mit -1 / -1 fuhr er rueckwaerts -> jetzt 1 / 1
+DREHEN_LINKS = 1
+DREHEN_RECHTS = 1
+
 # ----- Gemessen mit kalibrieren.py und drehzahl_test.py -----
 ANLAUF = 20                 # unter 20 % dreht kein Rad
 FAKTOR_LINKS = 0.7          # motorkraft links vorwaerts
@@ -65,13 +71,12 @@ def motor(pin_a, pin_b, geschwindigkeit):
 
 
 def motoren(links, rechts):
-    # Test 17.11.: bei beiden Motoren A = rueckwaerts, B = vorwaerts
-    # -> beide Seiten umdrehen, damit positiv = vorwaerts
+    # positiv = vorwaerts. Falsche Richtung? -> oben DREHEN_LINKS / DREHEN_RECHTS aendern
     if links >= 0:
-        motor(m2a, m2b, -links * FAKTOR_LINKS)
+        motor(m2a, m2b, DREHEN_LINKS * links * FAKTOR_LINKS)
     else:
-        motor(m2a, m2b, -links * FAKTOR_LINKS_ZURUECK)
-    motor(m1a, m1b, -rechts)
+        motor(m2a, m2b, DREHEN_LINKS * links * FAKTOR_LINKS_ZURUECK)
+    motor(m1a, m1b, DREHEN_RECHTS * rechts)
 
 
 # ----- Ultraschall (Kap. 4a) -----
