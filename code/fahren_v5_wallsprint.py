@@ -31,7 +31,10 @@ VMAX = 80                 # Hoechstgeschwindigkeit in %
 KRIECHEN = 20             # Tempo kurz vor der Wand in %
 SCHRITT_HOCH = 6          # % schneller pro Takt
 SCHRITT_RUNTER = 7        # % langsamer pro Takt
-BREMSEN_AB = 50           # ab diesem Abstand in cm bremsen
+BREMSEN_AB = 50           # Echo: ab diesem Abstand in cm bremsen
+LANGSAM_AB = 15           # Echo: ab hier nur noch KRIECHEN
+WAND_CM = 11              # Echo: Wand erreicht (Echo sitzt ca. 10 cm hinter dem Stossschalter)
+TASTER_GEDRUECKT = 1      # was taster.value() liefert, wenn er gedrueckt ist
 BREMSEN_AB_ZURUECK = 45   # rueckwaerts: ab dieser Reststrecke in cm bremsen
 TAKT_MS = 50
 KP = 0.5                  # Encoder-Korrektur fuer die Geradeausfahrt
@@ -100,13 +103,23 @@ median = Median()
 
 
 # ----- Taster (Kap. 4c) -----
-def wand_beruehrt():
+taster_an = True          # wird beim Start abgeschaltet, wenn er schon "gedrueckt" meldet
+
+
+def taster_gedrueckt():
     # 7-mal nachschauen, damit kurzes Zucken beim Fahren nicht ausloest
+    if not taster_an:
+        return False
     for i in range(7):
-        if taster.value() != 1:
+        if taster.value() != TASTER_GEDRUECKT:
             return False
         time.sleep_ms(2)
     return True
+
+
+def wand_beruehrt(abstand):
+    # Wand = Stossschalter gedrueckt ODER Echo sehr nah
+    return taster_gedrueckt() or abstand <= WAND_CM
 
 
 # ----- Encoder -----
@@ -157,6 +170,9 @@ def zu_lange(start):
 try:
     motoren(0, 0)
     print("Batman v5 Wall-Sprint, VMAX", VMAX)
+    if taster_gedrueckt():
+        taster_an = False
+        print("ACHTUNG: Stossschalter meldet schon gedrueckt -> wird ignoriert, Wand nur per Echo")
     time.sleep(3)                     # Regel: 2 bis 10 s an der Startwand
     start = time.ticks_ms()
 
@@ -164,22 +180,32 @@ try:
     print("Hinfahren")
     encoder_null()
     g = 0
-    while median.neu(messen()) > BREMSEN_AB and not wand_beruehrt():
+    d = median.neu(messen())
+    while d > BREMSEN_AB and not wand_beruehrt(d):
         if zu_lange(start):
             raise SystemExit
         g = min(g + SCHRITT_HOCH, VMAX)
         geradeaus(g, 1)
         time.sleep_ms(TAKT_MS)
+        d = median.neu(messen())
+    print("Wand nah bei", round(d), "cm")
     print("diff hin:", impulse_links - impulse_rechts)
 
     # 2. Sanft bremsen auf Kriechtempo, bis der Taster die Wand beruehrt
     print("Bremsen")
-    while not wand_beruehrt():
+    while not wand_beruehrt(d):
         if zu_lange(start):
             raise SystemExit
-        g = max(g - SCHRITT_RUNTER, KRIECHEN)
+        if d > LANGSAM_AB:
+            # zwischen BREMSEN_AB und LANGSAM_AB gleichmaessig auf KRIECHEN
+            anteil = (d - LANGSAM_AB) / (BREMSEN_AB - LANGSAM_AB)
+            g_ziel = KRIECHEN + (VMAX - KRIECHEN) * min(anteil, 1)
+        else:
+            g_ziel = KRIECHEN       # ab 15 cm nur noch langsam
+        g = max(g - SCHRITT_RUNTER, min(g, g_ziel))
         geradeaus(g, 1)
         time.sleep_ms(TAKT_MS)
+        d = median.neu(messen())
     motoren(0, 0)
     strecke = gefahren_cm()
     t_wand = time.ticks_diff(time.ticks_ms(), start) / 1000
