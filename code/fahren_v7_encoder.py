@@ -32,18 +32,19 @@ DREHEN_RECHTS = 1
 
 # ----- Geradeaus (ohne Encoder nur hierueber!) -----
 ANLAUF = 20                 # unter 20 % dreht kein Rad
-FAKTOR_LINKS = 1          # zieht er nach rechts -> kleiner, nach links -> groesser
-FAKTOR_LINKS_ZURUECK = 1.05  # dasselbe fuer rueckwaerts
+FAKTOR_LINKS = 1.04          # zieht er nach rechts -> kleiner, nach links -> groesser
+FAKTOR_LINKS_ZURUECK = 1.06  # dasselbe fuer rueckwaerts
 
 # ----- Fahren -----
-VMAX = 80                 # Hoechstgeschwindigkeit in %
+VMAX = 70                 # Hoechstgeschwindigkeit in %
 KRIECHEN = 15             # Tempo kurz vor der Wand in %
-SCHRITT_HOCH = 6          # % schneller pro Takt
-SCHRITT_RUNTER = 7        # % langsamer pro Takt
-SCHRITT_HOCH_ZURUECK = 7  # % schneller pro Takt beim Rueckwaerts-Anfahren
-SCHRITT_RUNTER_ZURUECK = 9  # % langsamer pro Takt beim Rueckwaerts-Bremsen
-LANGSAM_ZURUECK = 20      # % : nach der Wand erst langsam rueckwaerts (statt warten),
-LANGSAM_ZURUECK_MS = 600  # so lange, bis der Ball ruhig liegt, dann normal beschleunigen
+SCHRITT_HOCH = 5          # % schneller pro Takt
+SCHRITT_RUNTER = 6        # % langsamer pro Takt
+SCHRITT_HOCH_ZURUECK = 6  # % schneller pro Takt beim Rueckwaerts-Anfahren
+SCHRITT_RUNTER_ZURUECK = 8  # % langsamer pro Takt beim Rueckwaerts-Bremsen
+PAUSE_AN_WAND_MS = 500    # so lange an der Wand stehen bleiben, bevor er zurueckfaehrt
+LANGSAM_ZURUECK = 10      # % : nach der Wand erst langsam rueckwaerts (statt warten),
+LANGSAM_ZURUECK_MS = 800  # so lange, bis der Ball ruhig liegt, dann normal beschleunigen
 BREMSEN_AB = 40           # Echo: ab diesem Abstand in cm bremsen
 LANGSAM_AB = 15           # Echo: ab hier nur noch KRIECHEN
 WAND_CM = 11              # Echo: Ersatz, falls der Taster beim Start kaputt ist
@@ -305,6 +306,8 @@ try:
     encoder_ok = strecke > 20
     if not encoder_ok:
         print("ACHTUNG: Encoder zaehlen nicht -> Rueckfahrt auf Zeit")
+    print("Warte", PAUSE_AN_WAND_MS, "ms an der Wand")
+    time.sleep_ms(PAUSE_AN_WAND_MS)
 
     # 3. Rueckwaerts: erst LANGSAM_ZURUECK_MS langsam, dann normal beschleunigen
     #    mit Encodern dieselbe Strecke, sonst auf Zeit
