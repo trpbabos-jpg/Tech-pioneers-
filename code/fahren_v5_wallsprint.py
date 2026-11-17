@@ -1,11 +1,12 @@
-# fahren_v5_wallsprint.py - Wall-Sprint komplett mit den Werten aus main.py (03.11.)
-# Team Batman, Stand 17.11.2026 (noch nicht getestet)
+# fahren_v5_wallsprint.py - Wall-Sprint komplett
+# Team Batman, Stand 17.11.2026
 # Auf dem ESP32 als main.py speichern.
 #
-# Ablauf: 3 s warten -> hin bis die Wand nah ist -> sanft bremsen bis der
-# Stossschalter beruehrt -> rueckwaerts die gleiche Strecke -> kriechend bis
-# an die Startwand (Raeder bleiben stehen) -> aus.
-# Unterschied zu main.py: Schritt 4 (Startwand sicher beruehren) und Fahrzeit-Ausgabe.
+# Ablauf: 3 s warten -> vorwaerts bis die Wand nah ist -> ab 50 cm bremsen,
+# ab 15 cm langsam -> Wand beruehren (Stossschalter, Reserve: Echo 11 cm)
+# -> rueckwaerts die gleiche Strecke -> langsam bis an die Startwand
+# (Raeder bleiben stehen) -> aus.
+# Falsche Drehrichtung? -> DREHEN_LINKS / DREHEN_RECHTS aendern.
 
 from machine import Pin, PWM, time_pulse_us
 import time
