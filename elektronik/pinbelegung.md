@@ -24,6 +24,14 @@ Neu verkabelt, damit sich auf dem festen Steckbrett keine Kabel mehr kreuzen.
 
 Frei bleiben die Startpins 0, 2, 12 und 15. Reserviert für einen zweiten HC-SR04: Trig 21, Echo 34. Die LED ist nicht mehr verbaut.
 
+## Änderung 17.11.2026
+
+| Bauteil | Anschluss | vorher | jetzt |
+| --- | --- | --- | --- |
+| Motor 1 (rechts), MDD3A | M1A | GPIO14 | GPIO21 |
+
+Grund: GPIO14 gibt beim Hochfahren des ESP32 ein PWM-Signal aus. Das rechte Rad hat nach dem Einschalten ca. 3 s gedreht und den Roboter an der Startwand schief geschoben. GPIO21 ist beim Booten ruhig. Damit ist GPIO21 nicht mehr für einen zweiten HC-SR04 frei. `code/boot.py` setzt die Motorpins zusätzlich sofort auf 0.
+
 ## Stand 13.11.2026
 
 Die Elektronik ist auf der Grundplatte v2 komplett verkabelt (Foto: `fotos/2026-11-13_elektronik_verkabelt.jpg`). Die neue Belegung mit den drei Ultraschallsensoren bitte hier als Tabelle eintragen, die Tabelle vom 29.10. bleibt als früherer Stand stehen.
@@ -66,3 +74,4 @@ Quelle: Espressif User Guide ESP32-PICO-KIT-1, ESP32-PICO Datenblatt, MicroPytho
 - 1 und 3: USB-Verbindung zu Thonny.
 - 7, 8, 20: laut MicroPython nicht empfohlen bzw. nicht ansprechbar.
 - 18 und 23: auf dem ESP32-PICO-V3 nicht angeschlossen.
+- 14: gibt beim Hochfahren ein PWM-Signal aus (JTAG-Pin MTMS). Nicht für Motoren verwenden, siehe Änderung 17.11.

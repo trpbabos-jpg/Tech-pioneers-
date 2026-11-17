@@ -15,7 +15,7 @@ from machine import Pin, PWM, time_pulse_us
 import time
 
 # ----- Pins (pinbelegung.md, Stand 29.10.) -----
-m1a = PWM(Pin(14), freq=20000, duty_u16=0)   # Motor rechts
+m1a = PWM(Pin(21), freq=20000, duty_u16=0)   # Motor rechts (17.11.: von GPIO14 umgesteckt, 14 gab beim Booten PWM aus)
 m1b = PWM(Pin(27), freq=20000, duty_u16=0)
 m2a = PWM(Pin(33), freq=20000, duty_u16=0)   # Motor links
 m2b = PWM(Pin(32), freq=20000, duty_u16=0)
@@ -33,7 +33,7 @@ DREHEN_RECHTS = 1
 # ----- Geradeaus (ohne Encoder nur hierueber!) -----
 ANLAUF = 20                 # unter 20 % dreht kein Rad
 FAKTOR_LINKS = 1.04          # zieht er nach rechts -> kleiner, nach links -> groesser
-FAKTOR_LINKS_ZURUECK = 1.08  # dasselbe fuer rueckwaerts
+FAKTOR_LINKS_ZURUECK = 1.07  # dasselbe fuer rueckwaerts
 
 # ----- Fahren -----
 VMAX = 70                 # Hoechstgeschwindigkeit in %
