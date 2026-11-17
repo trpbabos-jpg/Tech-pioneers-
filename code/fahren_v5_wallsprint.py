@@ -1,5 +1,5 @@
 # fahren_v5_wallsprint.py - Wall-Sprint komplett
-# Team Batman, Stand 17.11.2026
+# Team Batman, Stand 17.11.2026 (14:25: Bremsen unabhaengig von den Encodern)
 # Auf dem ESP32 als main.py speichern.
 #
 # Ablauf: 3 s warten -> vorwaerts bis die Wand nah ist -> ab 50 cm bremsen,
@@ -30,8 +30,8 @@ DREHEN_RECHTS = 1
 
 # ----- Gemessen mit kalibrieren.py und drehzahl_test.py -----
 ANLAUF = 20                 # unter 20 % dreht kein Rad
-FAKTOR_LINKS = 0.7          # motorkraft links vorwaerts
-FAKTOR_LINKS_ZURUECK = 0.7  # motorkraft links rueckwaerts
+FAKTOR_LINKS = 0.9          # motorkraft links vorwaerts
+FAKTOR_LINKS_ZURUECK = 0.9  # motorkraft links rueckwaerts
 
 # ----- Fahren (Werte aus main.py, 03.11.) -----
 VMAX = 80                 # Hoechstgeschwindigkeit in %
@@ -41,7 +41,8 @@ SCHRITT_RUNTER = 7        # % langsamer pro Takt
 BREMSEN_AB = 50           # Echo: ab diesem Abstand in cm bremsen
 LANGSAM_AB = 15           # Echo: ab hier nur noch KRIECHEN
 WAND_CM = 11              # Echo: Wand erreicht (Echo sitzt ca. 10 cm hinter dem Stossschalter)
-MIN_STRECKE = 100         # cm: vorher wird keine Wand akzeptiert (Bahn ist 200 cm)
+MIN_ZEIT_MS = 300         # so lange nach dem Losfahren wird keine Wand akzeptiert
+LOG_JEDER = 4             # jeden 4. Takt Messwerte in die Shell
 TASTER_GEDRUECKT = 1      # was taster.value() liefert, wenn er gedrueckt ist
 BREMSEN_AB_ZURUECK = 45   # rueckwaerts: ab dieser Reststrecke in cm bremsen
 TAKT_MS = 50
@@ -124,12 +125,25 @@ def taster_gedrueckt():
     return True
 
 
+fahrt_start = 0
+
+
 def wand_beruehrt(abstand):
-    # Wand = Stossschalter gedrueckt ODER Echo sehr nah,
-    # aber erst nach MIN_STRECKE (sonst stoert z. B. ein Echo vom eigenen Aufbau)
-    if gefahren_cm() < MIN_STRECKE:
+    # Wand = Stossschalter gedrueckt ODER Echo sehr nah
+    # (die ersten MIN_ZEIT_MS nach dem Losfahren nicht, gegen Fehlausloesung beim Start)
+    if time.ticks_diff(time.ticks_ms(), fahrt_start) < MIN_ZEIT_MS:
         return False
     return taster_gedrueckt() or abstand <= WAND_CM
+
+
+takt = 0
+
+
+def log(phase, d, g):
+    global takt
+    takt += 1
+    if takt % LOG_JEDER == 0:
+        print(phase, "Echo", round(d), "cm | Tempo", round(g), "% | Encoder L", impulse_links, "R", impulse_rechts)
 
 
 # ----- Encoder -----
@@ -188,17 +202,19 @@ try:
         time.sleep_ms(100)
     time.sleep(3)                     # Regel: 2 bis 10 s an der Startwand
     start = time.ticks_ms()
+    fahrt_start = start
 
     # 1. Hinfahren: sanft schneller bis VMAX, bis die Wand nah ist
     print("Hinfahren")
     encoder_null()
     g = 0
     d = median.neu(messen())
-    while (d > BREMSEN_AB or gefahren_cm() < MIN_STRECKE - BREMSEN_AB) and not wand_beruehrt(d):
+    while d > BREMSEN_AB and not wand_beruehrt(d):
         if zu_lange(start):
             raise SystemExit
         g = min(g + SCHRITT_HOCH, VMAX)
         geradeaus(g, 1)
+        log("HIN", d, g)
         time.sleep_ms(TAKT_MS)
         d = median.neu(messen())
     print("Wand nah bei", round(d), "cm")
@@ -217,26 +233,43 @@ try:
             g_ziel = KRIECHEN       # ab 15 cm nur noch langsam
         g = max(g - SCHRITT_RUNTER, min(g, g_ziel))
         geradeaus(g, 1)
+        log("BREMS", d, g)
         time.sleep_ms(TAKT_MS)
         d = median.neu(messen())
     motoren(0, 0)
     strecke = gefahren_cm()
     t_wand = time.ticks_diff(time.ticks_ms(), start) / 1000
     print("Wand beruehrt nach", round(strecke), "cm und", t_wand, "s")
+    encoder_ok = strecke > 20
+    if not encoder_ok:
+        print("ACHTUNG: Encoder zaehlen nicht -> Rueckfahrt auf Zeit (", t_wand, "s )")
     time.sleep_ms(500)
 
     # 3. Rueckwaerts dieselbe Strecke zurueck, am Ende wieder sanft
     print("Zurueck")
     encoder_null()
     g = 0
-    while gefahren_cm() < strecke:
+    t_zurueck = time.ticks_ms()
+    while True:
         if zu_lange(start):
             raise SystemExit
-        if strecke - gefahren_cm() > BREMSEN_AB_ZURUECK:
-            g = min(g + SCHRITT_HOCH, VMAX)
+        if encoder_ok:
+            rest = strecke - gefahren_cm()
+            if rest <= 0:
+                break
+            bremsen = rest < BREMSEN_AB_ZURUECK
         else:
+            # ohne Encoder: so lange zurueck wie hin, die letzten 0,8 s langsam
+            rest_s = t_wand - time.ticks_diff(time.ticks_ms(), t_zurueck) / 1000
+            if rest_s <= 0:
+                break
+            bremsen = rest_s < 0.8
+        if bremsen:
             g = max(g - SCHRITT_RUNTER, KRIECHEN)
+        else:
+            g = min(g + SCHRITT_HOCH, VMAX)
         geradeaus(g, -1)
+        log("ZURUECK", 0, g)
         time.sleep_ms(TAKT_MS)
     print("diff zurueck:", impulse_links - impulse_rechts)
 
@@ -245,7 +278,10 @@ try:
     ziel = gefahren_cm() + EXTRA_ZURUECK
     letzte = impulse_links + impulse_rechts
     letzte_bewegung = time.ticks_ms()
+    t_suchen = time.ticks_ms()
     while gefahren_cm() < ziel:
+        if not encoder_ok and time.ticks_diff(time.ticks_ms(), t_suchen) > 1500:
+            break                   # ohne Encoder: 1,5 s langsam rueckwaerts
         if zu_lange(start):
             raise SystemExit
         geradeaus(KRIECHEN, -1)
@@ -254,7 +290,7 @@ try:
         if jetzt != letzte:
             letzte = jetzt
             letzte_bewegung = time.ticks_ms()
-        elif time.ticks_diff(time.ticks_ms(), letzte_bewegung) > STEHT_MS:
+        elif encoder_ok and time.ticks_diff(time.ticks_ms(), letzte_bewegung) > STEHT_MS:
             print("Startwand erreicht")
             break
     motoren(0, 0)
