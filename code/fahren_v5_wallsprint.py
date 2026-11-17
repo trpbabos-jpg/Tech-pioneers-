@@ -3,7 +3,7 @@
 # Auf dem ESP32 als main.py speichern.
 #
 # Ablauf: 3 s warten -> vorwaerts bis die Wand nah ist -> ab 50 cm bremsen,
-# ab 15 cm langsam -> Wand beruehren (Stossschalter, Reserve: Echo 11 cm)
+# ab 15 cm langsam -> bis der Stossschalter die Wand beruehrt
 # -> rueckwaerts die gleiche Strecke -> langsam bis an die Startwand
 # (Raeder bleiben stehen) -> aus.
 # Falsche Drehrichtung? -> DREHEN_LINKS / DREHEN_RECHTS aendern.
@@ -35,7 +35,7 @@ FAKTOR_LINKS_ZURUECK = 0.9  # motorkraft links rueckwaerts
 
 # ----- Fahren (Werte aus main.py, 03.11.) -----
 VMAX = 80                 # Hoechstgeschwindigkeit in %
-KRIECHEN = 20             # Tempo kurz vor der Wand in %
+KRIECHEN = 30             # Tempo kurz vor der Wand in % (17.11.: 20 war zu langsam)
 SCHRITT_HOCH = 6          # % schneller pro Takt
 SCHRITT_RUNTER = 7        # % langsamer pro Takt
 BREMSEN_AB = 50           # Echo: ab diesem Abstand in cm bremsen
@@ -129,11 +129,14 @@ fahrt_start = 0
 
 
 def wand_beruehrt(abstand):
-    # Wand = Stossschalter gedrueckt ODER Echo sehr nah
+    # Wand = Stossschalter gedrueckt -> dann rueckwaerts
+    # Nur wenn der Taster beim Start kaputt war: Echo unter WAND_CM als Ersatz
     # (die ersten MIN_ZEIT_MS nach dem Losfahren nicht, gegen Fehlausloesung beim Start)
     if time.ticks_diff(time.ticks_ms(), fahrt_start) < MIN_ZEIT_MS:
         return False
-    return taster_gedrueckt() or abstand <= WAND_CM
+    if taster_an:
+        return taster_gedrueckt()
+    return abstand <= WAND_CM
 
 
 takt = 0
