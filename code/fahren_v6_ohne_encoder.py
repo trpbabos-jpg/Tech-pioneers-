@@ -35,12 +35,15 @@ VMAX = 80                 # Hoechstgeschwindigkeit in %
 KRIECHEN = 30             # Tempo kurz vor der Wand in %
 SCHRITT_HOCH = 6          # % schneller pro Takt
 SCHRITT_RUNTER = 7        # % langsamer pro Takt
+SCHRITT_HOCH_ZURUECK = 2  # % schneller pro Takt beim Rueckwaerts-Anfahren (17.11.: 6 war zu ruckig)
+PAUSE_AN_WAND_MS = 800    # so lange an der Wand stehen, bevor er zurueckfaehrt
 BREMSEN_AB = 50           # Echo: ab diesem Abstand in cm bremsen
 LANGSAM_AB = 15           # Echo: ab hier nur noch KRIECHEN
 WAND_CM = 11              # Echo: Ersatz, falls der Taster beim Start kaputt ist
 MIN_ZEIT_MS = 300         # so lange nach dem Losfahren wird keine Wand akzeptiert
 TASTER_GEDRUECKT = 1      # was taster.value() liefert, wenn er gedrueckt ist
-ZURUECK_ANTEIL = 1.0      # Rueckfahrzeit = Hinfahrzeit * diesen Wert (zu kurz -> groesser)
+ZURUECK_ANTEIL = 1.3      # Rueckfahrzeit = Hinfahrzeit * diesen Wert (zu kurz -> groesser)
+                          # 1.3 weil er rueckwaerts langsamer anfaehrt
 BREMSEN_ZURUECK_S = 0.8   # die letzten 0,8 s der Rueckfahrt abbremsen
 SUCHEN_S = 1.5            # danach so lange langsam rueckwaerts an die Startwand
 TAKT_MS = 50
@@ -206,7 +209,7 @@ try:
     stopp()
     t_hin = sekunden_seit(start)
     print("Wand beruehrt nach", t_hin, "s")
-    time.sleep_ms(500)
+    time.sleep_ms(PAUSE_AN_WAND_MS)
 
     # 3. Rueckwaerts auf Zeit, die letzten BREMSEN_ZURUECK_S langsamer
     print("Zurueck")
@@ -219,7 +222,7 @@ try:
         if dauer - sekunden_seit(t_zurueck) < BREMSEN_ZURUECK_S:
             g = max(g - SCHRITT_RUNTER, KRIECHEN)
         else:
-            g = min(g + SCHRITT_HOCH, VMAX)
+            g = min(g + SCHRITT_HOCH_ZURUECK, VMAX)
         fahren(-g)
         log("ZURUECK", 0, g)
         time.sleep_ms(TAKT_MS)
