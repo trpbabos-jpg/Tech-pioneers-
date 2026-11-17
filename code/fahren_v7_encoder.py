@@ -42,8 +42,8 @@ SCHRITT_HOCH = 6          # % schneller pro Takt
 SCHRITT_RUNTER = 7        # % langsamer pro Takt
 SCHRITT_HOCH_ZURUECK = 7  # % schneller pro Takt beim Rueckwaerts-Anfahren
 SCHRITT_RUNTER_ZURUECK = 9  # % langsamer pro Takt beim Rueckwaerts-Bremsen
-PAUSE_AN_WAND_MS = 800    # an der Wand warten, bis der Ball in der Schale ruhig liegt,
-                          # erst dann rueckwaerts beschleunigen (Ball nicht hin und her ziehen)
+LANGSAM_ZURUECK = 20      # % : nach der Wand erst langsam rueckwaerts (statt warten),
+LANGSAM_ZURUECK_MS = 600  # so lange, bis der Ball ruhig liegt, dann normal beschleunigen
 BREMSEN_AB = 40           # Echo: ab diesem Abstand in cm bremsen
 LANGSAM_AB = 15           # Echo: ab hier nur noch KRIECHEN
 WAND_CM = 11              # Echo: Ersatz, falls der Taster beim Start kaputt ist
@@ -301,15 +301,14 @@ try:
     t_hin = sekunden_seit(start)
     strecke = gefahren_cm()
     print("Wand beruehrt nach", t_hin, "s und", round(strecke), "cm")
-    print("Warte", PAUSE_AN_WAND_MS, "ms, bis der Ball ruhig ist")
     zeige_diff("hin")
     encoder_ok = strecke > 20
     if not encoder_ok:
         print("ACHTUNG: Encoder zaehlen nicht -> Rueckfahrt auf Zeit")
-    time.sleep_ms(PAUSE_AN_WAND_MS)
 
-    # 3. Rueckwaerts: mit Encodern dieselbe Strecke, sonst auf Zeit
-    print("Zurueck")
+    # 3. Rueckwaerts: erst LANGSAM_ZURUECK_MS langsam, dann normal beschleunigen
+    #    mit Encodern dieselbe Strecke, sonst auf Zeit
+    print("Zurueck: erst", LANGSAM_ZURUECK_MS, "ms langsam, dann normal")
     encoder_null()
     t_zurueck = time.ticks_ms()
     dauer = t_hin * ZURUECK_ANTEIL
@@ -334,8 +333,12 @@ try:
                 g_ziel = KRIECHEN
             else:
                 g_ziel = VMAX
-        # hoch hoechstens SCHRITT_HOCH_ZURUECK, runter hoechstens SCHRITT_RUNTER_ZURUECK pro Takt
-        g = max(g - SCHRITT_RUNTER_ZURUECK, min(g + SCHRITT_HOCH_ZURUECK, g_ziel))
+        if time.ticks_diff(time.ticks_ms(), t_zurueck) < LANGSAM_ZURUECK_MS:
+            # erst langsam los, damit der Ball sich beruhigt
+            g = min(LANGSAM_ZURUECK, g_ziel)
+        else:
+            # hoch hoechstens SCHRITT_HOCH_ZURUECK, runter hoechstens SCHRITT_RUNTER_ZURUECK pro Takt
+            g = max(g - SCHRITT_RUNTER_ZURUECK, min(g + SCHRITT_HOCH_ZURUECK, g_ziel))
         fahren(-g)
         log("ZURUECK", rest, g)
         time.sleep_ms(TAKT_MS)
