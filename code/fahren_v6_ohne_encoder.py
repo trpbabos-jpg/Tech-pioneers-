@@ -1,5 +1,5 @@
 # fahren_v6_ohne_encoder.py - Wall-Sprint OHNE Encoder / Drehzahlregelung
-# Team Batman, Stand 17.11.2026
+# Team Batman, Stand 17.11.2026 (15:00: Meldung beim Taster + Fehler, wenn nicht im Kriechtempo)
 # Auf dem ESP32 als main.py speichern.
 #
 # Ablauf: 3 s warten -> vorwaerts bis die Wand nah ist -> ab 50 cm bremsen,
@@ -27,17 +27,17 @@ DREHEN_RECHTS = 1
 
 # ----- Geradeaus (ohne Encoder nur hierueber!) -----
 ANLAUF = 20                 # unter 20 % dreht kein Rad
-FAKTOR_LINKS = 0.9          # zieht er nach rechts -> kleiner, nach links -> groesser
-FAKTOR_LINKS_ZURUECK = 0.95 # rueckwaerts: zieht er nach links -> groesser (17.11.: 0.9 zog links)
+FAKTOR_LINKS = 1          # zieht er nach rechts -> kleiner, nach links -> groesser
+FAKTOR_LINKS_ZURUECK = 1.05  # dasselbe fuer rueckwaerts
 
 # ----- Fahren -----
 VMAX = 80                 # Hoechstgeschwindigkeit in %
-KRIECHEN = 30             # Tempo kurz vor der Wand in %
+KRIECHEN = 15             # Tempo kurz vor der Wand in %
 SCHRITT_HOCH = 6          # % schneller pro Takt
 SCHRITT_RUNTER = 7        # % langsamer pro Takt
 SCHRITT_HOCH_ZURUECK = 2  # % schneller pro Takt beim Rueckwaerts-Anfahren (17.11.: 6 war zu ruckig)
 PAUSE_AN_WAND_MS = 800    # so lange an der Wand stehen, bevor er zurueckfaehrt
-BREMSEN_AB = 50           # Echo: ab diesem Abstand in cm bremsen
+BREMSEN_AB = 40           # Echo: ab diesem Abstand in cm bremsen
 LANGSAM_AB = 15           # Echo: ab hier nur noch KRIECHEN
 WAND_CM = 11              # Echo: Ersatz, falls der Taster beim Start kaputt ist
 MIN_ZEIT_MS = 300         # so lange nach dem Losfahren wird keine Wand akzeptiert
@@ -128,16 +128,42 @@ def taster_gedrueckt():
 
 
 fahrt_start = 0
+beruehrt = False          # bleibt True, sobald die Wand einmal erkannt wurde
 
 
 def wand_beruehrt(abstand):
     # Wand = Stossschalter gedrueckt -> dann rueckwaerts
     # Nur wenn der Taster beim Start kaputt war: Echo unter WAND_CM als Ersatz
+    global beruehrt
+    if beruehrt:
+        return True
     if time.ticks_diff(time.ticks_ms(), fahrt_start) < MIN_ZEIT_MS:
         return False
     if taster_an:
-        return taster_gedrueckt()
-    return abstand <= WAND_CM
+        beruehrt = taster_gedrueckt()
+    else:
+        beruehrt = abstand <= WAND_CM
+    return beruehrt
+
+
+def melde_wand(phase, d, g):
+    # Meldung, sobald der Taster ausloest, und Pruefung, ob es im Kriechtempo kurz vor der Wand war
+    if taster_an:
+        print(">>> TASTER GEDRUECKT in Phase", phase, "| Echo", round(d), "cm | Tempo", round(g), "%")
+    else:
+        print(">>> WAND per Echo erkannt in Phase", phase, "| Echo", round(d), "cm | Tempo", round(g), "%")
+    fehler = False
+    if phase != "BREMSEN":
+        print("FEHLER: ausgeloest waehrend der Hinfahrt, noch nicht gebremst!")
+        fehler = True
+    if g > KRIECHEN + 1:
+        print("FEHLER: nicht im Kriechtempo (", round(g), "% statt", KRIECHEN, "%) -> BREMSEN_AB groesser oder SCHRITT_RUNTER groesser")
+        fehler = True
+    if d > LANGSAM_AB:
+        print("FEHLER: nicht kurz vor der Wand (Echo", round(d), "cm > LANGSAM_AB", LANGSAM_AB, "cm) -> Taster loest zu frueh aus / Echo stoert?")
+        fehler = True
+    if not fehler:
+        print("OK: im Kriechtempo kurz vor der Wand")
 
 
 # ----- Hilfen -----
@@ -188,7 +214,13 @@ try:
         log("HIN", d, g)
         time.sleep_ms(TAKT_MS)
         d = median.neu(messen())
-    print("Wand nah bei", round(d), "cm")
+    gemeldet = False
+    if beruehrt:
+        stopp()
+        melde_wand("HINFAHRT", d, g)
+        gemeldet = True
+    else:
+        print("Wand nah bei", round(d), "cm")
 
     # 2. Sanft bremsen auf Kriechtempo, bis der Taster die Wand beruehrt
     print("Bremsen")
@@ -207,6 +239,8 @@ try:
         time.sleep_ms(TAKT_MS)
         d = median.neu(messen())
     stopp()
+    if not gemeldet:
+        melde_wand("BREMSEN", d, g)
     t_hin = sekunden_seit(start)
     print("Wand beruehrt nach", t_hin, "s")
     time.sleep_ms(PAUSE_AN_WAND_MS)
@@ -237,3 +271,4 @@ except SystemExit:
     pass
 finally:
     stopp()
+
