@@ -4,6 +4,8 @@
 - Technische Zeichnung der Grundplatte als PDF
 - DXF-Datei für den Lasercutter
 - STL-Dateien der 3D-Druckteile (Halterungen, Podest, Haube)
+- `haube_v4/`: fertige Haube als STEP-Baugruppe für Creo und STL-Dateien zum Drucken
+- `stl/`: gedruckte Echo-Halterungen links, rechts und vorne
 - `skizzen/`: Formskizzen, z. B. die ECHO-Form in der Draufsicht vom 16.10. (Fledermaus-Ohren vorne, Umhang hinten, je ein Rad links und rechts)
 
 Vor dem Hochladen in Creo alte Versionen aufräumen (Datei > Verwalten > Alte Versionen löschen), sonst landen `.prt.1`, `.prt.2` usw. im Repo.
@@ -14,11 +16,19 @@ Diese Dateien gibt es schon, sie liegen aber noch nicht im Repo. Bitte hochladen
 
 - Grundplatte v1 (Frankenstein-Modell): Creo-Dateien und Laser-Datei
 - Creo-Dateien der Grundplatte v2, der Druckteile und der Baugruppe
-- STL-Dateien der Druckteile
+- STL-Datei des Podests
 
 ## Baugruppe Roboter (Stand 13.11.2026)
 
 Teilweise fertig, Screenshots in `../fotos/2026-11-13_cad_baugruppe/`. Enthalten: Grundplatte v2, Motoren mit Winkeln, Räder, Kugelrolle, MDD3A, Steckbrett mit ESP32, Podest für die Schale, drei Ultraschallsensoren mit Haltern. Es fehlen noch Haube, Akku mit Wanne, Bedienpult und Stoßfänger.
+
+## Haube V4 (Stand 18.11.2026)
+
+`haube_v4/Haube_V4.stp` in Creo als Baugruppe öffnen und in `roboter_v2` mit Default platzieren. Drucken, Montage und Prüfung: `haube_v4/README.md`.
+
+## Echo-Halterungen
+
+`stl/halterung-l-echo.stl`, `-r-echo.stl`, `-v-echo.stl`, so gedruckt. Alle drei haben denselben Körper, nur die Löcher sitzen anders: rechts 3,5 mm nach vorne versetzt (MDD3A), links 1 mm, vorne mittig mit 22,2 mm Lochabstand für den Stoßschalter.
 
 ## Grundplatte v2
 

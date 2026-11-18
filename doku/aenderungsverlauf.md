@@ -4,8 +4,8 @@
 | --- | --- |
 | Projekt | ECHO, Mobiler Roboter für den Wall-Sprint (TechPioneers) |
 | Dokument | `doku/aenderungsverlauf.md` |
-| Version | 0.3.0 |
-| Datum | 16.11.2026 |
+| Version | 0.4.0 |
+| Datum | 18.11.2026 |
 | Status | Entwurf |
 
 Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange es gedauert hat, welche Entscheidungen wir getroffen haben und was noch offen ist. Es ist die Grundlage für die Dokumentation des Projektverlaufs (Vorlage Kap. 7). Das persönliche Projekttagebuch führt jeder zusätzlich selbst und gibt es über Moodle ab.
@@ -34,6 +34,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 | 10.11. | Team | offen | 13 Aufgaben als Issues, Kanban und Zeitplan ergänzt | Organisation | GitHub-Issues, Miro-Board |
 | 11. bis 13.11. | Team | offen | Schalen-Podest in Creo | Konstruktion / Messung | `cad/skizzen/2026-11-11_podest_schnitt.png` |
 | 13.11. | Team | offen | Echo-Halterung, Elektronik verkabelt, CAD-Baugruppe teilweise, Fortschrittspräsentation KW 46 | Montage / Konstruktion / Präsentation | `fotos/2026-11-13_*` |
+| 17. bis 18.11. | J | offen | Haube V4: Entwurf, Befestigung, Anpassung an Quarz und echte Halterungen, fertige STEP für Creo, Druck vorbereitet | Konstruktion / Entscheidung / Fertigung | `cad/haube_v4/` |
 
 ## Einträge
 
@@ -155,6 +156,19 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Noch nicht in der Baugruppe: Haube, Akku mit Wanne, Bedienpult mit Wippschalter, Stoßfänger
 - Fortschrittspräsentation KW 46: Umbau, Kanban, GitHub, Echo-Halterung und Podest
 
+### KW 47
+
+**17. bis 18.11.2026: Haube V4**
+- Haubenentwürfe V1 bis V3 verworfen. V4 im Batmobil-/Panzer-Look: Echos mit Rohrblenden wie Waffen, Kotflügel mit Finnen, Heck nur als Anschlag für die Startwand
+- Entscheidung: Freiraum-Regel bei der Haube ignorieren, Dach darf nah ans Podest, über dem MDD3A einige cm Kabelraum
+- Entscheidung: Haube wird mit 7 × M3 × 16 durch die vorhandenen Plattenlöcher geschraubt, Mutter auf der anderen Seite, damit alles gerade sitzt
+- Problem: Der Quarz auf der HC-SR04-Platine stieß an die Rohrblende. Lösung: Blende von 10,6 auf 8,4 mm gekürzt
+- Problem: Die rechte Echo-Halterung stieß an den MDD3A und wurde 3,5 mm nach vorne versetzt. Die gedruckten Halterungen (`cad/stl/`) zeigen, dass auch die linke 1 mm anders sitzt. Lösung: Einschnitte links und rechts in der Haube einzeln angepasst, 0,5 mm Luft
+- Problem: Die STEP-Datei kam in Creo nur als Flächen an (zu kleine Kanten und Ungenauigkeiten für Creo). Lösung: Geometrie bereinigt, jetzt eine STEP-Baugruppe mit echten Volumenkörpern
+- Laut Prof darf die Haube von Claude kommen, sie muss aber in Creo funktionieren
+- Druck vorbereitet auf dem Bambu Lab X1E: ein Auftrag, Front und Heck stehen auf der Schnittkante, PLA, Baumstützen, Brim 8 mm
+- Dateien und Anleitung: `cad/haube_v4/README.md`, Maße und Gründe: `cad/grundplatte-v2-entscheidungen.md`
+
 ## Offene Punkte
 
 - Code am neuen Roboter testen, Faktor für die Geradeausfahrt neu bestimmen (Gewicht und Aufbau haben sich geändert)
@@ -162,6 +176,8 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Neue Pinbelegung mit drei Ultraschallsensoren in `elektronik/pinbelegung.md` eintragen
 - Probedruck für die M3-Löcher, danach Halter drucken
 - Akku-Wanne, Steckbrett-Halter und Taster mit größerem Kontaktpunkt modellieren
+- Haube drucken, Passung prüfen, `cad/haube_v4/Haube_V4.stp` in die Creo-Baugruppe einbauen
+- Schrauben für die Haube besorgen: 7 × M3 × 16, 7 Muttern M3, 11 Scheiben M3
 - Schaltplan, Programmablaufplan und Creo-Baugruppe fertig machen
 - Messen: Stößelspitze bis Plattenvorderkante, Spurweite, Motorlänge mit Encoder
 - Taster-Kabel: gewinkelte Steckhülsen oder Akku-Wanne verschieben
@@ -189,4 +205,5 @@ Bisher nur aus dem Tagebuch von J übernommen. Bitte jeder seine Zeiten ab KW 45
 | KW 44 | 26. bis 30.10. | ca. 7 h 10 min, ohne 29.10. vormittags und 30.10. |
 | KW 45 | 02. bis 06.11. | ca. 2 h 10 min erfasst, Rest offen |
 | KW 46 | 09. bis 13.11. | noch nicht erfasst |
+| KW 47 | 16. bis 20.11. | noch nicht erfasst |
 | Summe | | ca. 20 h 40 min erfasst |
