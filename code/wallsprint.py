@@ -30,7 +30,6 @@ EXP_ANTEIL = 0.15
 PAUSE_AN_WAND = 700             # ms
 BREMSEN_AB = 40                 # cm
 LANGSAM_AB = 15                 # cm
-WAND_CM = 11                    # cm
 BREMSEN_AB_ZURUECK = 40         # cm
 EXTRA_ZURUECK = 15              # cm
 MIN_ZEIT = 300                  # ms
@@ -131,19 +130,15 @@ def gefahren():
 
 start = 0
 beruehrt = False
-taster_an = True
 
 
-def wand_beruehrt(abstand):
+def wand_beruehrt():
     global beruehrt
     if beruehrt:
         return True
     if time.ticks_diff(time.ticks_ms(), start) < MIN_ZEIT:
         return False
-    if taster_an:
-        beruehrt = istTasteGedrueckt()
-    else:
-        beruehrt = abstand <= WAND_CM
+    beruehrt = istTasteGedrueckt()
     return beruehrt
 
 
@@ -169,8 +164,9 @@ def ausgabe(text, abstand, tempo):
 # Start
 fahren(0, 0)
 if istTasteGedrueckt():
-    taster_an = False
-    print("Taster schon gedrueckt, nur Echo")
+    print("FEHLER: Taster schon gedrueckt")
+    while True:
+        time.sleep(1)
 i = 0
 while i < 3:
     print("Echo:", round(messen(), 1))
@@ -183,7 +179,7 @@ start = time.ticks_ms()
 encoder_null()
 tempo = 0
 abstand = median(messen())
-while abstand > BREMSEN_AB and not wand_beruehrt(abstand):
+while abstand > BREMSEN_AB and not wand_beruehrt():
     pruefe_zeit()
     tempo = tempo + SCHRITT_HOCH
     if tempo > VMAX:
@@ -195,7 +191,7 @@ while abstand > BREMSEN_AB and not wand_beruehrt(abstand):
 gebremst = not beruehrt
 
 # Bremsen
-while not wand_beruehrt(abstand):
+while not wand_beruehrt():
     pruefe_zeit()
     if abstand > LANGSAM_AB:
         anteil = (abstand - LANGSAM_AB) / (BREMSEN_AB - LANGSAM_AB)
