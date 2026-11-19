@@ -31,7 +31,6 @@ PAUSE_AN_WAND = 700             # ms
 BREMSEN_AB = 40                 # cm
 LANGSAM_AB = 15                 # cm
 BREMSEN_AB_ZURUECK = 40         # cm
-EXTRA_ZURUECK = 15              # cm
 MIN_ZEIT = 300                  # ms
 STEHT_MS = 200
 GEDRUECKT = 1
@@ -146,6 +145,22 @@ def pruefe_zeit():
             time.sleep(1)
 
 
+letzte = 0
+letzte_bewegung = 0
+
+
+def raeder_stehen():
+    global letzte, letzte_bewegung
+    jetzt = impulse_links + impulse_rechts
+    if jetzt != letzte:
+        letzte = jetzt
+        letzte_bewegung = time.ticks_ms()
+        return False
+    if time.ticks_diff(time.ticks_ms(), letzte_bewegung) > STEHT_MS:
+        return True
+    return False
+
+
 takt = 0
 
 
@@ -233,21 +248,16 @@ while True:
     fahren(-tempo, -tempo)
     ausgabe("ZURUECK", rest, tempo)
     time.sleep_ms(TAKT)
+    if impulse_links + impulse_rechts > 20 and raeder_stehen():
+        break                   # schon an der Startwand
 fahren(0, 0)
 
 # Startwand
-ende = gefahren() + EXTRA_ZURUECK
-letzte = impulse_links + impulse_rechts
-letzte_bewegung = time.ticks_ms()
-while gefahren() < ende:
+while True:
     pruefe_zeit()
     fahren(-KRIECHEN, -KRIECHEN)
     time.sleep_ms(TAKT)
-    jetzt = impulse_links + impulse_rechts
-    if jetzt != letzte:
-        letzte = jetzt
-        letzte_bewegung = time.ticks_ms()
-    elif time.ticks_diff(time.ticks_ms(), letzte_bewegung) > STEHT_MS:
+    if raeder_stehen():
         print("Startwand erreicht")
         break
 fahren(0, 0)
