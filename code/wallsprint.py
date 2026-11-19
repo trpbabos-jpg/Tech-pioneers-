@@ -250,7 +250,6 @@ while True:
     time.sleep_ms(TAKT)
     if impulse_links + impulse_rechts > 20 and raeder_stehen():
         break                   # schon an der Startwand
-fahren(0, 0)
 
 # Startwand
 while True:
