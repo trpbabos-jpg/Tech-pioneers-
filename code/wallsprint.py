@@ -36,11 +36,7 @@ MIN_ZEIT = 300                  # ms
 STEHT_MS = 200
 GEDRUECKT = 1
 ENTPRELLZEIT = 30
-EINZELN_STOPPEN = True
 CM_PRO_IMPULS = 3.1416 * 8.0 / 224
-ZURUECK_ANTEIL = 1.3
-BREMSEN_ZURUECK_S = 1.3
-SUCHEN_S = 1.5
 TAKT = 50                       # ms
 MAX_FAHRZEIT = 60000            # ms
 
@@ -163,10 +159,6 @@ def ausgabe(text, abstand, tempo):
 
 # Start
 fahren(0, 0)
-if istTasteGedrueckt():
-    print("FEHLER: Taster schon gedrueckt")
-    while True:
-        time.sleep(1)
 i = 0
 while i < 3:
     print("Echo:", round(messen(), 1))
@@ -188,7 +180,6 @@ while abstand > BREMSEN_AB and not wand_beruehrt():
     ausgabe("HIN", abstand, tempo)
     time.sleep_ms(TAKT)
     abstand = median(messen())
-gebremst = not beruehrt
 
 # Bremsen
 while not wand_beruehrt():
@@ -212,61 +203,24 @@ fahren(0, 0)
 
 # Wand
 print("Wand, Abstand:", round(abstand, 1), "Tempo:", round(tempo, 1))
-if not gebremst:
-    print("FEHLER: nicht gebremst")
-if tempo > KRIECHEN + 1:
-    print("FEHLER: nicht im Kriechtempo")
-if abstand > LANGSAM_AB:
-    print("FEHLER: nicht kurz vor der Wand")
 zeit_hin = time.ticks_diff(time.ticks_ms(), start) / 1000
 strecke = gefahren()
-ziel_links = impulse_links
-ziel_rechts = impulse_rechts
 print("Zeit hin:", zeit_hin, "Strecke:", round(strecke, 1))
 print("diff hin:", impulse_links - impulse_rechts)
-encoder_ok = strecke > 20
-if not encoder_ok:
-    print("Encoder zaehlen nicht")
 time.sleep_ms(PAUSE_AN_WAND)
 
 # Zurueck
 encoder_null()
-t_zurueck = time.ticks_ms()
-dauer = zeit_hin * ZURUECK_ANTEIL
 tempo = 0
 while True:
     pruefe_zeit()
-    if encoder_ok:
-        rest_l = ziel_links - impulse_links
-        rest_r = ziel_rechts - impulse_rechts
-        if EINZELN_STOPPEN:
-            if rest_l <= 0 and rest_r <= 0:
-                break
-            rest = rest_l
-            if rest_r > rest:
-                rest = rest_r
-            rest = rest * CM_PRO_IMPULS
-        else:
-            rest = (rest_l + rest_r) / 2 * CM_PRO_IMPULS
-            if rest <= 0:
-                break
-            rest_l = 1
-            rest_r = 1
-        anteil = rest / BREMSEN_AB_ZURUECK
-        if anteil > 1:
-            anteil = 1
-        soll = KRIECHEN + (VMAX - KRIECHEN) * anteil
-    else:
-        rest_s = dauer - time.ticks_diff(time.ticks_ms(), t_zurueck) / 1000
-        if rest_s <= 0:
-            break
-        rest = 0
-        rest_l = 1
-        rest_r = 1
-        if rest_s < BREMSEN_ZURUECK_S:
-            soll = KRIECHEN
-        else:
-            soll = VMAX
+    rest = strecke - gefahren()
+    if rest <= 0:
+        break
+    anteil = rest / BREMSEN_AB_ZURUECK
+    if anteil > 1:
+        anteil = 1
+    soll = KRIECHEN + (VMAX - KRIECHEN) * anteil
     schritt = EXP_START + tempo * EXP_ANTEIL
     if schritt > SCHRITT_HOCH_ZURUECK:
         schritt = SCHRITT_HOCH_ZURUECK
@@ -276,37 +230,25 @@ while True:
         tempo = tempo - SCHRITT_RUNTER_ZURUECK
     else:
         tempo = soll
-    links = tempo
-    rechts = tempo
-    if rest_l <= 0:
-        links = 0               # links fertig
-    if rest_r <= 0:
-        rechts = 0              # rechts fertig
-    fahren(-links, -rechts)
+    fahren(-tempo, -tempo)
     ausgabe("ZURUECK", rest, tempo)
     time.sleep_ms(TAKT)
 fahren(0, 0)
-print("Zurueck L:", impulse_links, "von", ziel_links)
-print("Zurueck R:", impulse_rechts, "von", ziel_rechts)
 
 # Startwand
-if encoder_ok:
-    ende = gefahren() + EXTRA_ZURUECK
-    letzte = impulse_links + impulse_rechts
-    letzte_bewegung = time.ticks_ms()
-    while gefahren() < ende:
-        pruefe_zeit()
-        fahren(-KRIECHEN, -KRIECHEN)
-        time.sleep_ms(TAKT)
-        jetzt = impulse_links + impulse_rechts
-        if jetzt != letzte:
-            letzte = jetzt
-            letzte_bewegung = time.ticks_ms()
-        elif time.ticks_diff(time.ticks_ms(), letzte_bewegung) > STEHT_MS:
-            print("Startwand erreicht")
-            break
-else:
+ende = gefahren() + EXTRA_ZURUECK
+letzte = impulse_links + impulse_rechts
+letzte_bewegung = time.ticks_ms()
+while gefahren() < ende:
+    pruefe_zeit()
     fahren(-KRIECHEN, -KRIECHEN)
-    time.sleep(SUCHEN_S)
+    time.sleep_ms(TAKT)
+    jetzt = impulse_links + impulse_rechts
+    if jetzt != letzte:
+        letzte = jetzt
+        letzte_bewegung = time.ticks_ms()
+    elif time.ticks_diff(time.ticks_ms(), letzte_bewegung) > STEHT_MS:
+        print("Startwand erreicht")
+        break
 fahren(0, 0)
 print("Fertig nach s:", time.ticks_diff(time.ticks_ms(), start) / 1000)
