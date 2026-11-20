@@ -1,7 +1,7 @@
-# Grundplatte V2: Entscheidungen und Hauptmaße (Stand 18.11.2026)
+# Grundplatte V2: Entscheidungen und Hauptmaße (Stand 20.11.2026)
 
 Koordinaten: Ursprung = Mitte Radachse auf Plattenoberseite, x vorne, y links, z hoch. Plattenoberseite 25,5 mm über Boden.
-Maßgrundlage ist die Excel des Teams (`bom/Grundplatte_Masse_Gewicht_V2.xlsx`), die Teileliste vom 17.11. (Sensor-Aufsatz, Seitenhalter, Tasteraufsatz, Akku-Schienen-Rahmen) und die gedruckten Echo-Halterungen (`cad/stl/halterung-*-echo.stl`).
+Maßgrundlage ist die Excel des Teams (`bom/Grundplatte_Masse_Gewicht_V2.xlsx`), die Teileliste vom 17.11. (Sensor-Aufsatz, Seitenhalter, Tasteraufsatz, Akku-Schienen-Rahmen) die gedruckten Echo-Halterungen (`cad/stl/halterung-*-echo.stl`) und die Radmessung vom 20.11.
 Fertige Haube: `cad/haube_v4/`. Creo-Anleitungen als eigene Dokumente: „Creo-Anleitung Grundplatte V2“, „Creo-Anleitung Haube V4“ (28 Schritte plus Rohrblende) und „Creo-Anleitung Haube V1“ (überholt).
 
 ## Entscheidung
@@ -19,6 +19,8 @@ Fertige Haube: `cad/haube_v4/`. Creo-Anleitungen als eigene Dokumente: „Creo-A
 - 18.11.: Laut Prof muss die Haube nicht selbst modelliert werden, sie darf mit KI erstellt werden, muss aber in Creo funktionieren. Deshalb fertige STEP-Baugruppe `Haube_V4.stp` mit echten Volumenkörpern. Die ersten STEPs kamen in Creo nur als Flächen an (eine Kante mit 0,2 mm Toleranz, zwei 0,16-mm-Kanten; Creo rechnet bei dieser Teilgröße mit etwa 0,3 bis 0,4 mm Genauigkeit).
 - 18.11.: Grundplatte ist in echt 1:1 wie das Modell, die drei Echo-Halterungen sind 1:1 nach den STLs gedruckt. Danach linke Halterung und linker Einschnitt korrigiert, 0,3 mm Luft zur Plattenkante eingebaut.
 - 18.11.: Gedruckt wird in einem Auftrag auf dem Bambu Lab X1E: Front und Heck stehen auf ihrer Schnittkante, Rohrblenden flach.
+- 20.11.: Erster Druck am Roboter anprobiert: Die Flankenwand im Radkasten berührte die Motorwelle und fast den Reifen. Gemessen: Räder innen 179,47 auseinander, außen 197,93, Getriebe-Stirnseite 25,18 vor der Rad-Außenseite. Die Räder sitzen also bei y ±89,7 bis ±99,0, nicht bei ±97 bis ±107 wie in der Creo-Baugruppe. Lösung: Wand am Rad ganz weg, Radkasten bis zur Platte offen.
+- 20.11.: Neue Teilung bei x 58, damit der ganze Kotflügel in einem Teil ist. Heck = alles bis zur Kotflügel-Vorderkante, Front = Echo-Einschnitte und Nase. Folge: Das Podestloch ist geteilt, das Heck geht nur ab, wenn die Schale ab ist. Eine USB-Öffnung für den ESP32 ist nicht gewünscht.
 
 ## Freiraum (Regel 4)
 - Schalenrand 105 mm über Boden (Räder 80 + 20 + 5 Reserve). Freiraum gilt ab 85 mm, Kreis Ø262.
@@ -52,6 +54,11 @@ Fertige Haube: `cad/haube_v4/`. Creo-Anleitungen als eigene Dokumente: „Creo-A
 - Haube 7 × M3 in den vorhandenen Löchern: H1–H3 (−81 / 60, 0, −60), H4/H5 (130 / ±78), H6/H7 (162 / ±45). Keine neuen Löcher nötig.
 - M3 gezeichnet Ø3,2, M2 Ø2,2.
 
+## Antrieb (gemessen 20.11.)
+- Räder Ø80, ca. 9,2 breit, innen bei y ±89,7, außen bei ±99,0.
+- Getriebe-Stirnseite bei y ±73,8, dazwischen freie Welle bis zum Rad. Achse z 14,5.
+- In der Creo-Baugruppe sitzen die Räder zu weit außen (±97 bis ±107).
+
 ## Anbauteile
 - Echo-Halterungen (`cad/stl/halterung-l-echo.stl`, `-r-echo`, `-v-echo`; alle drei derselbe Körper, nur die Löcher verschieden): 52 lang, 17 tief, 26,5 hoch. Fuß 4 dick, Löcher Ø3,4 bei 8,5 von der Rückseite. Zwei Pfosten 8 breit an den Enden, Platinenschlitz 2,7 bis 5,95 hinter der Rückseite, entlang 3,3 bis 49,1 (Mitte 26,2), Schlitzboden 6 über dem Fuß-Boden. Niedrige Rückwand bis 7,5.
   - Rechts (Löcher 5,5 / 39,5 ab Ende): x 66,5 bis 118,5, 2 mm vor dem MDD3A. Kapselmitten x 79,7 und 105,7.
@@ -69,23 +76,26 @@ Fertige Haube: `cad/haube_v4/`. Creo-Anleitungen als eigene Dokumente: „Creo-A
 - An den Seitenechos ein unten offener Einschnitt, weil die Haube von oben über die waagerechten Kapseln gesetzt wird. Reihenfolge: Blenden auf die Kapseln, dann Haube drüber.
   - Links: Bögen R12,5 um x 76,8/102,8, Enden x 68,3 und 111,3, Fußschlitz x 62,5 bis 117,5.
   - Rechts: Bögen R12,5 um x 79,7/105,7, Enden x 71,2 und 114,2, Fußschlitz x 62,5 bis 120.
-- Kotflügel mit rundem Radlauf R46 um die Achse ab y 71 nach außen, 6 mm Luft zum Rad, hinten 10 mm dünne Finnen bis z 94. Unten offener Schlitz Ø8 für die Motorwelle.
+- Kotflügel mit rundem Radlauf R46 um die Achse ab y 71 nach außen, hinten 10 mm dünne Finnen bis z 94.
+- Radkasten (20.11.): Radlauf R46 bis zur Platte verlängert (unter der Achse senkrecht bei x ±46), ab |y| 71 offen. Keine Wand und kein Wellenschlitz mehr zwischen Rad und Motor. Reifen 6 mm zum Radlauf, Motor und Welle mindestens 19 mm.
 - Heck: Mittelteil (y ±40) bei x −89, Seiten bei x −86,3. Anschlag 76 breit, z 0 bis 24, bis x −93.
-- Dachloch Ø66 um das Podest, kleiner geht nicht wegen des Podestkopfs Ø62. Frontteil nur ohne Schale ab- und aufsetzen. Heckteil (ESP32, Steckbrett) geht einzeln ab.
+- Dachloch Ø66 um das Podest, kleiner geht nicht wegen des Podestkopfs Ø62.
+- Schalterschacht x 20 bis 60, y 45 bis 67 (bis über die Teilung, sonst bliebe ein 2-mm-Steg).
+- Teilung (20.11.) bei x 58, bündig mit der Kotflügel-Vorderkante. Heck: x −93 bis 58 mit ganzem Kotflügel, Radkasten, Schalterschacht und H1–H3. Front: x 58 bis 170 mit Echo-Einschnitten, Nase und H4–H7. Beide Teile nur bei abgenommener Schale ab- und aufsetzen.
 - Kabelraum: über MDD3A mindestens 27 mm frei, über den Motoren mindestens 19 mm, über dem Steckbrett mindestens 15 mm. Die Flanken-Stirnwand steht 0,5 mm vor dem MDD3A, Kabel dort nicht nach vorne herausführen.
 - Befestigung: 7 × M3 × 16 von unten durch die Platte, Scheibe unter dem Kopf.
   - H1, H2, H3 (Heckteil): Pfeiler mit Durchgangsloch Ø3,4 und seitlicher Mutterntasche (5,7 breit, 2,7 hoch, ab z 6, nach vorne offen). Mutter vor dem Aufsetzen einlegen (Klebeband), danach hält die Steckbrett-Wanne 1 mm davor sie fest.
   - H4, H5: Schraubfuß außen am Rumpf (x 124 bis 136, y 66 bis 84, 6 dick). Oben Scheibe und Mutter.
   - H6, H7: Fuß unter der Nase (x 149 bis 168, y 39 bis 51, 6 dick) an einer Stütze zum Nasendach. Oben Scheibe und Mutter, seitlich unter der Nase erreichbar.
   - Löcher nach dem Druck mit 3,5 mm aufbohren.
-  - Zum Code-Ändern H1–H3 lösen und nur das Heckteil abheben.
+  - Zum Code-Ändern Schale ab, H1–H3 lösen und das Heck abheben.
   - Einkauf: 7 Schrauben M3 × 16 (ISO 4762 oder 7380), 7 Muttern M3 (ISO 4032), 11 Scheiben M3 (ISO 7089).
-- Geprüft gegen alle Bauteile, Halterungen exakt nach den STLs: keine Überschneidung. Engste Stellen: Kapsel zu Rohrblende 0,2 mm (Klemmsitz), Rohrblende zu Haube 0,5 mm, Halterungen zur Haube 0,5 mm (vorne 2 mm), Schallkegel mindestens 0,57 mm (±15° ab Kapselspitze), Quarz zu Rohrblende 0,5 mm, MDD3A 0,5 mm, Steckbrett-Wanne 1,0 mm, Bedienpult 1,1 mm, Plattenkante 0,3 mm.
+- Geprüft gegen alle Bauteile, Halterungen exakt nach den STLs: keine Überschneidung. Engste Stellen: Kapsel zu Rohrblende 0,2 mm (Klemmsitz), Rohrblende zu Haube 0,5 mm, Halterungen zur Haube 0,5 mm (vorne 2 mm), Schallkegel mindestens 0,57 mm (±15° ab Kapselspitze), Quarz zu Rohrblende 0,5 mm, MDD3A 0,5 mm, Steckbrett-Wanne 1,0 mm, Bedienpult 1,1 mm, Plattenkante 0,3 mm, Reifen 6 mm (Räder nach Messung 20.11.).
 - Beide Teile lassen sich senkrecht von oben aufsetzen, nur die Schale muss vorher ab.
-- Zwei Druckteile, Teilung bei x −15: Heck 98,9 cm³ (123 g PLA), Front 118,4 cm³ (147 g), Rohrblende 3,96 cm³ (4,9 g). Mit Stützen zusammen ca. 350 g PLA.
-- Druck auf dem Bambu Lab X1E (Bett 256 × 256): flach passen Front und Heck nicht zusammen aufs Bett (263 mm). Deshalb in einem Auftrag beide auf der Schnittkante stehend, PLA Basic für Teile und Stützen, 0,20 mm, 15 % Füllung, Baumstützen nur auf Druckplatte, Brim 8 mm nur für Front und Heck. Löcher H4–H7 liegen dabei waagerecht, nach dem Druck aufbohren.
+- Zwei Druckteile (Stand 20.11.): Heck 141,8 cm³ (176 g PLA), Front 61,6 cm³ (76 g), Rohrblende 3,96 cm³ (4,9 g).
+- Druck auf dem Bambu Lab X1E (Bett 256 × 256): flach passen Front und Heck nicht zusammen aufs Bett (263 mm). Deshalb in einem Auftrag beide auf der Schnittfläche x 58 stehend (Heck 151 hoch, Front 112 hoch, die STL-Dateien liegen schon so), PLA Basic für Teile und Stützen, 0,20 mm, 15 % Füllung, Baumstützen nur auf Druckplatte, Brim 8 mm nur für Front und Heck. Löcher H4–H7 liegen dabei waagerecht, nach dem Druck aufbohren.
 - STEP-Baugruppe `cad/haube_v4/Haube_V4.stp` (AP214, mm): HAUBE_V4 mit HAUBE_HECK, HAUBE_FRONT und dreimal ROHRBLENDE. Koordinaten wie die Baugruppe (Creo X = x, Creo Y = z, Creo Z = −y), in `roboter_v2` mit Default platzieren. Jedes Teil ein geschlossener Volumenkörper, kürzeste Kante 0,78 mm.
-- Gegenüber der Creo-Anleitung geändert: Fase Schritt 5 ab y 77 statt 76, hintere Seitenteile Schritt 7 bei x −86,3 statt −86, Kotflügelspitze Schritt 8 bei x −80 statt −82, Radlauf Schritt 9 ab y 71 statt 70, Knick der Verjüngung Schritt 10 bei x 12 statt 16, Schnitt Schritt 13 an Seiten und hinten 0,3 größer, Schalterschacht Schritt 15 bis y 67 statt 66, Einschnitt links Schritt 18a neu.
+- Gegenüber der Creo-Anleitung geändert: Fase Schritt 5 ab y 77 statt 76, hintere Seitenteile Schritt 7 bei x −86,3 statt −86, Kotflügelspitze Schritt 8 bei x −80 statt −82, Radlauf Schritt 9 ab y 71 statt 70, Knick der Verjüngung Schritt 10 bei x 12 statt 16, Schnitt Schritt 13 an Seiten und hinten 0,3 größer, Schalterschacht Schritt 15 x 20 bis 60 und bis y 67, Wellenschlitz Schritt 17 ersetzt durch offenen Radkasten, Einschnitt links Schritt 18a neu, Teilung Schritt 26 bei x 58 statt −15.
 
 ## Haube V1 (17.11., überholt)
 - Kantiger Panzer-Look mit Schulterkästen, Turmöffnung Ø110, Heckschild 176 breit, 7 × M3 × 16 selbstschneidend in Kernloch Ø2,7. Vom Team abgelehnt, ersetzt durch V4.
@@ -93,16 +103,16 @@ Fertige Haube: `cad/haube_v4/`. Creo-Anleitungen als eigene Dokumente: „Creo-A
 ## Anordnung
 - Hinten quer: Steckbrett + ESP32 in Druckwanne (x −76 bis −21,1). Mitte: Motoren, Podest (x 40), links Bedienpult mit Wippschalter, rechts MDD3A.
 - Vorne: Kugelrolle, Sensor-Aufsatz auf dem Stoßschalter, Tasteraufsatz. Akku darunter im Schienen-Rahmen.
-- Räder laut Creo-Baugruppe innen bei etwa y ±97.
+- Räder innen bei y ±89,7 (gemessen 20.11.).
 
 ## Rechenwerte
-- Masse ca. 850 g ohne Haube, Schwerpunkt x 41, y 0, 37 mm über Boden (Stand vor dem Umzug des Akkus nach unten). Mit Haube V4 und Blenden ca. 1135 g.
+- Masse ca. 850 g ohne Haube, Schwerpunkt x 41, y 0, 37 mm über Boden (Stand vor dem Umzug des Akkus nach unten). Mit Haube V4 und Blenden ca. 1115 g.
 - Ball: Startwert a_max 0,3 m/s², Rampe 0,3 s, Kriechen 0,05 m/s an der Endwand, Pause 1 s. Nach Kipptest ggf. bis 0,8.
 - Akkupack 17,5 mm hoch (gemessen 13.11.).
 
 ## Offen
-- Haube drucken, Passung an Platte, Halterungen und Blenden prüfen.
-- `Haube_V4.stp` in die Creo-Baugruppe einbauen, PLA zuweisen, Masse kontrollieren.
+- Haube mit Teilung x 58 und offenem Radkasten drucken und am Roboter prüfen.
+- Räder in der Creo-Baugruppe auf die Messung setzen (innen ±89,7), dann `Haube_V4.stp` einbauen, PLA zuweisen.
 - Schalenrand über Boden messen: Dupont-Stecker am Frontsensor reichen bis ca. 85 mm, Rand muss mindestens 106 mm hoch sein.
-- Spurweite, Motorlänge mit Encoder.
+- Motorlänge mit Encoder.
 - Beim Veranstalter: Podest-Lesart, Wippschalter als Start.
