@@ -25,9 +25,9 @@ Mit einer Simulation wurden die Fahrwerte für `code/wallsprint_schnell.py` (Wal
 | alter Code (wallsprint.py) | 8,4 s | 18° | 33 / 24 cm/s |
 | schnell (Motoren 0,12 s) | 7,2 s | 12° | 12 / 13 cm/s |
 | schnell (Motoren 0,25 s) | 7,0 s | 16° | 26 / 25 cm/s |
-| Abnahme | hält ca. 4 bis 6 cm vor der Wand | 6° (fast nur vom Anfahren/Anhalten bei Mindesttempo) | kein Stoß |
+| Abnahme (ganzer Durchgang, langsam) | 13,4 s | 6 bis 7,5° | 11 bis 13 / 11 bis 13 cm/s |
 
 Werte schnell: V_MAX 75 cm/s, A_HOCH 150 cm/s², A_BREMSEN 100 cm/s², RUCK 800 cm/s³, VORHALT 0,3 s, STOPP_ABSTAND 11 cm, V_WAND 12 cm/s.
-Werte Abnahme: V_MAX 45 cm/s, A_HOCH 40 cm/s², A_BREMSEN 30 cm/s², RUCK 100 cm/s³, STOPP_ABSTAND 15 cm.
+Werte Abnahme: V_MAX 40 cm/s, A_HOCH 30 cm/s², A_BREMSEN 25 cm/s², RUCK 80 cm/s³, STOPP_ABSTAND 14 cm, V_WAND 10 cm/s, Pause an der Wand 1 s. Seitlich höchstens 4 cm, auch bei 4 % Unterschied zwischen den Rädern.
 
 V_MAX bleibt bei 75 cm/s, damit der linke Motor (FAKTOR_LINKS 1,04) noch Luft zum Gegenlenken hat.

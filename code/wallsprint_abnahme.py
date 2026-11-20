@@ -1,4 +1,4 @@
-# Abnahme Team Batman, elegant
+# Abnahme Team Batman, sicher
 from machine import Pin, PWM, time_pulse_us
 import time
 
@@ -18,18 +18,18 @@ enc_links = Pin(13, Pin.IN, Pin.PULL_UP)     # Encoder links
 enc_rechts = Pin(39, Pin.IN)                 # Encoder rechts, 10 kOhm
 
 # Fahren
-AN_DIE_WAND = False              # True: Wall-Sprint, False: vor der Wand halten
-V_MAX = 45                      # cm/s
+AN_DIE_WAND = True               # True: Wall-Sprint, False: vor der Wand halten
+V_MAX = 40                      # cm/s
 V_WAND = 10                     # cm/s, langsamstes Tempo
-A_HOCH = 40                    # cm/s2
-A_BREMSEN = 30                 # cm/s2
-RUCK = 100                      # cm/s3
-STOPP_ABSTAND = 15              # cm Echo
+A_HOCH = 30                    # cm/s2
+A_BREMSEN = 25                 # cm/s2
+RUCK = 80                       # cm/s3
+STOPP_ABSTAND = 14              # cm Echo
 VORHALT = 0.3                   # s
-PAUSE_AN_WAND = 1500             # ms
-V_MAX_ZURUECK = 45              # cm/s
-A_HOCH_ZURUECK = 40            # cm/s2
-A_BREMSEN_ZURUECK = 30         # cm/s2
+PAUSE_AN_WAND = 1000             # ms
+V_MAX_ZURUECK = 40              # cm/s
+A_HOCH_ZURUECK = 30            # cm/s2
+A_BREMSEN_ZURUECK = 25         # cm/s2
 
 # Motoren
 DREHEN_LINKS = 1                # Drehrichtung
