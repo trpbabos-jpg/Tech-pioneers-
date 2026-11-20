@@ -24,6 +24,23 @@ Neu verkabelt, damit sich auf dem festen Steckbrett keine Kabel mehr kreuzen.
 
 Frei bleiben die Startpins 0, 2, 12 und 15. Reserviert für einen zweiten HC-SR04: Trig 21, Echo 34. Die LED ist nicht mehr verbaut.
 
+## Stand 20.11.2026: Steckplan V2 (drei HC-SR04)
+
+Interaktiver Plan: `elektronik/steckplan_v2.html`. Code: `code/wallsprint.py`, `code/boot.py`.
+
+| Bauteil | Anschluss | GPIO |
+| --- | --- | --- |
+| MDD3A Motor 1 (rechts) | M1A / M1B | 33 / 32 |
+| MDD3A Motor 2 (links) | M2A / M2B | 26 / 25 |
+| HC-SR04 vorne | Trig / Echo | 14 / 12 |
+| HC-SR04 links | Trig / Echo | 2 / 4 |
+| HC-SR04 rechts | Trig / Echo | 21 / 36 (VP) |
+| Stoßschalter | | 27 (Pull-up) |
+| Encoder links | Spur A | 13 (Pull-up) |
+| Encoder rechts | Spur A | 39 (VN), 10 kΩ nach 3V3 |
+
+Echos jeweils über 1 kΩ / 2,2 kΩ. GPIO12 muss beim Booten LOW sein, das macht der 2,2 kΩ nach GND.
+
 ## Änderung 17.11.2026
 
 | Bauteil | Anschluss | vorher | jetzt |
