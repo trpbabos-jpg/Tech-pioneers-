@@ -36,6 +36,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 | 13.11. | Team | offen | Echo-Halterung, Elektronik verkabelt, CAD-Baugruppe teilweise, Fortschrittspräsentation KW 46 | Montage / Konstruktion / Präsentation | `fotos/2026-11-13_*` |
 | 17. bis 18.11. | J | offen | Haube V4: Entwurf, Befestigung, Anpassung an Quarz und echte Halterungen, fertige STEP für Creo, Druck vorbereitet | Konstruktion / Entscheidung / Fertigung | `cad/haube_v4/` |
 | KW 47, bis 20.11. | Team | offen | Projektkarte, Dokumentation des Projektverlaufs (Entwurf), Marketing: Comic-Cover und Comic-Strip | Dokumentation / Marketing | `doku/ECHO-Projektkarte.pdf`, `doku/ECHO-Projektverlauf.pdf`, `doku/marketing/` |
+| 20.11. | J | offen | Haube gedruckt und anprobiert, Räder gemessen, Haube geändert: Radkasten offen, Teilung bei x 58 | Fertigung / Messung / Konstruktion | `cad/haube_v4/` |
 
 ## Einträge
 
@@ -175,6 +176,13 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Dokumentation des Projektverlaufs nach der Vorlage aus Kap. 7 als Entwurf (`doku/ECHO-Projektverlauf.docx`, zum Lesen als PDF daneben): Projektphasen, Teilergebnisse, Herausforderungen, Reflexion. Offen: Tests am Aufbau v2, Ergebnis von Abnahme und Abschlusspräsentation
 - Marketing im eigenen Comic-Look: Cover „ECHO Nr. 1, der Roboter, der die Wand hört“ (A3 hoch) und Comic-Strip „ECHO und die Wand“ in 6 Bildern (A3 quer), in `doku/marketing/`. Offen: Ø-Tempo auf dem Cover, Uhrzeit und Raum der Live-Demo auf dem Strip
 
+**20.11.2026: Haube anprobiert und geändert**
+- Haube auf dem Bambu Lab X1E in einem Auftrag gedruckt und auf den Roboter gesetzt. Über den Rädern sitzt sie gut
+- Problem: Die Wand im Radkasten berührte die Motorwelle und fast den Reifen. Gemessen: Räder innen 179,47 mm auseinander, außen 197,93 mm, Getriebe-Stirnseite 25,18 mm vor der Rad-Außenseite. Die Räder sitzen 7 mm weiter innen als in der Creo-Baugruppe
+- Lösung: Wand am Rad ganz weg, Radkasten bis zur Platte offen. Reifen jetzt 6 mm zum Radlauf, Motor und Welle mindestens 19 mm
+- Entscheidung: Teilung von x −15 auf x 58 verlegt, damit der ganze Kotflügel in einem Teil ist. Das Heck geht dafür nur noch ab, wenn die Schale ab ist. Keine USB-Öffnung für den ESP32
+- Neue Dateien in `cad/haube_v4/`, Rohrblenden unverändert
+
 ## Offene Punkte
 
 - Code am neuen Roboter testen, Faktor für die Geradeausfahrt neu bestimmen (Gewicht und Aufbau haben sich geändert)
@@ -182,10 +190,11 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Neue Pinbelegung mit drei Ultraschallsensoren in `elektronik/pinbelegung.md` eintragen
 - Probedruck für die M3-Löcher, danach Halter drucken
 - Akku-Wanne, Steckbrett-Halter und Taster mit größerem Kontaktpunkt modellieren
-- Haube drucken, Passung prüfen, `cad/haube_v4/Haube_V4.stp` in die Creo-Baugruppe einbauen
+- Haube mit Teilung x 58 neu drucken und am Roboter prüfen
+- Räder in der Creo-Baugruppe auf die Messung setzen (innen ±89,7 mm), dann `cad/haube_v4/Haube_V4.stp` einbauen
 - Schrauben für die Haube besorgen: 7 × M3 × 16, 7 Muttern M3, 11 Scheiben M3
 - Schaltplan, Programmablaufplan und Creo-Baugruppe fertig machen
-- Messen: Stößelspitze bis Plattenvorderkante, Spurweite, Motorlänge mit Encoder
+- Messen: Stößelspitze bis Plattenvorderkante, Motorlänge mit Encoder (Räder am 20.11. gemessen)
 - Taster-Kabel: gewinkelte Steckhülsen oder Akku-Wanne verschieben
 - Geschwindigkeit auf 200 cm messen (3 Mal)
 - Beim Veranstalter klären: Podest unter der Schale, Wippschalter als Start, Sensoren an Start- und Endwand
