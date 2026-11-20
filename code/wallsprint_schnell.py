@@ -26,10 +26,11 @@ A_BREMSEN = 100                 # cm/s2
 RUCK = 800                      # cm/s3
 STOPP_ABSTAND = 11              # cm Echo
 VORHALT = 0.3                   # s
-PAUSE_AN_WAND = 500             # ms
+PAUSE_AN_WAND = 200             # ms
 V_MAX_ZURUECK = 75              # cm/s
 A_HOCH_ZURUECK = 150            # cm/s2
 A_BREMSEN_ZURUECK = 100         # cm/s2
+RUCK_ZURUECK = 210              # cm/s3
 
 # Motoren
 DREHEN_LINKS = 1                # Drehrichtung
@@ -235,6 +236,7 @@ def raeder_stehen():
 
 v = 0
 a = 0
+ruck = RUCK
 letzte_zeit = 0
 v_ist = 0
 mess_impulse = 0
@@ -264,7 +266,7 @@ def neues_tempo(v_ziel, v_max, a_hoch, a_bremsen):
     if v_ziel > v_max:
         v_ziel = v_max
     if v_ziel > v:
-        a = a + RUCK * dt
+        a = a + ruck * dt
         if a > a_hoch:
             a = a_hoch
         v = v + a * dt
@@ -350,6 +352,7 @@ time.sleep_ms(PAUSE_AN_WAND)
 encoder_null()
 v = 0
 a = 0
+ruck = RUCK_ZURUECK
 letzte_zeit = time.ticks_ms()
 mess_impulse = 0
 mess_zeit = letzte_zeit
