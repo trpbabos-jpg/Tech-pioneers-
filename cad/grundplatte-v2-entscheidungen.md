@@ -2,7 +2,7 @@
 
 Koordinaten: Ursprung = Mitte Radachse auf Plattenoberseite, x vorne, y links, z hoch. Plattenoberseite 25,5 mm über Boden.
 Maßgrundlage ist die Excel des Teams (`bom/Grundplatte_Masse_Gewicht_V2.xlsx`), die Teileliste vom 17.11. (Sensor-Aufsatz, Seitenhalter, Tasteraufsatz, Akku-Schienen-Rahmen) und die gedruckten Echo-Halterungen (`cad/stl/halterung-*-echo.stl`).
-Fertige Haube: `cad/haube_v4/`. Creo-Anleitungen als Claude-Docs: „Creo-Anleitung Grundplatte V2“, „Creo-Anleitung Haube V4“ (28 Schritte plus Rohrblende) und „Creo-Anleitung Haube V1“ (überholt).
+Fertige Haube: `cad/haube_v4/`. Creo-Anleitungen als eigene Dokumente: „Creo-Anleitung Grundplatte V2“, „Creo-Anleitung Haube V4“ (28 Schritte plus Rohrblende) und „Creo-Anleitung Haube V1“ (überholt).
 
 ## Entscheidung
 - Variante B „Turm“: Schale auf gedrucktem Podest über dem Schwerpunkt, alles andere flach darunter.
@@ -16,7 +16,7 @@ Fertige Haube: `cad/haube_v4/`. Creo-Anleitungen als Claude-Docs: „Creo-Anleit
 - 18.11.: Haube V4 vom Team freigegeben.
 - 18.11.: Rohrblende von 10,6 auf 8,4 mm Tiefe gekürzt. Grund: Der Quarz (silbern, HC-49/S) auf der Vorderseite der HC-SR04-Platine steht 3,4 mm hoch, die Blende stieß dagegen.
 - 18.11.: Rechte Echo-Halterung um 3,5 mm nach vorne verschoben, weil sie gegen den MDD3A stieß. Haube: Echo-Einschnitt rechts mit eigener Skizze statt gespiegelt.
-- 18.11.: Laut Prof muss die Haube nicht selbst modelliert werden, sie darf von Claude kommen, muss aber in Creo funktionieren. Deshalb fertige STEP-Baugruppe `Haube_V4.stp` mit echten Volumenkörpern. Die ersten STEPs kamen in Creo nur als Flächen an (eine Kante mit 0,2 mm Toleranz, zwei 0,16-mm-Kanten; Creo rechnet bei dieser Teilgröße mit etwa 0,3 bis 0,4 mm Genauigkeit).
+- 18.11.: Laut Prof muss die Haube nicht selbst modelliert werden, sie darf mit KI erstellt werden, muss aber in Creo funktionieren. Deshalb fertige STEP-Baugruppe `Haube_V4.stp` mit echten Volumenkörpern. Die ersten STEPs kamen in Creo nur als Flächen an (eine Kante mit 0,2 mm Toleranz, zwei 0,16-mm-Kanten; Creo rechnet bei dieser Teilgröße mit etwa 0,3 bis 0,4 mm Genauigkeit).
 - 18.11.: Grundplatte ist in echt 1:1 wie das Modell, die drei Echo-Halterungen sind 1:1 nach den STLs gedruckt. Danach linke Halterung und linker Einschnitt korrigiert, 0,3 mm Luft zur Plattenkante eingebaut.
 - 18.11.: Gedruckt wird in einem Auftrag auf dem Bambu Lab X1E: Front und Heck stehen auf ihrer Schnittkante, Rohrblenden flach.
 
