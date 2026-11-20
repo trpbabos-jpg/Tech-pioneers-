@@ -35,6 +35,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 | 11. bis 13.11. | Team | offen | Schalen-Podest in Creo | Konstruktion / Messung | `cad/skizzen/2026-11-11_podest_schnitt.png` |
 | 13.11. | Team | offen | Echo-Halterung, Elektronik verkabelt, CAD-Baugruppe teilweise, Fortschrittspräsentation KW 46 | Montage / Konstruktion / Präsentation | `fotos/2026-11-13_*` |
 | 17. bis 18.11. | J | offen | Haube V4: Entwurf, Befestigung, Anpassung an Quarz und echte Halterungen, fertige STEP für Creo, Druck vorbereitet | Konstruktion / Entscheidung / Fertigung | `cad/haube_v4/` |
+| KW 47, bis 20.11. | Team | offen | Projektkarte, Dokumentation des Projektverlaufs (Entwurf), Marketing: Comic-Cover und Comic-Strip | Dokumentation / Marketing | `doku/ECHO-Projektkarte.pdf`, `doku/ECHO-Projektverlauf.pdf`, `doku/marketing/` |
 
 ## Einträge
 
@@ -165,9 +166,14 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Problem: Der Quarz auf der HC-SR04-Platine stieß an die Rohrblende. Lösung: Blende von 10,6 auf 8,4 mm gekürzt
 - Problem: Die rechte Echo-Halterung stieß an den MDD3A und wurde 3,5 mm nach vorne versetzt. Die gedruckten Halterungen (`cad/stl/`) zeigen, dass auch die linke 1 mm anders sitzt. Lösung: Einschnitte links und rechts in der Haube einzeln angepasst, 0,5 mm Luft
 - Problem: Die STEP-Datei kam in Creo nur als Flächen an (zu kleine Kanten und Ungenauigkeiten für Creo). Lösung: Geometrie bereinigt, jetzt eine STEP-Baugruppe mit echten Volumenkörpern
-- Laut Prof darf die Haube von Claude kommen, sie muss aber in Creo funktionieren
+- Laut Prof darf die Haube mit KI erstellt werden, sie muss aber in Creo funktionieren
 - Druck vorbereitet auf dem Bambu Lab X1E: ein Auftrag, Front und Heck stehen auf der Schnittkante, PLA, Baumstützen, Brim 8 mm
 - Dateien und Anleitung: `cad/haube_v4/README.md`, Maße und Gründe: `cad/grundplatte-v2-entscheidungen.md`
+
+**KW 47, bis 20.11.2026: Projektkarte, Projektverlauf, Marketing**
+- Projektkarte mit Beschreibung, Inbetriebnahme, Erste Hilfe und Aufbau erstellt (`doku/ECHO-Projektkarte.pdf`). Offen: Foto des fertigen Roboters, Ablauf nach den letzten Tests prüfen, Rohrblenden nach dem Druck prüfen
+- Dokumentation des Projektverlaufs nach der Vorlage aus Kap. 7 als Entwurf (`doku/ECHO-Projektverlauf.docx`, zum Lesen als PDF daneben): Projektphasen, Teilergebnisse, Herausforderungen, Reflexion. Offen: Tests am Aufbau v2, Ergebnis von Abnahme und Abschlusspräsentation
+- Marketing im eigenen Comic-Look: Cover „ECHO Nr. 1, der Roboter, der die Wand hört“ (A3 hoch) und Comic-Strip „ECHO und die Wand“ in 6 Bildern (A3 quer), in `doku/marketing/`. Offen: Ø-Tempo auf dem Cover, Uhrzeit und Raum der Live-Demo auf dem Strip
 
 ## Offene Punkte
 
@@ -183,6 +189,9 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Taster-Kabel: gewinkelte Steckhülsen oder Akku-Wanne verschieben
 - Geschwindigkeit auf 200 cm messen (3 Mal)
 - Beim Veranstalter klären: Podest unter der Schale, Wippschalter als Start, Sensoren an Start- und Endwand
+- Projektkarte: Foto einfügen, Ablauf und Haube nach den Tests prüfen
+- Projektverlauf: Tests am Aufbau v2 und Ergebnis der Abnahme ergänzen
+- Comic: gemessenes Ø-Tempo auf dem Cover, Uhrzeit und Raum auf dem Strip eintragen
 - Fehlende Zeiten und Kürzel in der Übersicht nachtragen
 
 ## Wiedervorlagen

@@ -8,10 +8,10 @@ Ein kleiner, radgetriebener Roboter mit ESP32, der 200 cm geradeaus auf eine Wan
 
 | Kürzel | Name |
 | --- | --- |
-| J | |
-| K | |
-| F | |
-| A | |
+| J | Jaskarnvir Singh |
+| K | Kevin Rundt |
+| F | Felix Schurwanz |
+| A | Arda Dogan |
 
 Planung (Kanban, Zeitplan, Regeln): Miro-Board unter der Mind Map
 https://miro.com/app/board/uXjVEZ6PCT0=/

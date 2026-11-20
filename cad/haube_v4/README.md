@@ -1,6 +1,6 @@
 # Haube V4 (Stand 18.11.2026)
 
-Fertige Haube für ECHO: Batmobil-/Panzer-Look, die Echos schauen wie Waffen aus der Haube. Die Haube darf laut Prof von Claude kommen, muss aber in Creo funktionieren. Deshalb gibt es sie als STEP-Baugruppe mit echten Volumenkörpern.
+Fertige Haube für ECHO: Batmobil-/Panzer-Look, die Echos schauen wie Waffen aus der Haube. Die Haube darf laut Prof mit KI erstellt werden, muss aber in Creo funktionieren. Deshalb gibt es sie als STEP-Baugruppe mit echten Volumenkörpern.
 
 | Datei | Wofür |
 | --- | --- |
@@ -49,4 +49,4 @@ Mit allen Bauteilen der Baugruppe und den echten Halterungen (`../stl/halterung-
 - beide Teile lassen sich senkrecht von oben aufsetzen, nur die Schale muss vorher ab
 - STEP: jedes Teil ein geschlossener Körper, Toleranz 1e-7 mm, kürzeste Kante 0,78 mm (Creo braucht hier über ca. 0,4 mm, sonst kommen nur Flächen an)
 
-Herleitung, Maße und Entscheidungen: `../grundplatte-v2-entscheidungen.md`. Die Schritt-für-Schritt-Anleitung zum Nachbauen in Creo liegt als Claude-Doc „Creo-Anleitung Haube V4“ vor, die Abweichungen der fertigen Datei stehen dort oben.
+Herleitung, Maße und Entscheidungen: `../grundplatte-v2-entscheidungen.md`. Die Schritt-für-Schritt-Anleitung zum Nachbauen in Creo liegt als eigenes Dokument „Creo-Anleitung Haube V4“ vor, die Abweichungen der fertigen Datei stehen dort oben.
