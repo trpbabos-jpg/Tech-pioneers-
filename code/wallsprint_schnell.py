@@ -18,19 +18,15 @@ enc_links = Pin(13, Pin.IN, Pin.PULL_UP)     # Encoder links
 enc_rechts = Pin(39, Pin.IN)                 # Encoder rechts, 10 kOhm
 
 # Fahren
-AN_DIE_WAND = True              # True: Wall-Sprint, False: vor der Wand halten
 V_MAX = 75                      # cm/s
-V_WAND = 12                     # cm/s, langsamstes Tempo
+V_WAND = 12                     # cm/s, an der Wand
 A_HOCH = 150                    # cm/s2
 A_BREMSEN = 100                 # cm/s2
 RUCK = 800                      # cm/s3
+RUCK_ZURUECK = 210              # cm/s3
 STOPP_ABSTAND = 11              # cm Echo
 VORHALT = 0.3                   # s
 PAUSE_AN_WAND = 200             # ms
-V_MAX_ZURUECK = 75              # cm/s
-A_HOCH_ZURUECK = 150            # cm/s2
-A_BREMSEN_ZURUECK = 100         # cm/s2
-RUCK_ZURUECK = 210              # cm/s3
 
 # Motoren
 DREHEN_LINKS = 1                # Drehrichtung
@@ -41,22 +37,20 @@ FAKTOR_LINKS_ZURUECK = 1.07
 CM_S_BEI_0 = 10                 # cm/s
 CM_S_PRO_PROZENT = 0.75
 
-# Sonstiges
-MIN_ZEIT = 300                  # ms
-STEHT_MS = 200
-GEDRUECKT = 1
-ENTPRELLZEIT = 30
-CM_PRO_IMPULS = 3.1416 * 8.0 / 224
-TAKT = 40                       # ms
-MAX_FAHRZEIT = 60000            # ms
-
 # Seitensensoren
 SEITEN_LENKEN = True            # Mitte halten
 K_MITTE = 1.0                   # % pro cm Versatz
 K_DAEMPFUNG = 5                 # % pro cm Aenderung
 KORREKTUR_MAX = 4               # %
 SEITE_MAX = 40                  # cm
-SEITE_WARTEN = 5000             # us
+
+# Sonstiges
+MIN_ZEIT = 300                  # ms
+STEHT_MS = 200                  # ms
+ENTPRELLZEIT = 30               # ms
+CM_PRO_IMPULS = 3.1416 * 8.0 / 224
+TAKT = 40                       # ms
+MAX_FAHRZEIT = 60000            # ms
 
 
 def motor(a, b, prozent):
@@ -131,8 +125,8 @@ seiten_ok = False
 
 def seiten_messen():
     global abstand_l, abstand_r, versatz, aenderung, seiten_ok
-    abstand_l = median(werte_links, messen(trig_links, echo_links, SEITE_WARTEN))
-    abstand_r = median(werte_rechts, messen(trig_rechts, echo_rechts, SEITE_WARTEN))
+    abstand_l = median(werte_links, messen(trig_links, echo_links, 5000))
+    abstand_r = median(werte_rechts, messen(trig_rechts, echo_rechts, 5000))
     vorher_ok = seiten_ok
     seiten_ok = abstand_l < SEITE_MAX and abstand_r < SEITE_MAX
     if seiten_ok:
@@ -159,11 +153,11 @@ def lenken(p):
 
 def istTasteGedrueckt():
     jetzt = taster.value()
-    if jetzt != GEDRUECKT:
+    if jetzt != 1:
         return False
     time.sleep_ms(ENTPRELLZEIT)     # Prellen abwarten
     jetzt = taster.value()
-    if jetzt == GEDRUECKT:
+    if jetzt == 1:
         return True
     return False
 
@@ -255,37 +249,36 @@ def ist_messen():
         mess_zeit = jetzt
 
 
-def neues_tempo(v_ziel, v_max, a_hoch, a_bremsen):
-    # sanft schneller (Ruck begrenzt), bremsen hoechstens a_bremsen
+def neues_tempo(v_ziel):
+    # sanft schneller (Ruck begrenzt), bremsen hoechstens A_BREMSEN
     global v, a, letzte_zeit
     jetzt = time.ticks_ms()
     dt = time.ticks_diff(jetzt, letzte_zeit) / 1000
     letzte_zeit = jetzt
     if dt > 0.2:
         dt = 0.2
-    if v_ziel > v_max:
-        v_ziel = v_max
+    if v_ziel > V_MAX:
+        v_ziel = V_MAX
     if v_ziel > v:
         a = a + ruck * dt
-        if a > a_hoch:
-            a = a_hoch
+        if a > A_HOCH:
+            a = A_HOCH
         v = v + a * dt
         if v > v_ziel:
             v = v_ziel
     else:
         a = 0
-        v_neu = v - a_bremsen * 1.3 * dt
+        v_neu = v - A_BREMSEN * 1.3 * dt
         if v_ziel > v_neu:
             v_neu = v_ziel
         v = v_neu
-    return v
 
 
-def bremsweg_tempo(rest, v_ende, a_bremsen):
-    # so schnell, dass er mit a_bremsen bis rest auf v_ende kommt
+def bremsweg_tempo(rest):
+    # so schnell, dass er mit A_BREMSEN bis rest auf V_WAND kommt
     if rest <= 0:
-        return v_ende
-    return (v_ende * v_ende + 2 * a_bremsen * rest) ** 0.5
+        return V_WAND
+    return (V_WAND * V_WAND + 2 * A_BREMSEN * rest) ** 0.5
 
 
 takt = 0
@@ -317,19 +310,11 @@ letzte_zeit = start
 encoder_null()
 mess_impulse = 0
 mess_zeit = start
-v_ende = V_WAND
-if not AN_DIE_WAND:
-    v_ende = 0
 abstand = abstand_vorne()
 while not wand_beruehrt():
     pruefe_zeit()
     rest = abstand - v * VORHALT - STOPP_ABSTAND
-    if not AN_DIE_WAND and rest <= 0:
-        break
-    v_ziel = bremsweg_tempo(rest, v_ende, A_BREMSEN)
-    if v_ziel < V_WAND:
-        v_ziel = V_WAND
-    neues_tempo(v_ziel, V_MAX, A_HOCH, A_BREMSEN)
+    neues_tempo(bremsweg_tempo(rest))
     seiten_messen()
     p = prozent(v)
     korrektur = lenken(p)
@@ -361,10 +346,7 @@ while True:
     rest = strecke - gefahren() - v * VORHALT
     if rest <= 0:
         break
-    v_ziel = bremsweg_tempo(rest, v_ende, A_BREMSEN_ZURUECK)
-    if v_ziel < V_WAND:
-        v_ziel = V_WAND
-    neues_tempo(v_ziel, V_MAX_ZURUECK, A_HOCH_ZURUECK, A_BREMSEN_ZURUECK)
+    neues_tempo(bremsweg_tempo(rest))
     seiten_messen()
     p = prozent(v)
     korrektur = lenken(p)
@@ -376,15 +358,14 @@ while True:
         break                   # schon an der Startwand
 
 # Startwand
-if AN_DIE_WAND:
-    p = prozent(V_WAND)
-    while True:
-        pruefe_zeit()
-        fahren(-p, -p)
-        time.sleep_ms(TAKT)
-        if raeder_stehen():
-            print("Startwand erreicht")
-            break
+p = prozent(V_WAND)
+while True:
+    pruefe_zeit()
+    fahren(-p, -p)
+    time.sleep_ms(TAKT)
+    if raeder_stehen():
+        print("Startwand erreicht")
+        break
 fahren(0, 0)
 print("versatz Ende:", round(versatz, 1))
 print("Fertig nach s:", time.ticks_diff(time.ticks_ms(), start) / 1000)
