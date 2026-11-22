@@ -24,13 +24,40 @@ Neu verkabelt, damit sich auf dem festen Steckbrett keine Kabel mehr kreuzen.
 
 Frei bleiben die Startpins 0, 2, 12 und 15. Reserviert für einen zweiten HC-SR04: Trig 21, Echo 34. Die LED ist nicht mehr verbaut.
 
+## Stand 21.11.2026: Plan mit drei Ultraschallsensoren (noch nicht umgesteckt)
+
+Steckplan: `steckbrett_v2.png` (Quelle `steckbrett_v2.svg`). Der ESP32 steckt in Spalte 25 bis 42, USB links. Alle Widerstände sitzen auf dem Steckbrett, an Sensoren und Motoren hängen keine mehr. Auf dem Steckbrett kreuzen sich keine Kabel, die Motorkabel liegen am ESP32 in derselben Reihenfolge wie am MDD3A.
+
+| Bauteil | Anschluss | ESP32 oder Ziel |
+| --- | --- | --- |
+| HC-SR04 links | Trig / Echo | GPIO2 / GPIO4 über Teiler: 1 kΩ 14d–18d, 2,2 kΩ 18a nach GND, Brücke 18b–29b |
+| HC-SR04 vorne | Trig / Echo | GPIO15 / GPIO39 (VN) über Teiler: 1 kΩ 53d–57d, 2,2 kΩ 53a nach GND, Brücke 53b–40b |
+| HC-SR04 rechts | Trig / Echo | GPIO21 / GPIO36 (VP) über Teiler: 1 kΩ 45d–49d, 2,2 kΩ 45a nach GND, Brücke 45b–41b |
+| Alle HC-SR04 | VCC / GND | rote Schiene / blaue Schiene |
+| Motor rechts, MDD3A | M2B / M2A | GPIO33 / GPIO32 |
+| Motor links, MDD3A | M1B / M1A | GPIO26 / GPIO25 |
+| MDD3A | 5VO / GND | rote Schiene / blaue Schiene |
+| Encoder rechts | gelb (Signal) / blau / schwarz | GPIO14 mit Pull-up / 3V3 oben (27a) / blaue Schiene |
+| Encoder links | gelb (Signal) / blau / schwarz | GPIO13 mit Pull-up / 3V3 unten (25j) / blaue Schiene |
+| Beide Encoder | grün | nicht angeschlossen, Ende mit Klebeband isoliert |
+| Stoßschalter | Signal / GND | GPIO27 mit Pull-up / blaue Schiene |
+| ESP32 | 5V / GND | 25a zur roten Schiene / 26a zur blauen Schiene |
+| Akku | + / − | wie bisher über Wippschalter an VB+ / VB− |
+
+- Teiler: 5 V × 2,2 / 3,2 = ca. 3,4 V am Echo-Pin. Der 2,2 kΩ kommt immer in die blaue Reihe, nie in die rote.
+- Echo vorne und rechts liegen auf 39 und 36. Diese Pins können nur lesen und haben keinen Pull-up. Für Echo reicht das, weil der Sensor die Leitung selbst auf high und low treibt.
+- Kein 10-kΩ-Pull-up mehr nötig: Beide Encoder und der Stoßschalter liegen auf Pins mit internem Pull-up.
+- GPIO0 und GPIO12 bleiben frei. GPIO2 und GPIO15 sind auch Startpins, tragen hier aber nur Trig. Der Sensor treibt diese Leitung nicht, deshalb stört das den Start nicht.
+- Das grüne Encoder-Kabel ist laut Team Kanal A. Die Tabelle vom 29.10. nennt gelb A und grün B, vor dem Umstecken am Encoder prüfen.
+- Code: `main.py` hat noch die Pins vom 29.10. Beim Umstecken anpassen: Motor rechts A = 32, B = 33, Motor links A = 25, B = 26, Encoder rechts 14, links 13, Echo `Pin(39, Pin.IN)` und `Pin(36, Pin.IN)`. Danach Drehrichtung und jeden Sensor einzeln testen.
+
 ## Stand 13.11.2026
 
 Die Elektronik ist auf der Grundplatte v2 komplett verkabelt (Foto: `fotos/2026-11-13_elektronik_verkabelt.jpg`). Die neue Belegung mit den drei Ultraschallsensoren bitte hier als Tabelle eintragen, die Tabelle vom 29.10. bleibt als früherer Stand stehen.
 
 ## Geplant für Grundplatte v2
 
-- Drei HC-SR04 (vorne, links, rechts), weil die Seitenwände aus Blöcken bestehen und nicht gerade sind. Pins für links und rechts noch festlegen und hier eintragen.
+- Drei HC-SR04 (vorne, links, rechts), weil die Seitenwände aus Blöcken bestehen und nicht gerade sind. Pins seit 21.11. festgelegt, siehe oben.
 - Vom MDD3A-5VO geht ein Kabel zur roten Schiene, damit der ESP32 im Wettbewerb ohne USB vom Akku läuft. Beim Programmieren USB und 5VO nicht gleichzeitig anschließen.
 - 5VO liefert laut Cytron-Datenblatt höchstens 200 mA, deshalb bleibt WLAN aus.
 - Der Wippschalter ist gleichzeitig Startknopf. Nach dem Booten wartet der Roboter 3 s.

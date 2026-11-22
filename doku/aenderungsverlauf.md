@@ -4,8 +4,8 @@
 | --- | --- |
 | Projekt | ECHO, Mobiler Roboter für den Wall-Sprint (TechPioneers) |
 | Dokument | `doku/aenderungsverlauf.md` |
-| Version | 0.4.0 |
-| Datum | 18.11.2026 |
+| Version | 0.5.0 |
+| Datum | 21.11.2026 |
 | Status | Entwurf |
 
 Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange es gedauert hat, welche Entscheidungen wir getroffen haben und was noch offen ist. Es ist die Grundlage für die Dokumentation des Projektverlaufs (Vorlage Kap. 7). Das persönliche Projekttagebuch führt jeder zusätzlich selbst und gibt es über Moodle ab.
@@ -37,6 +37,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 | 17. bis 18.11. | J | offen | Haube V4: Entwurf, Befestigung, Anpassung an Quarz und echte Halterungen, fertige STEP für Creo, Druck vorbereitet | Konstruktion / Entscheidung / Fertigung | `cad/haube_v4/` |
 | KW 47, bis 20.11. | Team | offen | Projektkarte, Dokumentation des Projektverlaufs (Entwurf), Marketing: Comic-Cover und Comic-Strip | Dokumentation / Marketing | `doku/ECHO-Projektkarte.pdf`, `doku/ECHO-Projektverlauf.pdf`, `doku/marketing/` |
 | 20.11. | J | offen | Haube gedruckt und anprobiert, Räder gemessen, Haube geändert: Radkasten offen, Teilung bei x 58 | Fertigung / Messung / Konstruktion | `cad/haube_v4/` |
+| 21.11. | J | offen | Steckplan v2 für drei Ultraschallsensoren: alle Widerstände aufs Steckbrett, keine Kabelkreuzungen, Motorkabel in MDD3A-Reihenfolge | Hardware / Entscheidung | `elektronik/steckbrett_v2.png`, `elektronik/pinbelegung.md` |
 
 ## Einträge
 
@@ -183,11 +184,18 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Entscheidung: Teilung von x −15 auf x 58 verlegt, damit der ganze Kotflügel in einem Teil ist. Das Heck geht dafür nur noch ab, wenn die Schale ab ist. Keine USB-Öffnung für den ESP32
 - Neue Dateien in `cad/haube_v4/`, Rohrblenden unverändert
 
+**21.11.2026: Steckplan v2**
+- Der erste Plan mit drei Ultraschallsensoren hatte die Spannungsteiler an den Sensoren und einen 10-kΩ-Pull-up am rechten Motor hängen. Neu geplant mit allen Widerständen auf dem Steckbrett (`elektronik/steckbrett_v2.png`)
+- Echo vorne und rechts auf GPIO39 und GPIO36 (nur Eingang, reicht für Echo), Echo links auf GPIO4. Jeder Teiler hat denselben Aufbau: 1 kΩ, 2,2 kΩ zur blauen Schiene, Brücke zum Pin
+- Encoder rechts von GPIO39 auf GPIO14 mit internem Pull-up, damit fällt der 10-kΩ-Widerstand weg. Grünes Encoder-Kabel wird nicht angeschlossen
+- Echo vorne nicht mehr auf GPIO12, weil der ESP32 nicht startet, wenn GPIO12 beim Einschalten high ist
+- Motor rechts hängt am MDD3A an M2. Die Motorkabel liegen am ESP32 jetzt in derselben Reihenfolge wie am MDD3A (M2B, M2A, M1B, M1A an 33, 32, 26, 25), so kreuzen sie sich nicht
+
 ## Offene Punkte
 
 - Code am neuen Roboter testen, Faktor für die Geradeausfahrt neu bestimmen (Gewicht und Aufbau haben sich geändert)
 - Ultraschall und Bremsen auf dem neuen Aufbau nachtesten, Kipptest mit Ball
-- Neue Pinbelegung mit drei Ultraschallsensoren in `elektronik/pinbelegung.md` eintragen
+- Nach Steckplan v2 umstecken, Pins in `main.py` anpassen, Drehrichtung, Sensoren und Encoder einzeln testen
 - Probedruck für die M3-Löcher, danach Halter drucken
 - Akku-Wanne, Steckbrett-Halter und Taster mit größerem Kontaktpunkt modellieren
 - Haube mit Teilung x 58 neu drucken und am Roboter prüfen
