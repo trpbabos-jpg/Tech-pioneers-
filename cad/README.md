@@ -1,7 +1,7 @@
 # CAD
 
 - Creo-Teile (`.prt`) und die Baugruppe Roboter (`.asm`)
-- Technische Zeichnung der Grundplatte als PDF
+- Technische Zeichnung der Grundplatte als PDF (`zeichnung/`)
 - DXF-Datei für den Lasercutter
 - STL-Dateien der 3D-Druckteile (Halterungen, Podest, Haube)
 - `haube_v4/`: fertige Haube als STEP-Baugruppe für Creo und STL-Dateien zum Drucken
@@ -34,6 +34,8 @@ Teilweise fertig, Screenshots in `../fotos/2026-11-13_cad_baugruppe/`. Enthalten
 
 - `Grundplatte_V2_Laser.dxf`: Laserdatei, 1:1 in mm, nur Schnittlinien (256 × 170, 47 Löcher)
 - `Grundplatte_V2_Laser.svg`: dieselbe Datei als SVG
+- `Grundplatte_V2.stp`: Creo-Modell als STEP, Stand 20.11.2026 mit 37 Löchern (35 × Ø3,2, 2 × Ø2,2). Die gelaserte Platte und die DXF haben noch 47 Löcher, siehe offene Punkte
+- `zeichnung/2026-11-23_Grundplatte_V2_Zeichnung_Entwurf.pdf`: technische Zeichnung BAT01.3.001.1, A3, 1:1, Entwurf. Bemaßung vom Betreuer abgenommen, ein paar Kleinigkeiten sind noch offen
 - Maßtabelle mit Lage, Schwerpunkt und Grenzwerten: `bom/Grundplatte_Masse_Gewicht_V2.xlsx`
 
 Die Entscheidungen zur Grundplatte v2 stehen in `grundplatte-v2-entscheidungen.md`.

@@ -2,7 +2,7 @@
 
 Koordinaten: Ursprung = Mitte Radachse auf Plattenoberseite, x vorne, y links, z hoch. Plattenoberseite 25,5 mm über Boden.
 Maßgrundlage ist die Excel des Teams (`bom/Grundplatte_Masse_Gewicht_V2.xlsx`), die Teileliste vom 17.11. (Sensor-Aufsatz, Seitenhalter, Tasteraufsatz, Akku-Schienen-Rahmen) die gedruckten Echo-Halterungen (`cad/stl/halterung-*-echo.stl`), die Radmessung vom 20.11. und die Team-Baugruppe `batmobile-v2` (STEP vom 23.11.; dort Creo X = x, Creo Y = z + 5, Creo Z = −y).
-Fertige Haube: `cad/haube_v4/`. Creo-Anleitungen als eigene Dokumente: „Creo-Anleitung Grundplatte V2“, „Creo-Anleitung Haube V4“ (28 Schritte plus Rohrblende) und „Creo-Anleitung Haube V1“ (überholt).
+Fertige Haube: `cad/haube_v4/`. Creo-Anleitungen als eigene Dokumente: „Creo-Anleitung Grundplatte V2“, „Creo-Anleitung Haube V4“ (28 Schritte plus Rohrblende), „Creo-Anleitung Haube V1“ (überholt) und „Grundplatte BAT01.3.001.1, Zeichnung in Creo 13 Schritt für Schritt“.
 
 ## Entscheidung
 - Variante B „Turm“: Schale auf gedrucktem Podest über dem Schwerpunkt, alles andere flach darunter.
@@ -22,6 +22,16 @@ Fertige Haube: `cad/haube_v4/`. Creo-Anleitungen als eigene Dokumente: „Creo-A
 - 20.11.: Erster Druck am Roboter anprobiert: Die Flankenwand im Radkasten berührte die Motorwelle und fast den Reifen. Gemessen: Räder innen 179,47 auseinander, außen 197,93, Getriebe-Stirnseite 25,18 vor der Rad-Außenseite. Die Räder sitzen also bei y ±89,7 bis ±99,0, nicht bei ±97 bis ±107 wie in der Creo-Baugruppe. Lösung: Wand am Rad ganz weg, Radkasten bis zur Platte offen.
 - 20.11.: Neue Teilung bei x 58, damit der ganze Kotflügel in einem Teil ist. Heck = alles bis zur Kotflügel-Vorderkante, Front = Echo-Einschnitte und Nase. Folge: Das Podestloch ist geteilt, das Heck geht nur ab, wenn die Schale ab ist. Eine USB-Öffnung für den ESP32 ist nicht gewünscht.
 - 23.11.: Zweiter Druck am Roboter: Der Frontsensor passte nicht, die Nase saß auf. Ursache laut Team-Baugruppe: Der Stoßschalter (Marquardt 1115.2101) reicht nach hinten bis x 136,8, die vorderen Akkurahmen-Schrauben stehen bei (140, ±26) mit Mutter oben auf der Platte. Darauf stand die untere Rückwand der Nase (x 140 bis 142, bis z 20). Lösung: Rückwand entfernt (|y| < 66, z < 20). Dazu Fußschlitz der Echo-Einschnitte von z 4,5 auf 6,5 erhöht, weil die Schrauben der Echo-Halter laut Baugruppe bis z 5,1 hochstehen. Nur die Front ändert sich, Heck und Rohrblenden bleiben.
+- 20.11.: Im Creo-Modell alle Ø3,3 auf Ø3,2 vereinheitlicht und 10 Löcher gelöscht: (−62 / ±55), (−35 / ±55), (148 / ±70), (160 / ±70), (163 / ±28). Modell jetzt 37 Löcher.
+
+## Technische Zeichnung (BAT01.3.001.1)
+- 20.11.: Ordinatenbemaßung mit Nullpunkt an der Ecke oben links in der Zeichnung (hinten links an der Platte), waagerecht ab der linken Kante, senkrecht ab der oberen Kante. Zusätzlich symmetrische Maße zur Mittellinie (rechts 15,5 bis 156, links 32,52).
+- 20.11.: Laut Betreuer ist die Bemaßung so gut und bleibt. Nichts löschen, eine Koordinatentabelle mit x und y nur zusätzlich.
+- 23.11.: Durchmesser als Hinweis „35x Ø3,2“ und „2x Ø2,2“.
+- 23.11.: Dicke als „t=5“ in der Platte (ISO 3898, Kap. 4.4), dafür keine Seitenansicht. Kleine Isometrie 1:10 daneben.
+- 23.11.: Keine Passungen. Ø3,2 und Ø2,2 sind Durchgangslöcher für M3 und M2, die Allgemeintoleranz ISO 2768-m reicht (±0,1 auf die Durchmesser, ±0,3 bzw. ±0,5 auf die Lagen). Deshalb auch keine Abmaßtabelle.
+- 23.11.: Sammelangaben neben dem Schriftfeld: Oberfläche „lasergeschnitten“ (Grundsymbol mit Verfahren, ohne Rz-Wert), Kanten −0,5 nach ISO 13715 (gratfrei bis 0,5 mm, wie in den Musterzeichnungen des Betreuers).
+- 23.11.: Halbzeug „Sperrholzplatte 500x470x5“.
 
 ## Freiraum (Regel 4)
 - Schalenrand 105 mm über Boden (Räder 80 + 20 + 5 Reserve). Freiraum gilt ab 85 mm, Kreis Ø262.
@@ -46,7 +56,7 @@ Fertige Haube: `cad/haube_v4/`. Creo-Anleitungen als eigene Dokumente: „Creo-A
 - Haubenanschlag: 76 breit, 25 bis 50 mm über Boden, 4 mm hinter allem anderen. Er legt den hintersten Punkt fest und schützt die Finnen beim Anfahren.
 
 ## Platte
-- Sperrholz 5 mm, 256 × 170 (x −86 bis +170, y ±85), Ecken R8, gerade Hinterkante. Ca. 153 g. 47 runde Löcher. Gelasert, 1:1 wie das Modell.
+- Sperrholz 5 mm, 256 × 170 (x −86 bis +170, y ±85), Ecken R8, gerade Hinterkante. Ca. 153 g. Gelasert mit 47 runden Löchern, 1:1 wie das damalige Modell. Im Modell seit 20.11. nur noch 37 Löcher (siehe Entscheidungen).
 - Hinten 10 mm freier Streifen (x −86 bis −76) hinter der Steckbrett-Wanne für die Haubenschrauben.
 - Motorwinkel wie V1: Löcher x ±10,85, |y| 76,5 und 44,75.
 - Podest 4 × M3 auf LK Ø46 um (40, 0). Kugelrolle 2 × M2 bei (150, ±7,75).
@@ -119,3 +129,6 @@ Fertige Haube: `cad/haube_v4/`. Creo-Anleitungen als eigene Dokumente: „Creo-A
 - Schalenrand über Boden messen: Dupont-Stecker am Frontsensor reichen bis ca. 85 mm, Rand muss mindestens 106 mm hoch sein.
 - Motorlänge mit Encoder.
 - Beim Veranstalter: Podest-Lesart, Wippschalter als Start.
+- Podest-Loch im Modell korrigieren: eins sitzt bei (56,0 / −16,26) statt (56,26 / −16,26) auf dem Lochkreis Ø46. In der Zeichnung steht deshalb 142 statt 142,26.
+- Klären, welcher Stand gilt: gelaserte Platte und DXF mit 47 Löchern oder Modell und Zeichnung mit 37.
+- Zeichnung fertig machen: Ordinate x 236 (Kugelrolle) fehlt, Maß 5 an der Isometrie löschen (Dicke steht schon als t=5), „-0.5“ als „-0,5“ schreiben. Optional das Maß 8 durch die Ordinate 248 ersetzen.

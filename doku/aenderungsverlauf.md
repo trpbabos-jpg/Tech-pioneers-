@@ -4,7 +4,7 @@
 | --- | --- |
 | Projekt | ECHO, Mobiler Roboter für den Wall-Sprint (TechPioneers) |
 | Dokument | `doku/aenderungsverlauf.md` |
-| Version | 0.6.0 |
+| Version | 0.6.1 |
 | Datum | 23.11.2026 |
 | Status | Entwurf |
 
@@ -37,8 +37,10 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 | 17. bis 18.11. | J | offen | Haube V4: Entwurf, Befestigung, Anpassung an Quarz und echte Halterungen, fertige STEP für Creo, Druck vorbereitet | Konstruktion / Entscheidung / Fertigung | `cad/haube_v4/` |
 | KW 47, bis 20.11. | Team | offen | Projektkarte, Dokumentation des Projektverlaufs (Entwurf), Marketing: Comic-Cover und Comic-Strip | Dokumentation / Marketing | `doku/ECHO-Projektkarte.pdf`, `doku/ECHO-Projektverlauf.pdf`, `doku/marketing/` |
 | 20.11. | J | offen | Haube gedruckt und anprobiert, Räder gemessen, Haube geändert: Radkasten offen, Teilung bei x 58 | Fertigung / Messung / Konstruktion | `cad/haube_v4/` |
+| 20.11. | J | offen | Technische Zeichnung Grundplatte begonnen, Rückmeldung Betreuer, Bohrungen im Modell vereinheitlicht und 10 gelöscht | Konstruktion / Dokumentation | `cad/zeichnung/`, `cad/Grundplatte_V2.stp` |
 | 21.11. | J | offen | Steckplan v2 für drei Ultraschallsensoren: alle Widerstände aufs Steckbrett, keine Kabelkreuzungen, Motorkabel in MDD3A-Reihenfolge | Hardware / Entscheidung | `elektronik/steckbrett_v2.png`, `elektronik/pinbelegung.md` |
 | 23.11. | J | offen | Zweiter Haubendruck anprobiert, Frontsensor passte nicht. Front mit der Team-Baugruppe geprüft und geändert: Nasen-Rückwand weg, Fußschlitz höher | Fertigung / Konstruktion | `cad/haube_v4/` |
+| 23.11. | J | offen | Zeichnung Grundplatte ergänzt (Durchmesser, t=5, Halbzeug, Oberfläche, Kanten), falsche Masse der Baugruppe gefunden | Konstruktion / Dokumentation | `cad/zeichnung/2026-11-23_Grundplatte_V2_Zeichnung_Entwurf.pdf` |
 
 ## Einträge
 
@@ -185,6 +187,12 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Entscheidung: Teilung von x −15 auf x 58 verlegt, damit der ganze Kotflügel in einem Teil ist. Das Heck geht dafür nur noch ab, wenn die Schale ab ist. Keine USB-Öffnung für den ESP32
 - Neue Dateien in `cad/haube_v4/`, Rohrblenden unverändert
 
+**20.11.2026: Technische Zeichnung Grundplatte**
+- Zeichnung BAT01.3.001.1 in Creo angelegt: A3, 1:1, Ordinatenbemaßung mit Nullpunkt an der Ecke oben links, dazu symmetrische Maße zur Mittellinie
+- Rückmeldung vom Betreuer: Die Bemaßung ist so gut und bleibt. Nichts löschen, eine Koordinatentabelle mit x und y nur zusätzlich
+- Im Modell alle Ø3,3 auf Ø3,2 gesetzt und 10 Löcher gelöscht, jetzt 37 Löcher (35 × Ø3,2, 2 × Ø2,2). STEP: `cad/Grundplatte_V2.stp`
+- Problem: In der ersten Fassung fehlten Durchmesser und Dicke, und es gab zwei verschiedene Nullpunkte für die senkrechten Maße. Lösung: ein Nullpunkt oben links, Rest am 23.11. ergänzt
+
 **21.11.2026: Steckplan v2**
 - Der erste Plan mit drei Ultraschallsensoren hatte die Spannungsteiler an den Sensoren und einen 10-kΩ-Pull-up am rechten Motor hängen. Neu geplant mit allen Widerständen auf dem Steckbrett (`elektronik/steckbrett_v2.png`)
 - Echo vorne und rechts auf GPIO39 und GPIO36 (nur Eingang, reicht für Echo), Echo links auf GPIO4. Jeder Teiler hat denselben Aufbau: 1 kΩ, 2,2 kΩ zur blauen Schiene, Brücke zum Pin
@@ -200,6 +208,13 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Lösung: Rückwand der Nase entfernt (x 140 bis 142, bis z 20). Fußschlitz an den Seitenechos von z 4,5 auf 6,5 erhöht, weil die Schrauben der Echo-Halter bis z 5,1 hochstehen
 - Danach gegen alle Teile der Baugruppe geprüft: keine Überschneidung. Am engsten sind die Klemmen vom MDD3A, 0,14 mm zur Flankenwand. Die Muttern von H1 bis H3 mit der flachen Seite an die Taschenwand legen
 - Nur die Front muss neu gedruckt werden (70 g PLA), Heck und Rohrblenden bleiben. Neue Dateien in `cad/haube_v4/`
+
+**23.11.2026: Zeichnung ergänzt, Masse der Baugruppe**
+- Zeichnung ergänzt: „35x Ø3,2“ und „2x Ø2,2“, Dicke als „t=5“ statt Seitenansicht, Halbzeug „Sperrholzplatte 500x470x5“, Sammelangaben Oberfläche „lasergeschnitten“ und Kanten −0,5, kleine Isometrie 1:10 (`cad/zeichnung/2026-11-23_Grundplatte_V2_Zeichnung_Entwurf.pdf`)
+- Entscheidung: keine Passungen und keine Abmaßtabelle. Die Löcher sind Durchgangslöcher für M3 und M2, die Allgemeintoleranz ISO 2768-m reicht
+- Abgleich mit dem Modell: Die Ordinate x 236 (Kugelrolle) fehlt noch. Ein Podest-Loch sitzt im Modell bei x 56,0 statt 56,26, deshalb steht in der Zeichnung 142 statt 142,26
+- Problem: Die Baugruppenzeichnung zeigt 10.823,294 kg. Der Parameter MASS wird per Beziehung aus dem Modell gerechnet, vermutlich haben Teile aus dem Internet kein Material und Creo nimmt die Standarddichte. Lösung offen: Masse zuweisen oder den Teilen Material geben. Creo lief danach nicht mehr, wird am 24.11. gemacht
+- Creo meldet außerdem fehlende Referenzdateien SCHRAUBE_DIN_7991-M3X30 und M3X10 und 2 unterdrückte Komponenten in der Baugruppe
 
 ## Offene Punkte
 
@@ -219,6 +234,10 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Projektkarte: Foto einfügen, Ablauf und Haube nach den Tests prüfen
 - Projektverlauf: Tests am Aufbau v2 und Ergebnis der Abnahme ergänzen
 - Comic: gemessenes Ø-Tempo auf dem Cover, Uhrzeit und Raum auf dem Strip eintragen
+- Zeichnung Grundplatte fertig machen: Ordinate x 236 ergänzen, Maß 5 an der Isometrie löschen, „-0.5“ als „-0,5“, optional 8 durch Ordinate 248 ersetzen
+- Podest-Loch im Modell von x 56,0 auf 56,26 korrigieren (Lochkreis Ø46)
+- Klären: gelaserte Platte und DXF haben 47 Löcher, Modell und Zeichnung 37
+- Masse der Baugruppe in Creo korrigieren (zeigt 10.823 kg), fehlende Schrauben SCHRAUBE_DIN_7991 einbinden
 - Fehlende Zeiten und Kürzel in der Übersicht nachtragen
 
 ## Wiedervorlagen
@@ -242,4 +261,5 @@ Bisher nur aus dem Tagebuch von J übernommen. Bitte jeder seine Zeiten ab KW 45
 | KW 45 | 02. bis 06.11. | ca. 2 h 10 min erfasst, Rest offen |
 | KW 46 | 09. bis 13.11. | noch nicht erfasst |
 | KW 47 | 16. bis 20.11. | noch nicht erfasst |
+| KW 48 | ab 23.11. | noch nicht erfasst |
 | Summe | | ca. 20 h 40 min erfasst |
