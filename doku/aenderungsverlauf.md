@@ -4,8 +4,8 @@
 | --- | --- |
 | Projekt | ECHO, Mobiler Roboter für den Wall-Sprint (TechPioneers) |
 | Dokument | `doku/aenderungsverlauf.md` |
-| Version | 0.5.0 |
-| Datum | 21.11.2026 |
+| Version | 0.6.0 |
+| Datum | 23.11.2026 |
 | Status | Entwurf |
 
 Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange es gedauert hat, welche Entscheidungen wir getroffen haben und was noch offen ist. Es ist die Grundlage für die Dokumentation des Projektverlaufs (Vorlage Kap. 7). Das persönliche Projekttagebuch führt jeder zusätzlich selbst und gibt es über Moodle ab.
@@ -38,6 +38,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 | KW 47, bis 20.11. | Team | offen | Projektkarte, Dokumentation des Projektverlaufs (Entwurf), Marketing: Comic-Cover und Comic-Strip | Dokumentation / Marketing | `doku/ECHO-Projektkarte.pdf`, `doku/ECHO-Projektverlauf.pdf`, `doku/marketing/` |
 | 20.11. | J | offen | Haube gedruckt und anprobiert, Räder gemessen, Haube geändert: Radkasten offen, Teilung bei x 58 | Fertigung / Messung / Konstruktion | `cad/haube_v4/` |
 | 21.11. | J | offen | Steckplan v2 für drei Ultraschallsensoren: alle Widerstände aufs Steckbrett, keine Kabelkreuzungen, Motorkabel in MDD3A-Reihenfolge | Hardware / Entscheidung | `elektronik/steckbrett_v2.png`, `elektronik/pinbelegung.md` |
+| 23.11. | J | offen | Zweiter Haubendruck anprobiert, Frontsensor passte nicht. Front mit der Team-Baugruppe geprüft und geändert: Nasen-Rückwand weg, Fußschlitz höher | Fertigung / Konstruktion | `cad/haube_v4/` |
 
 ## Einträge
 
@@ -191,6 +192,15 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Echo vorne nicht mehr auf GPIO12, weil der ESP32 nicht startet, wenn GPIO12 beim Einschalten high ist
 - Motor rechts hängt am MDD3A an M2. Die Motorkabel liegen am ESP32 jetzt in derselben Reihenfolge wie am MDD3A (M2B, M2A, M1B, M1A an 33, 32, 26, 25), so kreuzen sie sich nicht
 
+### KW 48
+
+**23.11.2026: Front der Haube angepasst**
+- Haube mit Teilung bei x 58 gedruckt und aufgesetzt. Problem: Der vordere Ultraschallsensor passte nicht unter die Nase, die Front saß auf
+- Ganze Baugruppe `batmobile-v2` als STEP aus Creo exportiert und die Haube gegen jedes Teil geprüft. Ursache: Der Stoßschalter reicht nach hinten bis x 136,8, die vorderen Schrauben vom Akkurahmen stehen bei x 140, y ±26 mit der Mutter oben auf der Platte. Genau dort stand die untere Rückwand der Nase
+- Lösung: Rückwand der Nase entfernt (x 140 bis 142, bis z 20). Fußschlitz an den Seitenechos von z 4,5 auf 6,5 erhöht, weil die Schrauben der Echo-Halter bis z 5,1 hochstehen
+- Danach gegen alle Teile der Baugruppe geprüft: keine Überschneidung. Am engsten sind die Klemmen vom MDD3A, 0,14 mm zur Flankenwand. Die Muttern von H1 bis H3 mit der flachen Seite an die Taschenwand legen
+- Nur die Front muss neu gedruckt werden (70 g PLA), Heck und Rohrblenden bleiben. Neue Dateien in `cad/haube_v4/`
+
 ## Offene Punkte
 
 - Code am neuen Roboter testen, Faktor für die Geradeausfahrt neu bestimmen (Gewicht und Aufbau haben sich geändert)
@@ -198,7 +208,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Nach Steckplan v2 umstecken, Pins in `main.py` anpassen, Drehrichtung, Sensoren und Encoder einzeln testen
 - Probedruck für die M3-Löcher, danach Halter drucken
 - Akku-Wanne, Steckbrett-Halter und Taster mit größerem Kontaktpunkt modellieren
-- Haube mit Teilung x 58 neu drucken und am Roboter prüfen
+- Front der Haube (Stand 23.11.) neu drucken und am Roboter prüfen
 - Räder in der Creo-Baugruppe auf die Messung setzen (innen ±89,7 mm), dann `cad/haube_v4/Haube_V4.stp` einbauen
 - Schrauben für die Haube besorgen: 7 × M3 × 16, 7 Muttern M3, 11 Scheiben M3
 - Schaltplan, Programmablaufplan und Creo-Baugruppe fertig machen

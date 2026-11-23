@@ -1,4 +1,4 @@
-# Haube V4 (Stand 20.11.2026)
+# Haube V4 (Stand 23.11.2026)
 
 Fertige Haube für ECHO: Batmobil-/Panzer-Look, die Echos schauen wie Waffen aus der Haube. Die Haube darf laut Prof mit KI erstellt werden, muss aber in Creo funktionieren. Deshalb gibt es sie als STEP-Baugruppe mit echten Volumenkörpern.
 
@@ -10,6 +10,15 @@ Fertige Haube für ECHO: Batmobil-/Panzer-Look, die Echos schauen wie Waffen aus
 | `Rohrblende_3x.stl` | Druck, dreimal drucken |
 | `Einschnitte_links_rechts.png` | So sitzen Halterung, Rohrblende und Haube an den Seitenechos |
 | `Haube_V4_Teilung58_Radkasten.png` | Offener Radkasten und Teilung bei x 58 |
+| `Haube_V4_Nase_ohne_Rueckwand.png` | Nase seit 23.11.: unten hinten offen, Frontsensor mit Halter passt hinein |
+
+## Änderung 23.11.
+
+Beim zweiten Druck passte der Frontsensor nicht unter die Nase, die Front saß auf. In der Team-Baugruppe `batmobile-v2` sieht man warum: Der Stoßschalter reicht nach hinten bis x 136,8, und die vorderen Schrauben vom Akkurahmen stehen bei x 140, y ±26 mit der Mutter oben auf der Platte. Genau dort stand die untere Rückwand der Nase (x 140 bis 142, bis z 20). Die Wand ist jetzt weg, die Nase ist unten hinten offen.
+
+Außerdem ist der Fußschlitz an den Echo-Einschnitten von z 4,5 auf z 6,5 hochgezogen, weil die Schrauben der Echo-Halter laut Baugruppe bis z 5,1 hochstehen.
+
+Neu drucken muss man nur die Front. Heck und Rohrblenden vom 20.11. bleiben, die Dateien sind gleich.
 
 ## Änderung 20.11.
 
@@ -24,7 +33,7 @@ Die Teilung liegt jetzt bei x 58, bündig mit der Kotflügel-Vorderkante, damit 
 3. In jedem Teil Material anlegen: File > Prepare > Model Properties > Material > change > File > New. PLA, Density 1,24 g/cm³.
 4. In `roboter_v2` über Assemble `haube_v4.asm` einfügen und mit **Default** platzieren. Die Koordinaten sind wie in der Baugruppe: Ursprung Achsmitte auf der Plattenoberseite, Creo X nach vorne, Creo Y nach oben.
 
-Masse in PLA: Heck 176 g, Front 76 g, Rohrblende je 4,9 g.
+Masse in PLA: Heck 176 g, Front 70 g, Rohrblende je 4,9 g.
 
 ## Drucken (Bambu Lab X1E)
 
@@ -41,7 +50,7 @@ Front und Heck passen flach nicht zusammen aufs Bett (263 mm, Bett 256). Für ei
 1. Schale vom Podest nehmen (Dachloch Ø66 muss über den Podestkopf Ø62).
 2. Rohrblenden auf die Kapseln der drei Ultraschallsensoren stecken (Klemmsitz).
 3. Front von oben aufsetzen, H4 bis H7 verschrauben.
-4. Muttern in die Taschen von H1 bis H3 legen (Klebeband), Heck aufsetzen, verschrauben.
+4. Muttern in die Taschen von H1 bis H3 legen (flache Seite an die Taschenwand, Klebeband), Heck aufsetzen, verschrauben.
 5. Schale wieder auf das Podest schrauben.
 
 Front und Heck treffen sich an einer senkrechten Fläche, die Reihenfolge ist also egal.
@@ -50,7 +59,15 @@ Schrauben: 7 × M3 × 16 von unten durch die Platte, Scheibe unter dem Kopf, obe
 
 ## Geprüft
 
-Mit allen Bauteilen der Baugruppe und den echten Halterungen (`../stl/halterung-*-echo.stl`, Abweichung unter 0,01 mm nachgebaut):
+Am 23.11. gegen alle Teile der Team-Baugruppe `batmobile-v2` (STEP vom 23.11.), nur die Räder dort nicht, weil sie in der Baugruppe noch zu weit außen sitzen. Stattdessen die gemessenen Räder.
+
+- keine Überschneidung
+- engste Stelle: Klemmen vom MDD3A 0,14 mm zur Flankenwand (die Platine sitzt in der Baugruppe 1 mm weiter vorne als bisher angenommen)
+- Seitensensor 0,3 mm, Rohrblenden und Halter 0,5 mm, Schrauben der Echo-Halter 1,4 mm
+- Stoßschalter und Akkurahmen-Schrauben unter der Nase frei
+- Die Muttern von H1 bis H3 sind in der Baugruppe über Eck gedreht und ragen dort aus der Tasche. Richtig eingelegt (flache Seite an der Taschenwand) passen sie
+
+Vorher mit dem eigenen Modell und den echten Halterungen (`../stl/halterung-*-echo.stl`, Abweichung unter 0,01 mm nachgebaut):
 
 - keine Überschneidung
 - Rohrblende zur Haube 0,5 mm, Halterungen zur Haube 0,5 mm (vorne 2 mm), MDD3A 0,5 mm, Bedienpult 1,1 mm
