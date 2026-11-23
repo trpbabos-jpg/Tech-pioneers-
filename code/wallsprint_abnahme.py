@@ -3,19 +3,19 @@ from machine import Pin, PWM, time_pulse_us
 import time
 
 # Pins
-m1a = PWM(Pin(33), freq=20000, duty_u16=0)   # Motor rechts
-m1b = PWM(Pin(32), freq=20000, duty_u16=0)
-m2a = PWM(Pin(26), freq=20000, duty_u16=0)   # Motor links
-m2b = PWM(Pin(25), freq=20000, duty_u16=0)
-trig_vorne = Pin(14, Pin.OUT, value=0)
-echo_vorne = Pin(12, Pin.IN)
+rechts_a = PWM(Pin(32), freq=20000, duty_u16=0)   # Motor rechts, MDD3A M2A
+rechts_b = PWM(Pin(33), freq=20000, duty_u16=0)   # MDD3A M2B
+links_a = PWM(Pin(25), freq=20000, duty_u16=0)    # Motor links, MDD3A M1A
+links_b = PWM(Pin(26), freq=20000, duty_u16=0)    # MDD3A M1B
+trig_vorne = Pin(15, Pin.OUT, value=0)
+echo_vorne = Pin(39, Pin.IN)
 trig_links = Pin(2, Pin.OUT, value=0)
 echo_links = Pin(4, Pin.IN)
 trig_rechts = Pin(21, Pin.OUT, value=0)
 echo_rechts = Pin(36, Pin.IN)
 taster = Pin(27, Pin.IN, Pin.PULL_UP)        # Taster vorne
 enc_links = Pin(13, Pin.IN, Pin.PULL_UP)     # Encoder links
-enc_rechts = Pin(39, Pin.IN)                 # Encoder rechts, 10 kOhm
+enc_rechts = Pin(14, Pin.IN, Pin.PULL_UP)    # Encoder rechts
 
 # Fahren
 V_MAX = 40                      # cm/s
@@ -76,8 +76,8 @@ def fahren(links, rechts):
         links = links * FAKTOR_LINKS
     else:
         links = links * FAKTOR_LINKS_ZURUECK
-    motor(m2a, m2b, DREHEN_LINKS * links)
-    motor(m1a, m1b, DREHEN_RECHTS * rechts)
+    motor(links_a, links_b, DREHEN_LINKS * links)
+    motor(rechts_a, rechts_b, DREHEN_RECHTS * rechts)
 
 
 def prozent(geschwindigkeit):
