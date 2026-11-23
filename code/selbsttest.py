@@ -18,8 +18,8 @@ enc_links = Pin(13, Pin.IN, Pin.PULL_UP)     # Encoder links
 enc_rechts = Pin(14, Pin.IN, Pin.PULL_UP)    # Encoder rechts
 
 # Werte wie im Fahrprogramm
-DREHEN_LINKS = 1                # Drehrichtung
-DREHEN_RECHTS = 1
+DREHEN_LINKS = -1               # Drehrichtung
+DREHEN_RECHTS = -1
 ANLAUF = 20
 FAKTOR_LINKS = 1.04             # Ausgleich links
 FAKTOR_LINKS_ZURUECK = 1.07

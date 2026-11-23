@@ -29,8 +29,8 @@ VORHALT = 0.3                   # s
 PAUSE_AN_WAND = 1000            # ms
 
 # Motoren
-DREHEN_LINKS = 1                # Drehrichtung
-DREHEN_RECHTS = 1
+DREHEN_LINKS = -1               # Drehrichtung
+DREHEN_RECHTS = -1
 ANLAUF = 20
 FAKTOR_LINKS = 1.04             # Ausgleich links
 FAKTOR_LINKS_ZURUECK = 1.07
