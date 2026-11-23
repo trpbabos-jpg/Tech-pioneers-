@@ -10,7 +10,7 @@ links_b = PWM(Pin(26), freq=20000, duty_u16=0)    # MDD3A M1B
 trig_vorne = Pin(15, Pin.OUT, value=0)
 echo_vorne = Pin(39, Pin.IN)
 trig_links = Pin(2, Pin.OUT, value=0)
-echo_links = Pin(4, Pin.IN)
+echo_links = Pin(34, Pin.IN)
 trig_rechts = Pin(21, Pin.OUT, value=0)
 echo_rechts = Pin(36, Pin.IN)
 taster = Pin(27, Pin.IN, Pin.PULL_UP)        # Taster vorne
