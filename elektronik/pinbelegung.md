@@ -1,6 +1,6 @@
 # Pinbelegung und Verlauf
 
-Board: ESP32-PICO-KIT V1 (Chip ESP32-PICO-V3). Der aktuelle Schaltplan liegt im Miro-Board im Rahmen „Schaltplan“, dazu die Rahmen „Verbindungen“, „Kabel nach Farbe“ und „Bauteile ohne Kabel“:
+Board: ESP32-PICO-KIT V1 (Chip ESP32-PICO-V3). Der aktuelle Schaltplan mit drei Ultraschallsensoren ist `schaltplan_v2.pdf` (Stand 24.11.2026, Seite 2 mit Notizen). Der ältere Schaltplan liegt im Miro-Board im Rahmen „Schaltplan“, dazu die Rahmen „Verbindungen“, „Kabel nach Farbe“ und „Bauteile ohne Kabel“:
 https://miro.com/app/board/uXjVEZ6PCT0=/?moveToWidget=3458764687840245791
 
 ## Stand 29.10.2026 (aktuell auf dem Steckbrett)
@@ -44,6 +44,7 @@ Steckplan: `steckbrett_v2.png` (Quelle `steckbrett_v2.svg`). Der ESP32 steckt in
 | ESP32 | 5V / GND | 25a zur roten Schiene / 26a zur blauen Schiene |
 | Akku | + / − | wie bisher über Wippschalter an VB+ / VB− |
 
+- **Abweichung zum Schaltplan (24.11.):** Im Schaltplan `schaltplan_v2.pdf` geht Echo links an **GPIO34**, im Steckplan und in dieser Tabelle an **GPIO4**. Beides geht elektrisch (34 kann nur lesen, für Echo reicht das). Vor dem Umstecken festlegen, welcher Pin gilt, und Schaltplan, Steckplan, diese Tabelle und `main.py` gleich machen.
 - Teiler: 5 V × 2,2 / 3,2 = ca. 3,4 V am Echo-Pin. Der 2,2 kΩ kommt immer in die blaue Reihe, nie in die rote.
 - Echo vorne und rechts liegen auf 39 und 36. Diese Pins können nur lesen und haben keinen Pull-up. Für Echo reicht das, weil der Sensor die Leitung selbst auf high und low treibt.
 - Kein 10-kΩ-Pull-up mehr nötig: Beide Encoder und der Stoßschalter liegen auf Pins mit internem Pull-up.

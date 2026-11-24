@@ -4,7 +4,7 @@
 | --- | --- |
 | Projekt | ECHO, Mobiler Roboter für den Wall-Sprint (TechPioneers) |
 | Dokument | `doku/aenderungsverlauf.md` |
-| Version | 0.6.4 |
+| Version | 0.6.5 |
 | Datum | 24.11.2026 |
 | Status | Entwurf |
 
@@ -44,6 +44,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 | 24.11. | J | offen | Ganzer Roboter als 3D-Modell ins Repo: STL zum Drehen auf GitHub, GLB mit Farben, STEP, sechs Ansichten | Konstruktion / Dokumentation | `cad/baugruppe/` |
 | 24.11. | J | offen | Checkliste für die Abgabe von Dokumentation und Projektbericht: was gefordert ist, was fehlt | Organisation | `doku/abgabe_checkliste.md` |
 | 24.11. | J | offen | Projektverlauf Woche für Woche (v0.6.0) und Darstellung der Projektergebnisse (v0.5.0) ins Repo, Checkliste danach aktualisiert | Dokumentation | `doku/ECHO-Projektverlauf-Wochen.pdf`, `doku/ECHO-Projektergebnisse.pdf` |
+| 24.11. | offen | offen | Schaltplan v2 für den ganzen Roboter mit Notizen, mit dem Steckplan v2 verglichen | Elektronik / Dokumentation | `elektronik/schaltplan_v2.pdf` |
 
 ## Einträge
 
@@ -235,6 +236,11 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Darstellung der Projektergebnisse nach Vorlage Kap. 7: Benutzerdokumentation, Entwicklerdokumentation mit Programmablaufplan und Code Abschnitt für Abschnitt, bestehende Probleme, Weiterentwicklung (`doku/ECHO-Projektergebnisse.docx`)
 - Projektkarte mit Bild aus dem 3D-Modell aktualisiert
 - Beim Prüfen gegen die Abgabe aufgefallen: „Wer hat was gemacht“ fehlt im Projektverlauf, die Beschreibung der CAD-Entwürfe fehlt in der Entwicklerdoku, der Code-Teil beschreibt noch die Pins vom 29.10. Alles in `doku/abgabe_checkliste.md`
+
+**24.11.2026: Schaltplan v2**
+- Schaltplan für den ganzen Roboter: Akku über Wippschalter an VB+, MDD3A mit beiden Motoren, 5VO an 5 V, drei HC-SR04 mit Spannungsteiler, beide Encoder an 3,3 V, Stoßschalter an GPIO27 (`elektronik/schaltplan_v2.pdf`). Seite 2 erklärt jedes Teil und die Regeln für den Strom
+- Mit dem Steckplan v2 verglichen: Motoren, Encoder, Stoßschalter, Trig-Pins und Echo vorne und rechts stimmen überein
+- Problem: Echo links steht im Schaltplan an GPIO34, im Steckplan an GPIO4. Muss vor dem Umstecken entschieden werden
 
 ## Offene Punkte
 

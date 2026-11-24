@@ -27,7 +27,7 @@ Status: ✅ fertig, 🟡 da, aber noch nicht abgabefertig, ❌ fehlt noch
 | 6 | Vollständige CAD-Entwürfe in PTC Creo (Baugruppe Roboter) | ❌ | Nur STEP-Exporte: `cad/Grundplatte_V2.stp`, `cad/haube_v4/Haube_V4.stp`, `cad/baugruppe/ECHO_Roboter_STEP.zip`, STL der Druckteile | Native Creo-Dateien und Baugruppe fertig machen, siehe Punkt 6 |
 | 7 | Technische Zeichnung des Chassis (laser-schneidbar) | 🟡 | `cad/zeichnung/2026-11-23_Grundplatte_V2_Zeichnung_Entwurf.pdf`, `cad/Grundplatte_V2_Laser.dxf` | Zeichnung fertig, Lochzahl klären, Creo-`.drw` dazu, siehe Punkt 7 |
 | 8 | Vollständiger Programmcode | 🟡 | `code/main.py`, Stände v1 bis v3, alle Testprogramme, `code/einstellwerte.md` | Finale `main.py` mit Pins nach Steckplan v2, getestet, `taster_test.py`, siehe Punkt 8 |
-| 9 | Vollständiger Schalt- oder Verdrahtungsplan | 🟡 | `elektronik/steckbrett_v2.svg` und `.png` (Stand 21.11.), `elektronik/pinbelegung.md`, Architekturbild in den Projektergebnissen, Schaltplan im Miro-Board | Plan an den echten Aufbau anpassen und den Schaltplan als Datei exportieren, siehe Punkt 9 |
+| 9 | Vollständiger Schalt- oder Verdrahtungsplan | 🟡 | `elektronik/schaltplan_v2.pdf` (Stand 24.11., ganzer Roboter mit Notizen), `elektronik/steckbrett_v2.svg` und `.png` (Stand 21.11.), `elektronik/pinbelegung.md` | Echo links: Schaltplan GPIO34, Steckplan GPIO4. Schriftfeld, Symbol Stoßschalter, siehe Punkt 9 |
 | 10 | Sonstige wichtige Dokumente | 🟡 | Mind Map, Präsentationen bis 06.11., Projektkarte, Messwerte, Testtabelle, Materialliste, Datenblätter, Fotos, Marketing | Fehlende Präsentationen und PDF-Exporte, siehe Punkt 10 |
 
 ## Für beide Word-Dokumente
@@ -140,9 +140,15 @@ Im Repo liegen bisher nur STEP-Exporte. Gefordert ist die Baugruppe als Creo-Dat
 
 ### 9. Schalt- oder Verdrahtungsplan
 
-- [ ] Prüfen, ob `steckbrett_v2` nach dem Umstecken genau dem echten Aufbau entspricht, sonst anpassen
-- [ ] Plan für den ganzen Roboter, nicht nur das Steckbrett: Akku, Wippschalter, MDD3A, Motoren, Encoder, drei Sensoren, Stoßschalter
-- [ ] Schaltplan aus dem Miro-Board auf den Stand v2 bringen und als PDF exportieren, oder einen Schaltplan in einem Elektronik-Programm (z. B. Fritzing) zeichnen und die Originaldatei mitgeben
+Schaltplan `elektronik/schaltplan_v2.pdf` ist da und zeigt den ganzen Roboter: Akku, Wippschalter, MDD3A, beide Motoren, Encoder, drei Sensoren mit Spannungsteiler, Stoßschalter. Alle anderen Pins stimmen mit dem Steckplan v2 überein.
+
+- [ ] **Echo links festlegen:** Schaltplan sagt GPIO34, Steckplan v2 und `pinbelegung.md` sagen GPIO4. Einen Pin wählen und Schaltplan, Steckplan, Pinbelegung und `main.py` gleich machen
+- [ ] Schriftfeld ergänzen: Titel, Projekt ECHO, Gruppe, Name, Datum, Version, Board ESP32-PICO-KIT V1
+- [ ] Stoßschalter als Öffner zeichnen. Im Plan ist ein Schließer-Symbol, laut Notizen und Code ist es ein Öffner (nicht gedrückt = geschlossen)
+- [ ] Am Akku „4 × AA, ca. 4,8 V“ dranschreiben
+- [ ] Notizen an den Code angleichen: dort „entprellen ca. 30 ms“, `main.py` liest den Taster 7-mal im Abstand von 2 ms
+- [ ] Nach dem Umstecken prüfen, ob der echte Aufbau genau dem Plan entspricht
+- [ ] Schaltplan in die Entwicklerdoku (Projektergebnisse) als Abbildung einfügen und den Verweis aufs Miro-Board ersetzen
 - [ ] Pinbelegung: Tabelle „Stand 13.11.“ in `elektronik/pinbelegung.md` ausfüllen oder entfernen
 
 ### 10. Sonstige Dokumente
