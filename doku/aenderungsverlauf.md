@@ -4,7 +4,7 @@
 | --- | --- |
 | Projekt | ECHO, Mobiler Roboter für den Wall-Sprint (TechPioneers) |
 | Dokument | `doku/aenderungsverlauf.md` |
-| Version | 0.6.2 |
+| Version | 0.6.3 |
 | Datum | 24.11.2026 |
 | Status | Entwurf |
 
@@ -42,6 +42,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 | 23.11. | J | offen | Zweiter Haubendruck anprobiert, Frontsensor passte nicht. Front mit der Team-Baugruppe geprüft und geändert: Nasen-Rückwand weg, Fußschlitz höher | Fertigung / Konstruktion | `cad/haube_v4/` |
 | 23.11. | J | offen | Zeichnung Grundplatte ergänzt (Durchmesser, t=5, Halbzeug, Oberfläche, Kanten), falsche Masse der Baugruppe gefunden | Konstruktion / Dokumentation | `cad/zeichnung/2026-11-23_Grundplatte_V2_Zeichnung_Entwurf.pdf` |
 | 24.11. | J | offen | Ganzer Roboter als 3D-Modell ins Repo: STL zum Drehen auf GitHub, GLB mit Farben, STEP, sechs Ansichten | Konstruktion / Dokumentation | `cad/baugruppe/` |
+| 24.11. | J | offen | Checkliste für die Abgabe von Dokumentation und Projektbericht: was gefordert ist, was fehlt | Organisation | `doku/abgabe_checkliste.md` |
 
 ## Einträge
 
@@ -223,6 +224,11 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - `ECHO_Roboter.stl` lässt sich auf GitHub im Browser drehen, `ECHO_Roboter.glb` hat Farben und geht in PowerPoint (Einfügen > 3D-Modelle), dazu die STEP-Datei als Zip und sechs Ansichten
 - Beim Durchsehen aufgefallen: Im Export fehlen Steckbrett mit ESP32, Bedienpult und Schale. Die Motoren sind doppelt drin (JGA25-370 und Pololu 25D an derselben Stelle)
 
+**24.11.2026: Checkliste für die Abgabe**
+- Abgabe über Moodle: eine ZIP pro Gruppe mit README, Projekttagebüchern, Benutzerdoku, Entwicklerdoku, Projektverlauf, Creo-Baugruppe, Zeichnung des Chassis, Programmcode und Schalt- oder Verdrahtungsplan. Text-Dokumente nur als PDF
+- Jede Anforderung mit dem Repo verglichen (`doku/abgabe_checkliste.md`). Ganz fehlen noch: README der ZIP, Entwicklerdokumentation, Programmablaufplan, native Creo-Dateien, Abschnitt „Wer hat was gemacht“ im Projektverlauf
+- `main.py` hat noch die Pins vom 29.10., Zeichnung und Laserdatei passen bei der Lochzahl nicht zusammen (37 und 47)
+
 ## Offene Punkte
 
 - Code am neuen Roboter testen, Faktor für die Geradeausfahrt neu bestimmen (Gewicht und Aufbau haben sich geändert)
@@ -246,6 +252,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Klären: gelaserte Platte und DXF haben 47 Löcher, Modell und Zeichnung 37
 - Masse der Baugruppe in Creo korrigieren (zeigt 10.823 kg), fehlende Schrauben SCHRAUBE_DIN_7991 einbinden
 - Fehlende Zeiten und Kürzel in der Übersicht nachtragen
+- Abgabe vorbereiten, alles Offene dafür steht in `doku/abgabe_checkliste.md`
 
 ## Wiedervorlagen
 
@@ -254,7 +261,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 | Fr 20.11.2026 | Fortschrittspräsentation KW 47 |
 | Mi 25.11.2026 | Abnahmegespräch mit Demo |
 | Fr 27.11.2026 | Abschlusspräsentation |
-| bis Projektende | Projekttagebuch und Projektbericht über Moodle |
+| bis Projektende | Abgabe als ZIP über Moodle, eine pro Gruppe (`doku/abgabe_checkliste.md`) |
 
 ## Zeitaufwand
 

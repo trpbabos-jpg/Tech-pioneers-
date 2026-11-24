@@ -1,5 +1,6 @@
 # Doku
 
+- `abgabe_checkliste.md`: was für die Abgabe von Dokumentation und Projektbericht gefordert ist, was wir schon haben und was noch fehlt
 - `aenderungsverlauf.md`: Projektprotokoll der Gruppe mit Übersicht (Datum, Wer, Zeit), Einträgen, offenen Punkten, Wiedervorlagen und Zeitaufwand. Grundlage für den Projektverlauf
 - `messwerte.md`: Drehzahl, Geschwindigkeit, Bremsweg
 - `testtabelle.md`: jeder Test mit Erwartung vorher und Ergebnis

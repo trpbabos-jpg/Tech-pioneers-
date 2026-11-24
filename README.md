@@ -23,6 +23,7 @@ https://miro.com/app/board/uXjVEZ6PCT0=/
 ## Wo steht was
 
 - Projektprotokoll (was wann passiert ist, wer, wie lange, offene Punkte): `doku/aenderungsverlauf.md`
+- Was für die Abgabe (ZIP über Moodle) noch fehlt: `doku/abgabe_checkliste.md`
 - Der ganze Roboter als 3D-Modell mit Bildern: `cad/baugruppe/`
 - Aktuelle Pinbelegung und frühere Stände: `elektronik/pinbelegung.md`
 - Einstellwerte im Code: `code/einstellwerte.md`
