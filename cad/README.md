@@ -4,6 +4,7 @@
 - Technische Zeichnung der Grundplatte als PDF (`zeichnung/`)
 - DXF-Datei für den Lasercutter
 - STL-Dateien der 3D-Druckteile (Halterungen, Podest, Haube)
+- `baugruppe/`: der ganze Roboter als 3D-Modell (STL zum Drehen im Browser, GLB mit Farben, STEP) und Bilder
 - `haube_v4/`: fertige Haube als STEP-Baugruppe für Creo und STL-Dateien zum Drucken
 - `stl/`: gedruckte Echo-Halterungen links, rechts und vorne
 - `skizzen/`: Formskizzen, z. B. die ECHO-Form in der Draufsicht vom 16.10. (Fledermaus-Ohren vorne, Umhang hinten, je ein Rad links und rechts)
@@ -17,6 +18,10 @@ Diese Dateien gibt es schon, sie liegen aber noch nicht im Repo. Bitte hochladen
 - Grundplatte v1 (Frankenstein-Modell): Creo-Dateien und Laser-Datei
 - Creo-Dateien der Grundplatte v2, der Druckteile und der Baugruppe
 - STL-Datei des Podests
+
+## Gesamtmodell (Stand 24.11.2026)
+
+`baugruppe/` zeigt den fertigen Roboter, erzeugt aus dem STEP-Export der Creo-Baugruppe vom 23.11. mit der Haubenfront vom 23.11. und den gemessenen Radpositionen. `baugruppe/ECHO_Roboter.stl` auf GitHub anklicken, dann lässt er sich im Browser drehen. Was dem Modell noch fehlt, steht in `baugruppe/README.md`.
 
 ## Baugruppe Roboter (Stand 13.11.2026)
 

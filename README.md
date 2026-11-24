@@ -4,6 +4,10 @@ Study Bootcamp Technik, FH Wedel, WS 2026/27
 
 Ein kleiner, radgetriebener Roboter mit ESP32, der 200 cm geradeaus auf eine Wand zufährt und davor sanft abbremst. Bewertet werden die Basiseigenschaften **Geradeausfahrt** und **elegantes Abbremsen**, außerdem treten wir beim Wall-Sprint an.
 
+![ECHO als 3D-Modell](cad/baugruppe/ECHO_vorne_links.png)
+
+Zum Drehen im Browser: [`cad/baugruppe/ECHO_Roboter.stl`](cad/baugruppe/ECHO_Roboter.stl)
+
 ## Team
 
 | Kürzel | Name |
@@ -19,6 +23,7 @@ https://miro.com/app/board/uXjVEZ6PCT0=/
 ## Wo steht was
 
 - Projektprotokoll (was wann passiert ist, wer, wie lange, offene Punkte): `doku/aenderungsverlauf.md`
+- Der ganze Roboter als 3D-Modell mit Bildern: `cad/baugruppe/`
 - Aktuelle Pinbelegung und frühere Stände: `elektronik/pinbelegung.md`
 - Einstellwerte im Code: `code/einstellwerte.md`
 - Messwerte: `doku/messwerte.md`

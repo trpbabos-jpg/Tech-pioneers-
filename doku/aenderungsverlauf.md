@@ -4,8 +4,8 @@
 | --- | --- |
 | Projekt | ECHO, Mobiler Roboter für den Wall-Sprint (TechPioneers) |
 | Dokument | `doku/aenderungsverlauf.md` |
-| Version | 0.6.1 |
-| Datum | 23.11.2026 |
+| Version | 0.6.2 |
+| Datum | 24.11.2026 |
 | Status | Entwurf |
 
 Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange es gedauert hat, welche Entscheidungen wir getroffen haben und was noch offen ist. Es ist die Grundlage für die Dokumentation des Projektverlaufs (Vorlage Kap. 7). Das persönliche Projekttagebuch führt jeder zusätzlich selbst und gibt es über Moodle ab.
@@ -41,6 +41,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 | 21.11. | J | offen | Steckplan v2 für drei Ultraschallsensoren: alle Widerstände aufs Steckbrett, keine Kabelkreuzungen, Motorkabel in MDD3A-Reihenfolge | Hardware / Entscheidung | `elektronik/steckbrett_v2.png`, `elektronik/pinbelegung.md` |
 | 23.11. | J | offen | Zweiter Haubendruck anprobiert, Frontsensor passte nicht. Front mit der Team-Baugruppe geprüft und geändert: Nasen-Rückwand weg, Fußschlitz höher | Fertigung / Konstruktion | `cad/haube_v4/` |
 | 23.11. | J | offen | Zeichnung Grundplatte ergänzt (Durchmesser, t=5, Halbzeug, Oberfläche, Kanten), falsche Masse der Baugruppe gefunden | Konstruktion / Dokumentation | `cad/zeichnung/2026-11-23_Grundplatte_V2_Zeichnung_Entwurf.pdf` |
+| 24.11. | J | offen | Ganzer Roboter als 3D-Modell ins Repo: STL zum Drehen auf GitHub, GLB mit Farben, STEP, sechs Ansichten | Konstruktion / Dokumentation | `cad/baugruppe/` |
 
 ## Einträge
 
@@ -216,6 +217,12 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Problem: Die Baugruppenzeichnung zeigt 10.823,294 kg. Der Parameter MASS wird per Beziehung aus dem Modell gerechnet, vermutlich haben Teile aus dem Internet kein Material und Creo nimmt die Standarddichte. Lösung offen: Masse zuweisen oder den Teilen Material geben. Creo lief danach nicht mehr, wird am 24.11. gemacht
 - Creo meldet außerdem fehlende Referenzdateien SCHRAUBE_DIN_7991-M3X30 und M3X10 und 2 unterdrückte Komponenten in der Baugruppe
 
+**24.11.2026: Gesamtmodell**
+- Aus dem STEP-Export der Creo-Baugruppe vom 23.11. ein Gesamtmodell gemacht, damit man den fertigen Roboter ohne Creo sieht (`cad/baugruppe/`)
+- Darin schon die Haubenfront vom 23.11. und die Räder an der gemessenen Stelle. Reifen zum Radlauf 5,3 bis 5,8 mm
+- `ECHO_Roboter.stl` lässt sich auf GitHub im Browser drehen, `ECHO_Roboter.glb` hat Farben und geht in PowerPoint (Einfügen > 3D-Modelle), dazu die STEP-Datei als Zip und sechs Ansichten
+- Beim Durchsehen aufgefallen: Im Export fehlen Steckbrett mit ESP32, Bedienpult und Schale. Die Motoren sind doppelt drin (JGA25-370 und Pololu 25D an derselben Stelle)
+
 ## Offene Punkte
 
 - Code am neuen Roboter testen, Faktor für die Geradeausfahrt neu bestimmen (Gewicht und Aufbau haben sich geändert)
@@ -224,7 +231,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Probedruck für die M3-Löcher, danach Halter drucken
 - Akku-Wanne, Steckbrett-Halter und Taster mit größerem Kontaktpunkt modellieren
 - Front der Haube (Stand 23.11.) neu drucken und am Roboter prüfen
-- Räder in der Creo-Baugruppe auf die Messung setzen (innen ±89,7 mm), dann `cad/haube_v4/Haube_V4.stp` einbauen
+- Creo-Baugruppe: Räder auf die Messung setzen (Reifen innen ±89,7 mm), Front der Haube gegen den Stand vom 23.11. tauschen, ein Motormodell entfernen, Steckbrett mit ESP32, Bedienpult und Schale ergänzen
 - Schrauben für die Haube besorgen: 7 × M3 × 16, 7 Muttern M3, 11 Scheiben M3
 - Schaltplan, Programmablaufplan und Creo-Baugruppe fertig machen
 - Messen: Stößelspitze bis Plattenvorderkante, Motorlänge mit Encoder (Räder am 20.11. gemessen)
