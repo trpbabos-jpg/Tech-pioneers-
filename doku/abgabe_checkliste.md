@@ -36,7 +36,7 @@ Status: ✅ fertig, 🟡 fertig bis auf Werte aus der Abnahme, ❌ fehlt noch
 
 ## Erledigt am 24.11.
 
-- Creo-Originaldateien (Stand 24.11., je Datei nur die neueste Version) in `05_CAD_Creo/creo/` der ZIP, Baugruppenzeichnung als PDF in `05_CAD_Creo/`, Zeichnung der Grundplatte mit Stand 24.11. (PDF und `grundplatte.drw`) in `06_Zeichnung_Chassis/`
+- Creo-Originaldateien als unveränderte Sicherung der Baugruppe (Stand 24.11., Ordner `Finale abgabe`) in `05_CAD_Creo/creo/` der ZIP, Baugruppenzeichnung als PDF in `05_CAD_Creo/`, Zeichnung der Grundplatte mit Stand 24.11. (PDF und `grundplatte.drw`) in `06_Zeichnung_Chassis/`
 - Messfahrt: 6,7 s für 200 cm hin und zurück, im Schnitt ca. 0,60 m/s. Eingetragen in Benutzerdoku, Entwicklerdoku, Projektverlauf, Messwerte und Testtabelle
 - Comic-Cover mit Ø-Tempo 0,60 m/s, Comic-Strip mit Fahrzeit und Tempo, Bremspunkt im Comic auf 45 cm korrigiert
 

@@ -15,7 +15,7 @@ ECHO fährt von der Startwand 200 cm geradeaus auf eine Zielwand zu, bremst davo
 | `02_Benutzerdokumentation.pdf` | Überblick, Sicherheit, Inbetriebnahme und Eingangstest, Bedienung, Fehlerbehebung, Außerbetriebnahme | Benutzerdokumentation |
 | `03_Entwicklerdokumentation.pdf` | Wartung und Einrichtung; Abschnitt 2 Beschreibung der CAD-Entwürfe; Abschnitt 3 Schalt- und Verdrahtungsplan; Abschnitt 4 Beschreibung des Programmcodes; bestehende Probleme; Weiterentwicklung | Entwicklerdokumentation |
 | `04_Projektverlauf.pdf` | Projektphasen, jede Woche mit Ziel, Ergebnis und Reflexion, Teilergebnisse, Herausforderungen, Fotos und frühe Entwürfe; Abschnitt 5 „Wer hat was gemacht“ | Darstellung des Projektverlaufs |
-| `05_CAD_Creo/creo/` | Creo-Originaldateien (Creo 13): Baugruppe `batmobile-v2.asm` mit allen Teilen (`.prt`), Unterbaugruppen (u. a. `haube_v8.asm`, `mdd3a.asm`), Kaufteile aus SolidWorks (`.SLDPRT` mit `.creo`), Zeichnungen `batmobile-v2.drw` und `grundplatte.drw`, Schriftfeld `fh_a3q.frm` | CAD-Entwürfe in PTC Creo |
+| `05_CAD_Creo/creo/` | Ordner `Finale abgabe`: unveränderte Sicherung der Creo-13-Baugruppe `batmobile-v2.asm` mit allen Teilen (`.prt`), Unterbaugruppen (u. a. `haube_v8.asm`, `mdd3a.asm`), Kaufteilen aus SolidWorks (`.SLDPRT` mit `.creo`), Zeichnungen `batmobile-v2.drw` und `grundplatte.drw`, Schriftfeld `fh_a3q.frm` und den Zeichnungen als PDF; Creo öffnet von mehrfach gespeicherten Dateien automatisch die neueste Version | CAD-Entwürfe in PTC Creo |
 | `05_CAD_Creo/Baugruppenzeichnung_batmobile-v2.pdf` | Baugruppenzeichnung des ganzen Roboters mit Stückliste (A3, 2 Blätter) | CAD-Entwürfe (Zeichnung als PDF) |
 | `05_CAD_Creo/step_stl/` | ganzer Roboter als STEP, STL und GLB mit Ansichten; Haube V4 als STEP und STL; Echo-Halterungen als STL; Grundplatte V3 als STEP | CAD-Entwürfe (zum Ansehen ohne Creo) |
 | `06_Zeichnung_Chassis/` | technische Zeichnung der Grundplatte V3 (BAT01.3.001.1, A3, 1:1) als PDF und als Creo-Zeichnung `grundplatte.drw` mit Modell `grundplatte.prt`; Laserdatei der gelaserten Grundplatte V2 als DXF und SVG | technische Zeichnung des Chassis, laser-schneidbar |
@@ -26,7 +26,7 @@ ECHO fährt von der Startwand 200 cm geradeaus auf eine Zielwand zu, bremst davo
 ## Programme zum Öffnen
 
 - PDF: jeder PDF-Viewer
-- Creo-Dateien: PTC Creo 13. Die Baugruppe `batmobile-v2.asm` aus dem Ordner `creo/` öffnen, dann findet sie alle Teile
+- Creo-Dateien: PTC Creo 13. Den Ordner `creo/Finale abgabe/` als Arbeitsverzeichnis wählen und `batmobile-v2.asm` öffnen, dann findet sie alle Teile
 - STEP und STL: jedes CAD-Programm, STL auch im Browser
 - Programmcode: Thonny mit MicroPython für den ESP32. `main.py` wird unverändert auf den ESP32 kopiert (Entwicklerdokumentation, Abschnitt 1)
 - DXF und SVG: Software des Lasercutters; SVG auch im Browser
