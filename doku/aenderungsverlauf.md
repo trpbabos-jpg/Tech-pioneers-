@@ -40,7 +40,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 | 20.11. | J | offen | Technische Zeichnung Grundplatte begonnen, Rückmeldung Betreuer, Bohrungen im Modell vereinheitlicht und 10 gelöscht | Konstruktion / Dokumentation | `cad/zeichnung/`, `cad/Grundplatte_V2.stp` |
 | 21.11. | J | offen | Steckplan v2 für drei Ultraschallsensoren: alle Widerstände aufs Steckbrett, keine Kabelkreuzungen, Motorkabel in MDD3A-Reihenfolge | Hardware / Entscheidung | `elektronik/steckbrett_v2.png`, `elektronik/pinbelegung.md` |
 | 23.11. | J | offen | Zweiter Haubendruck anprobiert, Frontsensor passte nicht. Front mit der Team-Baugruppe geprüft und geändert: Nasen-Rückwand weg, Fußschlitz höher | Fertigung / Konstruktion | `cad/haube_v4/` |
-| 23.11. | J | offen | Zeichnung Grundplatte ergänzt (Durchmesser, t=5, Halbzeug, Oberfläche, Kanten), falsche Masse der Baugruppe gefunden | Konstruktion / Dokumentation | `cad/zeichnung/2026-11-23_Grundplatte_V2_Zeichnung_Entwurf.pdf` |
+| 23.11. | J | offen | Zeichnung Grundplatte ergänzt (Durchmesser, t=5, Halbzeug, Oberfläche, Kanten), falsche Masse der Baugruppe gefunden | Konstruktion / Dokumentation | `cad/zeichnung/2026-11-23_Grundplatte_V3_Zeichnung.pdf` |
 | 24.11. | J | offen | Ganzer Roboter als 3D-Modell ins Repo: STL zum Drehen auf GitHub, GLB mit Farben, STEP, sechs Ansichten | Konstruktion / Dokumentation | `cad/baugruppe/` |
 | 24.11. | J | offen | Checkliste für die Abgabe von Dokumentation und Projektbericht: was gefordert ist, was fehlt | Organisation | `doku/abgabe_checkliste.md` |
 | 24.11. | J | offen | Projektverlauf Woche für Woche (v0.6.0) und Darstellung der Projektergebnisse (v0.5.0) ins Repo, Checkliste danach aktualisiert | Dokumentation | `doku/ECHO-Projektverlauf-Wochen.pdf`, `doku/ECHO-Projektergebnisse.pdf` |
@@ -194,7 +194,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 **20.11.2026: Technische Zeichnung Grundplatte**
 - Zeichnung BAT01.3.001.1 in Creo angelegt: A3, 1:1, Ordinatenbemaßung mit Nullpunkt an der Ecke oben links, dazu symmetrische Maße zur Mittellinie
 - Rückmeldung vom Betreuer: Die Bemaßung ist so gut und bleibt. Nichts löschen, eine Koordinatentabelle mit x und y nur zusätzlich
-- Im Modell alle Ø3,3 auf Ø3,2 gesetzt und 10 Löcher gelöscht, jetzt 37 Löcher (35 × Ø3,2, 2 × Ø2,2). STEP: `cad/Grundplatte_V2.stp`
+- Im Modell alle Ø3,3 auf Ø3,2 gesetzt und 10 Löcher gelöscht, jetzt 37 Löcher (35 × Ø3,2, 2 × Ø2,2). STEP: `cad/Grundplatte_V3.stp` (seit 24.11. als Grundplatte V3 bezeichnet)
 - Problem: In der ersten Fassung fehlten Durchmesser und Dicke, und es gab zwei verschiedene Nullpunkte für die senkrechten Maße. Lösung: ein Nullpunkt oben links, Rest am 23.11. ergänzt
 
 **21.11.2026: Steckplan v2**
@@ -214,7 +214,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Nur die Front muss neu gedruckt werden (70 g PLA), Heck und Rohrblenden bleiben. Neue Dateien in `cad/haube_v4/`
 
 **23.11.2026: Zeichnung ergänzt, Masse der Baugruppe**
-- Zeichnung ergänzt: „35x Ø3,2“ und „2x Ø2,2“, Dicke als „t=5“ statt Seitenansicht, Halbzeug „Sperrholzplatte 500x470x5“, Sammelangaben Oberfläche „lasergeschnitten“ und Kanten −0,5, kleine Isometrie 1:10 (`cad/zeichnung/2026-11-23_Grundplatte_V2_Zeichnung_Entwurf.pdf`)
+- Zeichnung ergänzt: „35x Ø3,2“ und „2x Ø2,2“, Dicke als „t=5“ statt Seitenansicht, Halbzeug „Sperrholzplatte 500x470x5“, Sammelangaben Oberfläche „lasergeschnitten“ und Kanten −0,5, kleine Isometrie 1:10 (`cad/zeichnung/2026-11-23_Grundplatte_V3_Zeichnung.pdf`)
 - Entscheidung: keine Passungen und keine Abmaßtabelle. Die Löcher sind Durchgangslöcher für M3 und M2, die Allgemeintoleranz ISO 2768-m reicht
 - Abgleich mit dem Modell: Die Ordinate x 236 (Kugelrolle) fehlt noch. Ein Podest-Loch sitzt im Modell bei x 56,0 statt 56,26, deshalb steht in der Zeichnung 142 statt 142,26
 - Problem: Die Baugruppenzeichnung zeigt 10.823,294 kg. Der Parameter MASS wird per Beziehung aus dem Modell gerechnet, vermutlich haben Teile aus dem Internet kein Material und Creo nimmt die Standarddichte. Lösung offen: Masse zuweisen oder den Teilen Material geben. Creo lief danach nicht mehr, wird am 24.11. gemacht

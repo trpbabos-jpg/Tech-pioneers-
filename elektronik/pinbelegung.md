@@ -3,7 +3,28 @@
 Board: ESP32-PICO-KIT V1 (Chip ESP32-PICO-V3). Der aktuelle Schaltplan mit drei Ultraschallsensoren ist `schaltplan_v2.pdf` (Stand 24.11.2026, Seite 2 mit Notizen). Der ältere Schaltplan liegt im Miro-Board im Rahmen „Schaltplan“, dazu die Rahmen „Verbindungen“, „Kabel nach Farbe“ und „Bauteile ohne Kabel“:
 https://miro.com/app/board/uXjVEZ6PCT0=/?moveToWidget=3458764687840245791
 
-## Stand 29.10.2026 (aktuell auf dem Steckbrett)
+## Stand 24.11.2026: Abgabestand nach Schaltplan v2 (gilt)
+
+Maßgeblich ist der Schaltplan `schaltplan_v2.pdf`. Wo ältere Stände unten etwas anderes sagen, gilt der Schaltplan.
+
+| Bauteil | Anschluss | ESP32 oder Ziel |
+| --- | --- | --- |
+| HC-SR04 links | Trig / Echo | GPIO2 / GPIO34 über Teiler 1 kΩ und 2,2 kΩ |
+| HC-SR04 vorne | Trig / Echo | GPIO15 / GPIO39 (VN) über Teiler 1 kΩ und 2,2 kΩ |
+| HC-SR04 rechts | Trig / Echo | GPIO21 / GPIO36 (VP) über Teiler 1 kΩ und 2,2 kΩ |
+| Alle HC-SR04 | VCC / GND | 5 V / GND |
+| Motor links, MDD3A | M1A / M1B | GPIO25 / GPIO26 |
+| Motor rechts, MDD3A | M2A / M2B | GPIO32 / GPIO33 |
+| Encoder links | Kanal B (gelb) | GPIO13 mit internem Pull-up |
+| Encoder rechts | Kanal B (gelb) | GPIO14 mit internem Pull-up |
+| Beide Encoder | VCC (blau) / GND (schwarz) / Kanal A (grün) | 3,3 V / GND / frei |
+| Stoßschalter (Öffner) | Kontakt 1 / Kontakt 2 | GPIO27 mit internem Pull-up / GND |
+| MDD3A | 5VO / GND | 5 V für ESP32 und Sensoren / GND |
+| Akku 4 × AA (ca. 4,8 V) | + / − | über Wippschalter an VB+ / VB− |
+
+Das Fahrprogramm `code/main.py` nutzt davon den Ultraschallsensor vorne, den Stoßschalter, beide Encoder und beide Motoren. Die Sensoren links und rechts sind angeschlossen, im Programm aber nicht genutzt.
+
+## Stand 29.10.2026
 
 Neu verkabelt, damit sich auf dem festen Steckbrett keine Kabel mehr kreuzen.
 
@@ -24,7 +45,7 @@ Neu verkabelt, damit sich auf dem festen Steckbrett keine Kabel mehr kreuzen.
 
 Frei bleiben die Startpins 0, 2, 12 und 15. Reserviert für einen zweiten HC-SR04: Trig 21, Echo 34. Die LED ist nicht mehr verbaut.
 
-## Stand 21.11.2026: Plan mit drei Ultraschallsensoren (noch nicht umgesteckt)
+## Stand 21.11.2026: Steckplan v2 mit drei Ultraschallsensoren
 
 Steckplan: `steckbrett_v2.png` (Quelle `steckbrett_v2.svg`). Der ESP32 steckt in Spalte 25 bis 42, USB links. Alle Widerstände sitzen auf dem Steckbrett, an Sensoren und Motoren hängen keine mehr. Auf dem Steckbrett kreuzen sich keine Kabel, die Motorkabel liegen am ESP32 in derselben Reihenfolge wie am MDD3A.
 
@@ -44,17 +65,13 @@ Steckplan: `steckbrett_v2.png` (Quelle `steckbrett_v2.svg`). Der ESP32 steckt in
 | ESP32 | 5V / GND | 25a zur roten Schiene / 26a zur blauen Schiene |
 | Akku | + / − | wie bisher über Wippschalter an VB+ / VB− |
 
-- **Abweichung zum Schaltplan (24.11.):** Im Schaltplan `schaltplan_v2.pdf` geht Echo links an **GPIO34**, im Steckplan und in dieser Tabelle an **GPIO4**. Beides geht elektrisch (34 kann nur lesen, für Echo reicht das). Vor dem Umstecken festlegen, welcher Pin gilt, und Schaltplan, Steckplan, diese Tabelle und `main.py` gleich machen.
+- Seit dem Schaltplan vom 24.11. liegt Echo links an GPIO34 statt GPIO4. Der Steckplan `steckbrett_v2.png` zeigt noch GPIO4.
 - Teiler: 5 V × 2,2 / 3,2 = ca. 3,4 V am Echo-Pin. Der 2,2 kΩ kommt immer in die blaue Reihe, nie in die rote.
 - Echo vorne und rechts liegen auf 39 und 36. Diese Pins können nur lesen und haben keinen Pull-up. Für Echo reicht das, weil der Sensor die Leitung selbst auf high und low treibt.
 - Kein 10-kΩ-Pull-up mehr nötig: Beide Encoder und der Stoßschalter liegen auf Pins mit internem Pull-up.
 - GPIO0 und GPIO12 bleiben frei. GPIO2 und GPIO15 sind auch Startpins, tragen hier aber nur Trig. Der Sensor treibt diese Leitung nicht, deshalb stört das den Start nicht.
 - Das grüne Encoder-Kabel ist laut Team Kanal A. Die Tabelle vom 29.10. nennt gelb A und grün B, vor dem Umstecken am Encoder prüfen.
-- Code: `main.py` hat noch die Pins vom 29.10. Beim Umstecken anpassen: Motor rechts A = 32, B = 33, Motor links A = 25, B = 26, Encoder rechts 14, links 13, Echo `Pin(39, Pin.IN)` und `Pin(36, Pin.IN)`. Danach Drehrichtung und jeden Sensor einzeln testen.
-
-## Stand 13.11.2026
-
-Die Elektronik ist auf der Grundplatte v2 komplett verkabelt (Foto: `fotos/2026-11-13_elektronik_verkabelt.jpg`). Die neue Belegung mit den drei Ultraschallsensoren bitte hier als Tabelle eintragen, die Tabelle vom 29.10. bleibt als früherer Stand stehen.
+- Code: seit 24.11. in `code/main.py` umgesetzt.
 
 ## Geplant für Grundplatte v2
 

@@ -1,115 +1,130 @@
-# main.py - Wall-Sprint: hin, sanft an die Wand, rueckwaerts zurueck
-# Team Batman
-
+# Wall-Sprint Team Batman, schnell
+# Hin zur Wand, Taster beruehren, zurueck zur Startwand
 from machine import Pin, PWM, time_pulse_us
 import time
 
-# ----- Pins (Steckplan) -----
-m1a = PWM(Pin(14), freq=20000, duty_u16=0)   # Motor rechts
-m1b = PWM(Pin(27), freq=20000, duty_u16=0)
-m2a = PWM(Pin(33), freq=20000, duty_u16=0)   # Motor links
-m2b = PWM(Pin(32), freq=20000, duty_u16=0)
-trig = Pin(19, Pin.OUT)
-echo = Pin(35, Pin.IN)
-taster = Pin(22, Pin.IN, Pin.PULL_UP)
-enc_links = Pin(25, Pin.IN, Pin.PULL_UP)
-enc_rechts = Pin(13, Pin.IN, Pin.PULL_UP)
+# Pins
+rechts_a = PWM(Pin(32), freq=20000, duty_u16=0)   # Motor rechts, MDD3A M2A
+rechts_b = PWM(Pin(33), freq=20000, duty_u16=0)   # Motor rechts, MDD3A M2B
+links_a = PWM(Pin(25), freq=20000, duty_u16=0)    # Motor links, MDD3A M1A
+links_b = PWM(Pin(26), freq=20000, duty_u16=0)    # Motor links, MDD3A M1B
+trig_vorne = Pin(15, Pin.OUT, value=0)
+echo_vorne = Pin(39, Pin.IN)
+taster = Pin(27, Pin.IN, Pin.PULL_UP)             # Taster vorne, gedrueckt = 1
+enc_links = Pin(13, Pin.IN, Pin.PULL_UP)
+enc_rechts = Pin(14, Pin.IN, Pin.PULL_UP)
 
-# ----- Gemessen mit kalibrieren.py und drehzahl_test.py -----
-ANLAUF = 20                 # unter 20 % dreht kein Rad
-FAKTOR_LINKS = 0.7          # motorkraft links beim Vorwaertsfahren
-FAKTOR_LINKS_ZURUECK = 0.7  # motorkraft links beim Rueckwaertsfahren (ausprobieren)
+# Hinfahrt
+V_MAX = 75                      # cm/s
+A_HIN = 150                     # cm/s2
+BREMSEN_HIN = 100               # cm/s2
+BREMSPUNKT_HIN = 45             # cm Echo-Abstand, ab hier auf V_WAND bremsen
 
-# ----- Fahren (ausprobieren) -----
-VMAX = 80             # Hoechstgeschwindigkeit in %
-KRIECHEN = 20         # Tempo kurz vor der Wand in %
-SCHRITT_HOCH = 6      # % schneller pro Takt
-SCHRITT_RUNTER = 7    # % langsamer pro Takt
-BREMSEN_AB = 50       # ab diesem Abstand in cm bremsen
-BREMSEN_AB_ZURUECK = 45   # rueckwaerts: ab dieser Reststrecke in cm bremsen
-TAKT_MS = 50
-KP = 0.5              # Encoder-Korrektur fuer die Geradeausfahrt
-CM_PRO_IMPULS = 3.1416 * 8.0 / 224   # Radumfang / Impulse pro Umdrehung
+# Wand
+V_WAND = 14                     # cm/s, Kriechtempo an beiden Waenden
+PAUSE_AN_WAND = 285             # ms
+
+# Rueckfahrt
+A_ZURUECK = 100                 # cm/s2
+BREMSEN_ZURUECK = 80            # cm/s2
+BREMSPUNKT_ZURUECK = 40         # cm vor dem Start, ab hier auf V_WAND bremsen
+
+# Motoren
+ANLAUF = 20                     # %, ab dieser Leistung drehen die Raeder
+FAKTOR_LINKS = 1.04             # linker Motor mehr Leistung vorwaerts, faehrt gerade
+FAKTOR_LINKS_ZURUECK = 1.075     # linker Motor mehr Leistung rueckwaerts, faehrt gerade
+CM_S_BEI_0 = 10                 # cm/s, Tempo bei kleinster Leistung (ANLAUF)
+CM_S_PRO_PROZENT = 0.75
+
+# Sonstiges
+START_WARTEN = 3                # s, erlaubt 2 bis 10
+MIN_ZEIT = 300                  # ms, Taster erst nach dieser Zeit aktiv
+MIN_IMPULSE = 20                # Impulse rueckwaerts, bevor Stillstand zaehlt
+STEHT_MS = 200                  # ms ohne Encoder-Impuls = Raeder stehen
+ENTPRELLZEIT = 30               # ms
+TAKT = 40                       # ms Pause pro Regelschleife
+MAX_FAHRZEIT = 60000            # ms, danach Notstopp
+CM_PRO_IMPULS = 3.1416 * 8.0 / 224   # cm pro Impuls, Rad 8 cm, 224 Impulse pro Umdrehung
 
 
-# ----- Motoren (Kap. 4b) -----
-def motor(pin_a, pin_b, geschwindigkeit):
-    # Anlauf ausgleichen: 1 % dreht schon, 100 % bleibt 100 %
-    if geschwindigkeit > 0:
-        geschwindigkeit = ANLAUF + geschwindigkeit * (100 - ANLAUF) / 100
-    elif geschwindigkeit < 0:
-        geschwindigkeit = -ANLAUF + geschwindigkeit * (100 - ANLAUF) / 100
-    duty = int(min(abs(geschwindigkeit), 100) * 65535 / 100)
-    if geschwindigkeit > 0:
-        pin_a.duty_u16(duty)
-        pin_b.duty_u16(0)
-    elif geschwindigkeit < 0:
-        pin_a.duty_u16(0)
-        pin_b.duty_u16(duty)
+def motor(a, b, prozent):
+    # einen Motor ansteuern: plus vorwaerts, minus rueckwaerts, 0 aus
+    duty = 0
+    if prozent != 0:
+        p = ANLAUF + abs(prozent) * (100 - ANLAUF) / 100
+        if p > 100:
+            p = 100
+        duty = int(p * 65535 // 100)
+    if prozent > 0:
+        a.duty_u16(duty)
+        b.duty_u16(0)
     else:
-        pin_a.duty_u16(0)
-        pin_b.duty_u16(0)
+        a.duty_u16(0)
+        b.duty_u16(duty)
 
 
-def motoren(links, rechts):
-    # vorwaerts und rueckwaerts kann links unterschiedlich stark sein
+def fahren(links, rechts):
+    # beide Motoren ansteuern, links mit Ausgleichsfaktor
     if links >= 0:
-        motor(m2a, m2b, links * FAKTOR_LINKS)
+        links = links * FAKTOR_LINKS
     else:
-        motor(m2a, m2b, links * FAKTOR_LINKS_ZURUECK)
-    motor(m1a, m1b, -rechts)      # rechter Motor ist gespiegelt eingebaut
+        links = links * FAKTOR_LINKS_ZURUECK
+    motor(links_b, links_a, links)      # B-Pin ist vorwaerts
+    motor(rechts_b, rechts_a, rechts)
 
 
-# ----- Ultraschall (Kap. 4a) -----
+def prozent(geschwindigkeit):
+    # Tempo in cm/s in Motorleistung in Prozent umrechnen
+    if geschwindigkeit <= 0:
+        return 0
+    p = (geschwindigkeit - CM_S_BEI_0) / CM_S_PRO_PROZENT
+    if p < 1:
+        p = 1
+    return p
+
+
 def messen():
-    trig.value(1)
+    # Ultraschall vorne: Abstand in cm, 400 wenn kein Echo
+    trig_vorne.value(1)
     time.sleep_us(10)
-    trig.value(0)
-    laufzeit = time_pulse_us(echo, 1, 30000)
+    trig_vorne.value(0)
+    laufzeit = time_pulse_us(echo_vorne, 1, 30000)     # hoechstens 30 ms warten
     if laufzeit < 0:
-        return 400
+        return 400              # kein Echo
     return laufzeit * 0.0343 / 2
 
 
-class Median:
-    # merkt sich die letzten 3 Messungen und gibt die mittlere zurueck,
-    # damit eine einzelne Fehlmessung nicht stoert (Lab-Aufgabe Kap. 4d)
-
-    def __init__(self):
-        self.werte = []
-
-    def neu(self, wert):
-        self.werte.append(wert)
-        if len(self.werte) > 3:
-            self.werte.pop(0)
-        sortiert = sorted(self.werte)
-        return sortiert[len(sortiert) // 2]
+werte_vorne = []
 
 
-median = Median()
+def abstand_vorne():
+    # mittlerer Wert der letzten 3 Messungen, gegen Ausreisser
+    werte_vorne.append(messen())
+    if len(werte_vorne) > 3:
+        werte_vorne.pop(0)
+    return sorted(werte_vorne)[len(werte_vorne) // 2]
 
 
-# ----- Taster (Kap. 4c) -----
-def wand_beruehrt():
-    # 7-mal nachschauen, damit kurzes Zucken beim Fahren nicht ausloest
-    for i in range(7):
-        if taster.value() != 1:
-            return False
-        time.sleep_ms(2)
-    return True
+def istTasteGedrueckt():
+    # Taster lesen, mit Entprellen
+    if taster.value() != 1:
+        return False
+    time.sleep_ms(ENTPRELLZEIT)     # Prellen abwarten
+    return taster.value() == 1
 
 
-# ----- Encoder (Fortgeschrittene Kap. 4b/4c) -----
 impulse_links = 0
 impulse_rechts = 0
 
 
 def zaehle_links(pin):
+    # Interrupt: Impuls linkes Rad zaehlen
     global impulse_links
     impulse_links = impulse_links + 1
 
 
 def zaehle_rechts(pin):
+    # Interrupt: Impuls rechtes Rad zaehlen
     global impulse_rechts
     impulse_rechts = impulse_rechts + 1
 
@@ -118,58 +133,111 @@ enc_links.irq(trigger=Pin.IRQ_RISING, handler=zaehle_links)
 enc_rechts.irq(trigger=Pin.IRQ_RISING, handler=zaehle_rechts)
 
 
-def gefahren_cm():
+def encoder_null():
+    # beide Zaehler auf 0 setzen
+    global impulse_links, impulse_rechts
+    impulse_links = 0
+    impulse_rechts = 0
+
+
+def gefahren():
+    # gefahrene Strecke in cm, Mittel beider Raeder
     return (impulse_links + impulse_rechts) / 2 * CM_PRO_IMPULS
 
 
-def geradeaus(g, richtung):
-    # Rad mit mehr Impulsen ist weiter gefahren -> etwas langsamer
-    korrektur = KP * (impulse_links - impulse_rechts)
-    # je langsamer, desto schwaecher die Korrektur
-    # (bei 80 % hoechstens 8 %, bei 20 % hoechstens 2 %)
-    grenze = 8 * g / VMAX
-    korrektur = max(-grenze, min(grenze, korrektur))
-    motoren((g - korrektur) * richtung, (g + korrektur) * richtung)
+start = 0                       # Startzeit in ms
 
 
-# ----- Ablauf -----
-try:
-    motoren(0, 0)
-    time.sleep(3)                     # Regel: 2 bis 10 s an der Startwand
+def wand_beruehrt():
+    # True, wenn der Taster die Wand beruehrt
+    if time.ticks_diff(time.ticks_ms(), start) < MIN_ZEIT:
+        return False
+    return istTasteGedrueckt()
 
-    # 1. Hinfahren: sanft schneller bis VMAX, bis die Wand nah ist
-    print("Hinfahren")
-    g = 0
-    while median.neu(messen()) > BREMSEN_AB and not wand_beruehrt():
-        g = min(g + SCHRITT_HOCH, VMAX)
-        geradeaus(g, 1)
-        time.sleep_ms(TAKT_MS)
-    print("diff hin:", impulse_links - impulse_rechts)
 
-    # 2. Sanft bremsen auf Kriechtempo, bis der Taster die Wand beruehrt
-    print("Bremsen")
-    while not wand_beruehrt():
-        g = max(g - SCHRITT_RUNTER, KRIECHEN)
-        geradeaus(g, 1)
-        time.sleep_ms(TAKT_MS)
-    motoren(0, 0)
-    strecke = gefahren_cm()
-    print("Wand beruehrt nach", round(strecke), "cm")
-    time.sleep_ms(500)
+def pruefe_zeit():
+    # Notstopp, wenn die Fahrt zu lange dauert
+    if time.ticks_diff(time.ticks_ms(), start) > MAX_FAHRZEIT:
+        fahren(0, 0)
+        while True:
+            time.sleep(1)
 
-    # 3. Rueckwaerts dieselbe Strecke zurueck, am Ende wieder sanft
-    print("Zurueck")
-    impulse_links = 0
-    impulse_rechts = 0
-    g = 0
-    while gefahren_cm() < strecke:
-        if strecke - gefahren_cm() > BREMSEN_AB_ZURUECK:
-            g = min(g + SCHRITT_HOCH, VMAX)
-        else:
-            g = max(g - SCHRITT_RUNTER, KRIECHEN)
-        geradeaus(g, -1)
-        time.sleep_ms(TAKT_MS)
-    print("diff zurueck:", impulse_links - impulse_rechts)
-    print("Fertig")
-finally:
-    motoren(0, 0)
+
+letzte = 0                      # letzte Summe der Impulse
+letzte_bewegung = 0             # ms
+
+
+def raeder_stehen():
+    # True, wenn STEHT_MS lang kein Impuls kam
+    global letzte, letzte_bewegung
+    jetzt = impulse_links + impulse_rechts
+    if jetzt != letzte:
+        letzte = jetzt
+        letzte_bewegung = time.ticks_ms()
+        return False
+    return time.ticks_diff(time.ticks_ms(), letzte_bewegung) > STEHT_MS
+
+
+v = 0                           # Soll-Tempo in cm/s
+letzte_zeit = 0                 # Zeit der letzten Tempo-Rechnung in ms
+
+
+def neues_tempo(v_ziel):
+    # Soll-Tempo v Richtung v_ziel aendern, begrenzt durch beschleunigen und bremsen
+    global v, letzte_zeit
+    jetzt = time.ticks_ms()
+    dt = time.ticks_diff(jetzt, letzte_zeit) / 1000
+    letzte_zeit = jetzt
+    if v_ziel > v:
+        v = v + beschleunigen * dt
+        if v > v_ziel:
+            v = v_ziel
+    else:
+        v = v - bremsen * dt
+        if v < v_ziel:
+            v = v_ziel
+
+
+# Start: an der Startwand warten
+time.sleep(START_WARTEN)
+start = time.ticks_ms()
+
+# Hinfahren: beschleunigen, vor der Wand bremsen, bis der Taster drueckt
+beschleunigen = A_HIN           # Werte fuer die Hinfahrt
+bremsen = BREMSEN_HIN
+letzte_zeit = start
+encoder_null()
+while not wand_beruehrt():
+    pruefe_zeit()
+    if abstand_vorne() > BREMSPUNKT_HIN:
+        neues_tempo(V_MAX)
+    else:
+        neues_tempo(V_WAND)
+    p = prozent(v)
+    fahren(p, p)
+    time.sleep_ms(TAKT)
+fahren(0, 0)
+
+# Wand: Strecke merken, kurz warten
+strecke = gefahren()            # fuer die Rueckfahrt merken
+time.sleep_ms(PAUSE_AN_WAND)
+
+# Zurueck: rueckwaerts, ab BREMSPUNKT_ZURUECK langsam, bis die Raeder an der Startwand stehen
+beschleunigen = A_ZURUECK       # Werte fuer die Rueckfahrt
+bremsen = BREMSEN_ZURUECK
+v = 0
+letzte_zeit = time.ticks_ms()
+encoder_null()
+while True:
+    pruefe_zeit()
+    rest = strecke - gefahren()     # Restweg bis zum Start
+    if rest > BREMSPUNKT_ZURUECK:
+        neues_tempo(V_MAX)
+    else:
+        neues_tempo(V_WAND)
+    p = prozent(v)
+    fahren(-p, -p)
+    time.sleep_ms(TAKT)
+    if impulse_links + impulse_rechts > MIN_IMPULSE and raeder_stehen():
+        break                   # Startwand erreicht
+fahren(0, 0)

@@ -35,12 +35,14 @@ Teilweise fertig, Screenshots in `../fotos/2026-11-13_cad_baugruppe/`. Enthalten
 
 `stl/halterung-l-echo.stl`, `-r-echo.stl`, `-v-echo.stl`, so gedruckt. Alle drei haben denselben Körper, nur die Löcher sitzen anders: rechts 3,5 mm nach vorne versetzt (MDD3A), links 1 mm, vorne mittig mit 22,2 mm Lochabstand für den Stoßschalter.
 
-## Grundplatte v2
+## Grundplatte V2 (gelasert) und V3 (Modell)
 
-- `Grundplatte_V2_Laser.dxf`: Laserdatei, 1:1 in mm, nur Schnittlinien (256 × 170, 47 Löcher)
+Gelasert und verbaut ist die **V2** mit 47 Löchern. Am 20.11. wurden im Modell die zehn nicht gebrauchten Löcher gelöscht und alle Ø3,3 auf Ø3,2 gesetzt. Diesen Stand mit 37 Löchern nennen wir **V3**; er ist nicht gelasert.
+
+- `Grundplatte_V2_Laser.dxf`: Laserdatei der V2, 1:1 in mm, nur Schnittlinien (256 × 170, 47 Löcher)
 - `Grundplatte_V2_Laser.svg`: dieselbe Datei als SVG
-- `Grundplatte_V2.stp`: Creo-Modell als STEP, Stand 20.11.2026 mit 37 Löchern (35 × Ø3,2, 2 × Ø2,2). Die gelaserte Platte und die DXF haben noch 47 Löcher, siehe offene Punkte
-- `zeichnung/2026-11-23_Grundplatte_V2_Zeichnung_Entwurf.pdf`: technische Zeichnung BAT01.3.001.1, A3, 1:1, Entwurf. Bemaßung vom Betreuer abgenommen, ein paar Kleinigkeiten sind noch offen
+- `Grundplatte_V3.stp`: Creo-Modell der V3 als STEP, Stand 20.11.2026 mit 37 Löchern (35 × Ø3,2, 2 × Ø2,2)
+- `zeichnung/2026-11-23_Grundplatte_V3_Zeichnung.pdf`: technische Zeichnung BAT01.3.001.1 der V3, A3, 1:1. Bemaßung vom Betreuer abgenommen, ein paar Kleinigkeiten sind noch offen (Ordinate 236, Maß 5 an der Isometrie)
 - Maßtabelle mit Lage, Schwerpunkt und Grenzwerten: `bom/Grundplatte_Masse_Gewicht_V2.xlsx`
 
 Die Entscheidungen zur Grundplatte v2 stehen in `grundplatte-v2-entscheidungen.md`.

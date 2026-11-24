@@ -1,5 +1,32 @@
 # Einstellwerte im Code
 
+## Stand 24.11.2026, Abgabestand (`code/main.py` = `wallsprint_schnell.py`)
+
+Neu geschrieben für die Grundplatte v2 und den Schaltplan v2: Das Tempo wird in cm/s geplant und über Beschleunigung und Bremsverzögerung begrenzt, damit der Ball in der Schale bleibt. Die Werte wurden mit einer Simulation des Balls in der Schale gesucht und am Roboter mit Haube eingestellt.
+
+| Wert | Stand | Bedeutung |
+| --- | --- | --- |
+| `V_MAX` | 75 cm/s | Höchsttempo hin und zurück |
+| `A_HIN` / `BREMSEN_HIN` | 150 / 100 cm/s² | Beschleunigen und Bremsen auf der Hinfahrt |
+| `BREMSPUNKT_HIN` | 45 cm | Echo-Abstand, ab dem auf `V_WAND` gebremst wird |
+| `V_WAND` | 14 cm/s | Kriechtempo an beiden Wänden |
+| `PAUSE_AN_WAND` | 285 ms | Pause nach dem Berühren der Zielwand |
+| `A_ZURUECK` / `BREMSEN_ZURUECK` | 100 / 80 cm/s² | Beschleunigen und Bremsen auf der Rückfahrt |
+| `BREMSPUNKT_ZURUECK` | 40 cm | Reststrecke vor der Startwand, ab der auf `V_WAND` gebremst wird |
+| `ANLAUF` | 20 % | ab dieser Leistung drehen die Räder (kalibrieren.py, 29.10.) |
+| `FAKTOR_LINKS` / `FAKTOR_LINKS_ZURUECK` | 1,04 / 1,075 | Ausgleich für den linken Motor vorwärts und rückwärts, mit Haube auf einer geraden Linie eingestellt |
+| `CM_S_BEI_0` / `CM_S_PRO_PROZENT` | 10 cm/s / 0,75 cm/s pro % | Umrechnung von Tempo in Motorleistung |
+| `START_WARTEN` | 3 s | Wartezeit an der Startwand (Regel: 2 bis 10 s) |
+| `MIN_ZEIT` | 300 ms | Stoßschalter erst nach dieser Zeit aktiv |
+| `MIN_IMPULSE` / `STEHT_MS` | 20 / 200 ms | Rückfahrt endet, wenn die Räder nach mindestens 20 Impulsen 200 ms stehen (Startwand erreicht) |
+| `ENTPRELLZEIT` | 30 ms | Stoßschalter zweimal lesen, dazwischen 30 ms |
+| `TAKT` | 40 ms | Länge eines Regeltakts |
+| `MAX_FAHRZEIT` | 60 s | danach Notstopp |
+| `CM_PRO_IMPULS` | π × 8 cm / 224 | ca. 0,112 cm pro Encoder-Impuls |
+
+Ältere Stände folgen darunter.
+
+
 Stand 29.10.2026, nach der Neuverkabelung und der neuen Kalibrierung. Wenn ihr einen Wert ändert, hier eine neue Zeile mit Datum dazuschreiben statt die alte zu löschen.
 
 | Wert | Stand | Herkunft |
@@ -14,7 +41,7 @@ Stand 29.10.2026, nach der Neuverkabelung und der neuen Kalibrierung. Wenn ihr e
 | Impulse pro Radumdrehung | 224 | SBC Kap. 4b, Folie 23 |
 | Raddurchmesser | 8 cm | Rad 80 mm aus dem Starter Kit |
 
-## Stand 03.11.2026 (`code/main.py`)
+## Stand 03.11.2026 (`code/main_2026-11-03.py`, damals `main.py`)
 
 Ab der vereinfachten Version (30.10.) gibt es nur noch einen `ANLAUF` für beide Räder und keine `RICHTUNG_`-Werte mehr, der rechte Motor wird in `motoren()` umgedreht.
 
@@ -38,7 +65,8 @@ Frühere Stände dazwischen (30.10.: VMAX 70, KRIECHEN 15, BREMSEN_AB 35, Faktor
 
 | Datei | Was | Stand |
 | --- | --- | --- |
-| `code/main.py` | aktuelles Fahrprogramm: hin, sanft bremsen, Wand mit Stoßschalter berühren, rückwärts über die Encoder zurück | 03.11., noch nicht getestet |
+| `code/main.py`, `code/wallsprint_schnell.py` | Abgabestand: hin mit Tempo-Rampe, ab 45 cm auf Kriechtempo, Wand mit Stoßschalter berühren, rückwärts über die Encoder zurück bis zur Startwand | 24.11. |
+| `code/main_2026-11-03.py` | frühere `main.py` mit Geradeausregelung über die Encoder, Pins vom 29.10. | 03.11. |
 | `code/fahren_v1_zustaende_hin_rueck.py` | erste Version mit Zuständen (WARTEN, HINFAHREN, BREMSEN …), Rückfahrt erkennt die Startwand an stehenden Rädern | 29.10. |
 | `code/fahren_v2_vereinfacht.py` | vereinfachte Version in drei Schritten, Median aus 3 Messungen | 30.10. |
 | `code/fahren_v3_vmax100.py` | wie v2 mit VMAX 100 und schnelleren Schritten | 03.11. |
@@ -47,4 +75,4 @@ Frühere Stände dazwischen (30.10.: VMAX 70, KRIECHEN 15, BREMSEN_AB 35, Faktor
 | `code/tests/2026-10-29_drehzahl_test.py` | U/min links und rechts bei 15 bis 100 %, daraus der Faktor | 29.10. |
 | `code/tests/2026-10-29_bremsen_test.py` | Bremsen vor der Wand ohne Stoßschalter, Ziel 15 cm | 29.10. |
 
-Ältere Bauteiltests (20. und 23.10.) stehen in `code/tests/README.md`. Fehlt noch: `taster_test.py` (bitte aus Thonny hochladen).
+Ältere Bauteiltests (20. und 23.10.) stehen in `code/tests/README.md`. Die Testprogramme haben die Pins vom 29.10.; vor dem Testen oben im Programm an `elektronik/schaltplan_v2.pdf` anpassen.
