@@ -4,7 +4,7 @@
 | --- | --- |
 | Projekt | ECHO, Mobiler Roboter für den Wall-Sprint (TechPioneers) |
 | Dokument | `doku/aenderungsverlauf.md` |
-| Version | 0.6.5 |
+| Version | 0.7.0 |
 | Datum | 24.11.2026 |
 | Status | Entwurf |
 
@@ -37,7 +37,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 | 17. bis 18.11. | J | offen | Haube V4: Entwurf, Befestigung, Anpassung an Quarz und echte Halterungen, fertige STEP für Creo, Druck vorbereitet | Konstruktion / Entscheidung / Fertigung | `cad/haube_v4/` |
 | KW 47, bis 20.11. | Team | offen | Projektkarte, Dokumentation des Projektverlaufs (Entwurf), Marketing: Comic-Cover und Comic-Strip | Dokumentation / Marketing | `doku/ECHO-Projektkarte.pdf`, `doku/ECHO-Projektverlauf-Wochen.pdf`, `doku/marketing/` |
 | 20.11. | J | offen | Haube gedruckt und anprobiert, Räder gemessen, Haube geändert: Radkasten offen, Teilung bei x 58 | Fertigung / Messung / Konstruktion | `cad/haube_v4/` |
-| 20.11. | J | offen | Technische Zeichnung Grundplatte begonnen, Rückmeldung Betreuer, Bohrungen im Modell vereinheitlicht und 10 gelöscht | Konstruktion / Dokumentation | `cad/zeichnung/`, `cad/Grundplatte_V2.stp` |
+| 20.11. | J | offen | Technische Zeichnung Grundplatte begonnen, Rückmeldung Betreuer, Bohrungen im Modell vereinheitlicht und 10 gelöscht | Konstruktion / Dokumentation | `cad/zeichnung/`, `cad/Grundplatte_V3.stp` |
 | 21.11. | J | offen | Steckplan v2 für drei Ultraschallsensoren: alle Widerstände aufs Steckbrett, keine Kabelkreuzungen, Motorkabel in MDD3A-Reihenfolge | Hardware / Entscheidung | `elektronik/steckbrett_v2.png`, `elektronik/pinbelegung.md` |
 | 23.11. | J | offen | Zweiter Haubendruck anprobiert, Frontsensor passte nicht. Front mit der Team-Baugruppe geprüft und geändert: Nasen-Rückwand weg, Fußschlitz höher | Fertigung / Konstruktion | `cad/haube_v4/` |
 | 23.11. | J | offen | Zeichnung Grundplatte ergänzt (Durchmesser, t=5, Halbzeug, Oberfläche, Kanten), falsche Masse der Baugruppe gefunden | Konstruktion / Dokumentation | `cad/zeichnung/2026-11-23_Grundplatte_V3_Zeichnung.pdf` |
@@ -45,6 +45,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 | 24.11. | J | offen | Checkliste für die Abgabe von Dokumentation und Projektbericht: was gefordert ist, was fehlt | Organisation | `doku/abgabe_checkliste.md` |
 | 24.11. | J | offen | Projektverlauf Woche für Woche (v0.6.0) und Darstellung der Projektergebnisse (v0.5.0) ins Repo, Checkliste danach aktualisiert | Dokumentation | `doku/ECHO-Projektverlauf-Wochen.pdf`, `doku/ECHO-Projektergebnisse.pdf` |
 | 24.11. | offen | offen | Schaltplan v2 für den ganzen Roboter mit Notizen, mit dem Steckplan v2 verglichen | Elektronik / Dokumentation | `elektronik/schaltplan_v2.pdf` |
+| 24.11. | A, J | offen | Abgabestand des Fahrprogramms ins Repo (`main.py` = `wallsprint_schnell.py`), Pinbelegung nach Schaltplan v2, Benutzer- und Entwicklerdokumentation, Projektverlauf mit „Wer hat was gemacht“, README der Abgabe | Programmierung / Dokumentation | `code/`, `doku/` |
 
 ## Einträge
 
@@ -241,6 +242,15 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Schaltplan für den ganzen Roboter: Akku über Wippschalter an VB+, MDD3A mit beiden Motoren, 5VO an 5 V, drei HC-SR04 mit Spannungsteiler, beide Encoder an 3,3 V, Stoßschalter an GPIO27 (`elektronik/schaltplan_v2.pdf`). Seite 2 erklärt jedes Teil und die Regeln für den Strom
 - Mit dem Steckplan v2 verglichen: Motoren, Encoder, Stoßschalter, Trig-Pins und Echo vorne und rechts stimmen überein
 - Problem: Echo links steht im Schaltplan an GPIO34, im Steckplan an GPIO4. Muss vor dem Umstecken entschieden werden
+
+**24.11.2026, abends: Abgabestand**
+- Fahrprogramm im Abgabestand: `code/main.py` (gleich `wallsprint_schnell.py`). Tempo in cm/s mit Rampen (hin 150 / 100 cm/s², zurück 100 / 80 cm/s²), höchstens 75 cm/s, ab 45 cm Echo-Abstand Kriechtempo 14 cm/s, Rückfahrt über die Encoder bis an die Startwand, Notstopp nach 60 s. Die alte `main.py` heißt jetzt `main_2026-11-03.py`
+- Schaltplan v2 ist der gültige Stand, Echo links liegt an GPIO34. Pinbelegung danach neu (`elektronik/pinbelegung.md`), Schaltplan mit Schriftfeld
+- Grundplatte: gelasert und verbaut ist die V2 mit 47 Löchern, das bereinigte Modell mit 37 Löchern heißt ab jetzt V3 (`cad/Grundplatte_V3.stp`, Zeichnung `cad/zeichnung/2026-11-23_Grundplatte_V3_Zeichnung.pdf`)
+- Darstellung der Projektergebnisse aufgeteilt in `doku/ECHO-Benutzerdokumentation` und `doku/ECHO-Entwicklerdokumentation`. In die Entwicklerdoku kamen die Beschreibung aller CAD-Entwürfe (Team), Bilder der Baugruppe, der Schaltplan, ein neuer Programmablaufplan und der neue Code Abschnitt für Abschnitt
+- Projektverlauf um Abschnitt 5 „Wer hat was gemacht“ ergänzt, Wochen 6 und 7 nachgetragen
+- Inhalt der Abgabe-ZIP: `doku/abgabe_readme.md`. Die Projekttagebücher liegen nur in der ZIP, weil das Repository öffentlich ist
+- Offen: Creo-Originaldateien in die ZIP, Werte und Ergebnis der Abnahme, Folien KW 46, KW 47 und Abschlusspräsentation
 
 ## Offene Punkte
 
