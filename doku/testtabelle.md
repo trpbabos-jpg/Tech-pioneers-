@@ -14,4 +14,4 @@ Vor jedem Test aufschreiben, woran man den Erfolg erkennt (Kap. 8). Nach jeder �
 | | | Ultraschall rechts | Wand in 20 cm und 50 cm (Lineal) | Messwerte auf ±1 cm genau | | |
 | | | Geradeausfahrt | 200 cm fahren, seitliche Abweichung messen (3 Mal) | Abweichung unter 5 cm | | |
 | | | Abbremsen | auf Wand zufahren | stoppt sanft vor der Wand, Ball bleibt liegen | | |
-| | | Geschwindigkeit | 200 cm fahren, Zeit stoppen (3 Mal) | Durchschnittsgeschwindigkeit notiert | | |
+| 24.11.2026 | Team | Geschwindigkeit | Wall-Sprint fahren, Zeit von Start bis Rückkehr stoppen | Durchschnittsgeschwindigkeit notiert | 6,7 s für 2 × 200 cm, ca. 0,60 m/s | ja |

@@ -4,7 +4,7 @@
 | --- | --- |
 | Projekt | ECHO, Mobiler Roboter für den Wall-Sprint (TechPioneers) |
 | Dokument | `doku/aenderungsverlauf.md` |
-| Version | 0.7.0 |
+| Version | 0.8.0 |
 | Datum | 24.11.2026 |
 | Status | Entwurf |
 
@@ -252,6 +252,12 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Inhalt der Abgabe-ZIP: `doku/abgabe_readme.md`. Die Projekttagebücher liegen nur in der ZIP, weil das Repository öffentlich ist
 - Offen: Creo-Originaldateien in die ZIP, Werte und Ergebnis der Abnahme, Folien KW 46, KW 47 und Abschlusspräsentation
 
+**24.11.2026, nachts: Messwert, Marketing, Creo-Dateien**
+- Messfahrt Wall-Sprint: 6,7 s für 200 cm hin und 200 cm zurück. Das sind 400 cm / 6,7 s ≈ 59,7 cm/s, also ca. 0,60 m/s oder 2,15 km/h, die Pause an der Endwand eingerechnet (`doku/messwerte.md`, `doku/testtabelle.md`)
+- Benutzerdoku (Zusammenfassung, technische Daten), Entwicklerdoku (Tests) und Projektverlauf (Woche 7, Teilergebnisse) um den Messwert ergänzt
+- Comic-Cover: Ø-Tempo 0,60 m/s eingetragen, Text auf 2 × 200 cm in 6,7 s und Bremspunkt 45 cm angepasst. Comic-Strip: Kopfzeile mit Fahrzeit und Tempo, Platzhalter für Uhrzeit und Raum entfernt, Bild 2 mit Tempo statt Encoder, Bild 4 auf 45 cm, Bild 6 mit Zielzeit
+- Creo-Originaldateien aus dem CAD-Paket vom 24.11. in die ZIP (`05_CAD_Creo/creo/`), dazu Baugruppenzeichnung und Zeichnung der Grundplatte als PDF
+
 ## Offene Punkte
 
 - Code am neuen Roboter testen, Faktor für die Geradeausfahrt neu bestimmen (Gewicht und Aufbau haben sich geändert)
@@ -265,11 +271,9 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Schaltplan, Programmablaufplan und Creo-Baugruppe fertig machen
 - Messen: Stößelspitze bis Plattenvorderkante, Motorlänge mit Encoder (Räder am 20.11. gemessen)
 - Taster-Kabel: gewinkelte Steckhülsen oder Akku-Wanne verschieben
-- Geschwindigkeit auf 200 cm messen (3 Mal)
 - Beim Veranstalter klären: Podest unter der Schale, Wippschalter als Start, Sensoren an Start- und Endwand
 - Projektkarte: Foto einfügen, Ablauf und Haube nach den Tests prüfen
 - Projektverlauf: Tests am Aufbau v2 und Ergebnis der Abnahme ergänzen
-- Comic: gemessenes Ø-Tempo auf dem Cover, Uhrzeit und Raum auf dem Strip eintragen
 - Zeichnung Grundplatte fertig machen: Ordinate x 236 ergänzen, Maß 5 an der Isometrie löschen, „-0.5“ als „-0,5“, optional 8 durch Ordinate 248 ersetzen
 - Podest-Loch im Modell von x 56,0 auf 56,26 korrigieren (Lochkreis Ø46)
 - Klären: gelaserte Platte und DXF haben 47 Löcher, Modell und Zeichnung 37

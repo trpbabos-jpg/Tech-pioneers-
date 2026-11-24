@@ -19,7 +19,7 @@ Status: ✅ fertig, 🟡 fertig bis auf Werte aus der Abnahme, ❌ fehlt noch
 | 3 | Benutzerdokumentation (PDF) | 🟡 | `doku/ECHO-Benutzerdokumentation.docx` / `.pdf` |
 | 4 | Entwicklerdokumentation (PDF) mit CAD-Entwürfen, Programmcode, Schalt- und Verdrahtungsplan | ✅ | `doku/ECHO-Entwicklerdokumentation.docx` / `.pdf`, Abschnitte 2, 3 und 4 |
 | 5 | Projektverlauf mit Phasen, Teilergebnissen, Herausforderungen, Fotos, wer hat was gemacht (PDF) | 🟡 | `doku/ECHO-Projektverlauf-Wochen.docx` / `.pdf`, Abschnitt 5 „Wer hat was gemacht“ |
-| 6 | Vollständige CAD-Entwürfe in PTC Creo (Baugruppe Roboter) | ❌ | Creo-Originaldateien gehören in `05_CAD_Creo/creo/` der ZIP; STEP und STL sind schon drin |
+| 6 | Vollständige CAD-Entwürfe in PTC Creo (Baugruppe Roboter) | ✅ | Creo-Originaldateien in `05_CAD_Creo/creo/` der ZIP (nicht im Repository), Baugruppenzeichnung als PDF; STEP und STL in `05_CAD_Creo/step_stl/` |
 | 7 | Technische Zeichnung des Chassis (laser-schneidbar) | ✅ | `cad/zeichnung/2026-11-23_Grundplatte_V3_Zeichnung.pdf`, `cad/Grundplatte_V2_Laser.dxf` / `.svg` |
 | 8 | Vollständiger Programmcode | ✅ | `code/main.py` (= `wallsprint_schnell.py`), frühere Stände, `code/tests/` |
 | 9 | Vollständiger Schalt- oder Verdrahtungsplan | ✅ | `elektronik/schaltplan_v2.pdf` (gilt), `elektronik/steckbrett_v2.svg` / `.png` |
@@ -27,8 +27,7 @@ Status: ✅ fertig, 🟡 fertig bis auf Werte aus der Abnahme, ❌ fehlt noch
 
 ## Noch zu tun
 
-- [ ] **Creo-Originaldateien** (J): alle `.prt`, `batmobile-v2.asm`, `haube_v8.asm`, `grundplatte.drw` und `batmobile-v2.drw` in `05_CAD_Creo/creo/` der ZIP legen, `grundplatte.drw` zusätzlich nach `06_Zeichnung_Chassis/`. Vorher in Creo alte Versionen löschen (Datei > Verwalten > Alte Versionen löschen) und die Baugruppe einmal öffnen, damit nichts rot ist
-- [ ] **Nach der Abnahme am 25.11.:** Werte in die Zusammenfassung der Benutzerdokumentation (seitliche Abweichung, Durchschnittsgeschwindigkeit auf 200 cm); Ablauf und Ergebnis der Abnahme in Woche 7 des Projektverlaufs; dann bei Benutzerdoku, Entwicklerdoku und Projektverlauf Version 1.0.0, Status „verabschiedet“
+- [ ] **Nach der Abnahme am 25.11.:** seitliche Abweichung in die Zusammenfassung der Benutzerdokumentation, falls gemessen; Ablauf und Ergebnis der Abnahme in Woche 7 des Projektverlaufs; dann bei Benutzerdoku, Entwicklerdoku und Projektverlauf Version 1.0.0, Status „verabschiedet“
 - [ ] **Präsentationen:** Folien vom 13.11. (KW 46), 20.11. (KW 47) und der Abschlusspräsentation am 27.11. als PDF nach `doku/praesentationen/` und in `09_Sonstiges/`
 - [ ] **Beim Veranstalter klären:** Podest unter der Schale, Finnen der Haube über der Freiraumgrenze, Wippschalter als Startknopf. Antworten in Benutzer- und Entwicklerdoku eintragen
 - [ ] **Tagebücher gegenlesen:** Felix seinen Eintrag 11. bis 13.11. (Podest) und 19.11. (Zeichnung zusammen mit Jaskaran), Kevin den Eintrag 12.11. (alle drei Echo-Halterungen)
@@ -36,6 +35,10 @@ Status: ✅ fertig, 🟡 fertig bis auf Werte aus der Abnahme, ❌ fehlt noch
 - [ ] Einer aus dem Team lädt die ZIP hoch
 
 ## Erledigt am 24.11.
+
+- Creo-Originaldateien (Stand 24.11., je Datei nur die neueste Version) in `05_CAD_Creo/creo/` der ZIP, Baugruppenzeichnung als PDF in `05_CAD_Creo/`, Zeichnung der Grundplatte mit Stand 24.11. (PDF und `grundplatte.drw`) in `06_Zeichnung_Chassis/`
+- Messfahrt: 6,7 s für 200 cm hin und zurück, im Schnitt ca. 0,60 m/s. Eingetragen in Benutzerdoku, Entwicklerdoku, Projektverlauf, Messwerte und Testtabelle
+- Comic-Cover mit Ø-Tempo 0,60 m/s, Comic-Strip mit Fahrzeit und Tempo, Bremspunkt im Comic auf 45 cm korrigiert
 
 - Abgabestand des Codes als `code/main.py`, alte `main.py` als `main_2026-11-03.py`, Pinbelegung nach Schaltplan v2
 - Schaltplan v2 mit Schriftfeld und Akku-Angabe

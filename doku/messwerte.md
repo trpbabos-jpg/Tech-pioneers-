@@ -36,8 +36,14 @@ Neue Messungen unten mit Datum anhängen. Für die Bewertung brauchen wir am End
 | Stopp | 13,1 cm vor der Wand (Ziel 15 cm) |
 | Ausrollen | ca. 1 bis 2 cm |
 
+## 24.11.2026: Wall-Sprint mit Haube
+
+| Messung | Wert |
+| --- | --- |
+| Fahrzeit 200 cm hin und 200 cm zurück | 6,7 s |
+| Durchschnittsgeschwindigkeit (400 cm / 6,7 s, Pause an der Endwand eingerechnet) | ca. 59,7 cm/s, also ca. 0,60 m/s oder 2,15 km/h |
+
 ## Noch offen
 
 - Geradeausfahrt: seitliche Abweichung auf 200 cm (3 Mal messen)
-- Durchschnittsgeschwindigkeit auf 200 cm (3 Mal messen)
 - Bremsen mit Ball in der Schale
