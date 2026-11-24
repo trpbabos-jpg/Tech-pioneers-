@@ -4,13 +4,13 @@
 | --- | --- |
 | Projekt | ECHO, Mobiler Roboter für den Wall-Sprint (TechPioneers) |
 | Dokument | `doku/abgabe_checkliste.md` |
-| Stand | 24.11.2026 |
+| Stand | 24.11.2026, nachmittags (Projektverlauf v0.6.0 und Projektergebnisse v0.5.0 geprüft) |
 
 Abgabe über Moodle als **eine ZIP-Datei pro Gruppe**. Wir müssen absprechen, wer hochlädt.
 
 Regeln aus der Aufgabe:
 
-- Alle Text-Dokumente **nur als PDF** (kein Word, OpenOffice, Pages). Also auch unsere `.md`-Dateien und `ECHO-Projektverlauf.docx` vor dem Packen als PDF exportieren.
+- Alle Text-Dokumente **nur als PDF** (kein Word, OpenOffice, Pages). Also auch unsere `.md`-Dateien und die `.docx` vor dem Packen als PDF exportieren. Die PDFs im Repo sind mit LibreOffice erzeugt (andere Schrift), die endgültigen bitte aus Word exportieren.
 - CAD-Entwürfe, technische Zeichnungen, Programmcode, Schalt- und Verdrahtungspläne im üblichen Format des Systems (Creo `.prt`/`.asm`/`.drw`, `.py`, `.svg` usw.).
 
 Status: ✅ fertig, 🟡 da, aber noch nicht abgabefertig, ❌ fehlt noch
@@ -20,25 +20,32 @@ Status: ✅ fertig, 🟡 da, aber noch nicht abgabefertig, ❌ fehlt noch
 | Nr. | Gefordert | Status | Was wir schon haben | Was noch fehlt |
 | --- | --- | --- | --- | --- |
 | 1 | README: Beschreibung des ZIP-Inhalts | ❌ | Repo-README und Ordner-READMEs als Vorlage | Eigene README für die ZIP schreiben, wenn die Struktur steht (Vorschlag unten) |
-| 2 | Projekttagebücher jeder Person (PDF) | 🟡 | J führt sein Tagebuch, Datei wird am Projektende erstellt | Tagebücher von J, K, F und A als PDF einsammeln |
-| 3 | Benutzerdokumentation (PDF) | 🟡 | `doku/ECHO-Projektkarte.pdf` (2 Seiten: Beschreibung, Inbetriebnahme, Erste Hilfe, Aufbau), Abschnitt „Code auf den ESP32 bringen“ im Repo-README | Eigene Benutzerdoku als PDF, siehe Punkt 3 unten |
-| 4 | Entwicklerdokumentation (PDF) mit Mechanik, Programmierung, Elektronik | ❌ | Viel Material in Markdown verteilt im Repo | Ein zusammenhängendes PDF, siehe Punkt 4 unten |
-| 5 | Projektverlauf mit Phasen, Teilergebnissen, Herausforderungen, Fotos, wer hat was gemacht (PDF) | 🟡 | `doku/ECHO-Projektverlauf.pdf`, Entwurf v0.2.0 vom 19.11., 6 Seiten mit Fotos und früher Formskizze | Stand ab 19.11., Tests, Abnahme, eigener Abschnitt „Wer hat was gemacht“, siehe Punkt 5 unten |
-| 6 | Vollständige CAD-Entwürfe in PTC Creo (Baugruppe Roboter) | ❌ | Nur STEP-Exporte: `cad/Grundplatte_V2.stp`, `cad/haube_v4/Haube_V4.stp`, `cad/baugruppe/ECHO_Roboter_STEP.zip`, STL der Druckteile | Native Creo-Dateien und Baugruppe fertig machen, siehe Punkt 6 unten |
-| 7 | Technische Zeichnung des Chassis (laser-schneidbar) | 🟡 | `cad/zeichnung/2026-11-23_Grundplatte_V2_Zeichnung_Entwurf.pdf`, `cad/Grundplatte_V2_Laser.dxf` | Zeichnung fertig, Lochzahl klären, Creo-`.drw` dazu, siehe Punkt 7 unten |
-| 8 | Vollständiger Programmcode | 🟡 | `code/main.py`, Stände v1 bis v3, alle Testprogramme, `code/einstellwerte.md` | Finale `main.py` mit Pins nach Steckplan v2, getestet, siehe Punkt 8 unten |
-| 9 | Vollständiger Schalt- oder Verdrahtungsplan | 🟡 | `elektronik/steckbrett_v2.svg` und `.png` (Stand 21.11.), `elektronik/pinbelegung.md`, Schaltplan im Miro-Board | Plan an den echten Aufbau anpassen und als Datei exportieren, siehe Punkt 9 unten |
-| 10 | Sonstige wichtige Dokumente | 🟡 | Mind Map, Präsentationen bis 06.11., Messwerte, Testtabelle, Materialliste, Datenblätter, Fotos, Marketing | Fehlende Präsentationen und PDF-Exporte, siehe Punkt 10 unten |
+| 2 | Projekttagebücher jeder Person (PDF) | ❌ | J führt sein Tagebuch, Datei wird am Projektende erstellt | Tagebücher von J, K, F und A als PDF einsammeln |
+| 3 | Benutzerdokumentation (PDF) | 🟡 | `doku/ECHO-Projektergebnisse.docx`, Zusammenfassung und Abschnitt 1: Geräteübersicht, technische Daten, Sicherheit, Inbetriebnahme, Eingangstest, Bedienung, Fehlerbehebung, Außerbetriebnahme. Dazu `doku/ECHO-Projektkarte.pdf` | Fotos vom echten Roboter, gemessene Werte, Platzhalter, siehe Punkt 3 |
+| 4 | Entwicklerdokumentation (PDF) mit Mechanik, Programmierung, Elektronik | 🟡 | `doku/ECHO-Projektergebnisse.docx`, Abschnitte 2 bis 4: Wartung, Repository, Stückliste, Abhängigkeiten, Übertragen auf den ESP32, Entwicklertests, Architektur, Programmablaufplan, Code Abschnitt für Abschnitt, Elektronik, bestehende Probleme, Weiterentwicklung | Beschreibung der CAD-Entwürfe fehlt fast ganz, Code-Teil beschreibt noch die Pins vom 29.10., siehe Punkt 4 |
+| 5 | Projektverlauf mit Phasen, Teilergebnissen, Herausforderungen, Fotos, wer hat was gemacht (PDF) | 🟡 | `doku/ECHO-Projektverlauf-Wochen.docx`, 23 Seiten: Termine, Phasen mit Zeitstrahl, jede Woche mit Ziel, Erkenntnis, gut und besser, Teilergebnisse, Abhängigkeiten, Herausforderungen, Fazit | **„Wer hat was gemacht“ fehlt ganz**, echte Fotos aus der Anfangszeit, Abnahme, siehe Punkt 5 |
+| 6 | Vollständige CAD-Entwürfe in PTC Creo (Baugruppe Roboter) | ❌ | Nur STEP-Exporte: `cad/Grundplatte_V2.stp`, `cad/haube_v4/Haube_V4.stp`, `cad/baugruppe/ECHO_Roboter_STEP.zip`, STL der Druckteile | Native Creo-Dateien und Baugruppe fertig machen, siehe Punkt 6 |
+| 7 | Technische Zeichnung des Chassis (laser-schneidbar) | 🟡 | `cad/zeichnung/2026-11-23_Grundplatte_V2_Zeichnung_Entwurf.pdf`, `cad/Grundplatte_V2_Laser.dxf` | Zeichnung fertig, Lochzahl klären, Creo-`.drw` dazu, siehe Punkt 7 |
+| 8 | Vollständiger Programmcode | 🟡 | `code/main.py`, Stände v1 bis v3, alle Testprogramme, `code/einstellwerte.md` | Finale `main.py` mit Pins nach Steckplan v2, getestet, `taster_test.py`, siehe Punkt 8 |
+| 9 | Vollständiger Schalt- oder Verdrahtungsplan | 🟡 | `elektronik/steckbrett_v2.svg` und `.png` (Stand 21.11.), `elektronik/pinbelegung.md`, Architekturbild in den Projektergebnissen, Schaltplan im Miro-Board | Plan an den echten Aufbau anpassen und den Schaltplan als Datei exportieren, siehe Punkt 9 |
+| 10 | Sonstige wichtige Dokumente | 🟡 | Mind Map, Präsentationen bis 06.11., Projektkarte, Messwerte, Testtabelle, Materialliste, Datenblätter, Fotos, Marketing | Fehlende Präsentationen und PDF-Exporte, siehe Punkt 10 |
+
+## Für beide Word-Dokumente
+
+- [ ] Alle orangen Platzhalter in Klammern füllen (Projektverlauf 13, Projektergebnisse 16), dann Version 1.0.0, Status verabschiedet, Datum aktualisieren
+- [ ] Den Kasten unter dem Dokumentkopf in eigenen Worten schreiben. Bisher steht dort wörtlich der Erklärtext der Vorlage. Bei den Projektergebnissen liest sich das komisch („welche Dinge dokumentiert werden sollten“)
+- [ ] Commit 6b72283 am Ende durch den Commit des abgegebenen Stands ersetzen
+- [ ] Am Ende aus Word als PDF exportieren und die PDFs im Repo ersetzen
 
 ## Was noch zu tun ist
 
 ### 1. README der ZIP
 
 - Kurz das Projekt, das Team (Name und Kürzel) und welche Datei wo liegt
-- Für jede geforderte Abgabe sagen, in welcher Datei sie steckt (Nr. 1 bis 10 oben)
+- Für jede geforderte Abgabe sagen, in welcher Datei und auf welchen Seiten sie steckt (Nr. 1 bis 10 oben)
 - Welche Programme man zum Öffnen braucht (Creo, Thonny, PDF-Viewer)
-- Link auf das GitHub-Repo
-- Als `README.pdf` oder `README.txt`. Eine `.txt` ist kein Text-Dokument im Sinne von Word, im Zweifel beim Betreuer nachfragen
+- Link auf das GitHub-Repo und den abgegebenen Commit
+- Als `README.pdf` (Text-Dokumente nur als PDF)
 
 ### 2. Projekttagebücher
 
@@ -50,55 +57,49 @@ Status: ✅ fertig, 🟡 da, aber noch nicht abgabefertig, ❌ fehlt noch
 
 ### 3. Benutzerdokumentation
 
-Die Projektkarte reicht wahrscheinlich nicht als Benutzerdoku, sie ist ein Steckbrief. Daraus ein eigenes PDF machen mit:
+Inhaltlich deckt Abschnitt 1 der Projektergebnisse alle Fragen aus Kap. 7 ab. Es fehlen nur Werte und Bilder vom fertigen Roboter.
 
-- [ ] Foto des fertigen Roboters
-- [ ] Was ECHO kann (Hinfahrt, sanftes Bremsen, Antippen mit dem Stoßschalter, Rückfahrt)
-- [ ] Lieferumfang und Bedienelemente (Wippschalter als Start, Stoßschalter, Akkufach)
-- [ ] Akkus einsetzen und laden
-- [ ] Aufstellen an der Startwand, Ball in die Schale, Start, 3 s Wartezeit
-- [ ] Programm auf den ESP32 spielen (Thonny), Werte in `einstellwerte` ändern
-- [ ] Haube und Schale ab- und aufbauen
-- [ ] Fehlerbehebung (fährt schief, bremst zu spät, startet nicht, Stoßschalter löst beim Anfahren aus)
-- [ ] Ablauf nach den letzten Tests prüfen
+- [ ] Fotos vom echten Roboter mit Haube: Gesamtansicht, Wippschalter, Akkufach. Bisher sind es nur CAD-Bilder und der Comic
+- [ ] Am fertigen Roboter messen und wiegen: Abmessungen mit Haube, Masse, Schalenrand über Boden
+- [ ] Durchschnittsgeschwindigkeit auf 200 cm (3 Messungen)
+- [ ] Wettbewerbsregeln eintragen, sobald geklärt (Podest, Haube und Freiraum, Wippschalter als Start)
+- [ ] Ablauf und Eingangstest nach dem Umstecken auf Steckplan v2 noch einmal prüfen
+- [ ] Optional: Link zum Video der Demo
 
 ### 4. Entwicklerdokumentation
 
-Aus dem vorhandenen Material ein PDF bauen. Gliederung nach der Aufgabe:
+**Mechanik (CAD-Entwürfe): die größte Lücke.** Die Abgabe verlangt eine Beschreibung der CAD-Entwürfe. Bisher gibt es dazu nur den Absatz „Mechanischer Aufbau“, die Zeichnung und die Fertigungsschritte. Ein eigener Unterabschnitt sollte enthalten:
 
-**Mechanik (CAD-Entwürfe)**
-- [ ] Grundplatte v1 (Frankenstein-Modell) kurz, Grundplatte v2 ausführlich: Maße, Löcher, Koordinaten, Material und Laserwerte. Quelle: `cad/README.md`, `cad/grundplatte-v2-entscheidungen.md`
-- [ ] Druckteile: Podest, Echo-Halterungen, Rohrblenden, Akku-Wanne, Steckbrett-Halter, Taster-Bügel, jeweils mit Zweck und Befestigung
-- [ ] Haube V4: Teilung, Befestigung, Druckeinstellungen. Quelle: `cad/haube_v4/README.md`
-- [ ] Baugruppe: Aufbau, Koordinatensystem, Masse und Schwerpunkt. Quelle: `cad/baugruppe/README.md`, `bom/Grundplatte_Masse_Gewicht_V2.xlsx`
-- [ ] Bilder: Ansichten aus `cad/baugruppe/`, Zeichnung
+- [ ] Aufbau der Creo-Baugruppe: welche Teile und Unterbaugruppen, Dateinamen, Koordinatensystem (Ursprung Mitte Radachse auf der Plattenoberseite), wie die Teile platziert sind
+- [ ] Grundplatte v2: Maße, Lochbild mit Zweck der Löcher, warum 47 bzw. 37 Löcher. Quelle: `cad/grundplatte-v2-entscheidungen.md`
+- [ ] Druckteile je mit Zweck, Hauptmaßen und Befestigung: Podest, Echo-Halterungen, Rohrblenden, Akku-Wanne, Steckbrett-Halter, Bedienpult, Taster-Bügel
+- [ ] Haube V4: Teilung bei x 58, Befestigung H1 bis H7, Einschnitte für die Sensoren, Freiraum. Quelle: `cad/haube_v4/README.md`
+- [ ] Wie man ein Teil ändert und neu exportiert (STEP, STL, DXF für den Laser)
+- [ ] Bilder aus `cad/baugruppe/` (z. B. ohne Haube und mit Haube)
 
 **Programmierung**
-- [ ] Programmablaufplan von `main.py` (fehlt noch ganz)
-- [ ] Aufbau des Programms: Pins, Einstellwerte, Funktionen, die drei Schritte hinfahren, bremsen, zurückfahren
-- [ ] Geradeausfahrt über die Encoder mit tempoabhängiger Korrektur, Bremsen über Ultraschall mit Median aus 3 Messungen, Stoßschalter, Rückfahrt über die Encoder
-- [ ] Wie die Seitensensoren genutzt werden
-- [ ] Testprogramme und wofür man sie braucht, Einstellwerte mit Herkunft. Quelle: `code/einstellwerte.md`, `code/tests/README.md`
-- [ ] `code/README.md` ist bisher nur drei Zeilen lang, gleich mit ausbauen
+- [ ] Nach dem Umstecken den ganzen Code-Teil auf die neue `main.py` bringen: Pin-Tabelle, Ausschnitte (Abbildungen 10 bis 14), Einstellwerte
+- [ ] Seitliche Sensoren: im Programm nutzen oder begründen, warum nicht. Sie sind verbaut, das wird bei der Abnahme bestimmt gefragt
+- [ ] Ergebnisse der Entwicklertests am fertigen Roboter eintragen
 
-**Elektronik (Schalt- und Verdrahtungsplan)**
-- [ ] Bauteile mit Datenblattwerten. Quelle: `bom/materialliste.md`, `bom/datenblaetter/`
-- [ ] Stromversorgung: Akku, Wippschalter, MDD3A, 5VO auf die rote Schiene, Grenze 200 mA
-- [ ] Spannungsteiler für Echo (1 kΩ und 2,2 kΩ, ca. 3,4 V) mit Rechnung
-- [ ] Pinwahl mit Begründung (Startpins frei, 34 bis 39 nur Eingang, interne Pull-ups). Quelle: `elektronik/pinbelegung.md`, Folien vom 23.10.
-- [ ] Plan als Bild einfügen
+**Elektronik**
+- [ ] Pin-Tabelle vom 29.10. durch Steckplan v2 ersetzen
+- [ ] Schaltplan als Bild einfügen, nicht nur auf das Miro-Board verweisen
+
+**Abhängigkeiten**
+- [ ] Versionen eintragen: MicroPython (`import os; os.uname()`), Thonny, Creo
+
+**Getrennt abgeben:** Die Abgabe nennt Benutzerdoku und Entwicklerdoku als zwei PDFs. Am sichersten die Projektergebnisse komplett abgeben und zusätzlich als zwei Teile exportieren: Zusammenfassung mit Abschnitt 1 als Benutzerdokumentation, Abschnitte 2 bis 4 als Entwicklerdokumentation. Oder beim Betreuer fragen, ob ein Dokument mit Verweis in der README reicht.
 
 ### 5. Projektverlauf
 
-`doku/ECHO-Projektverlauf.docx` weiterschreiben und am Ende als PDF exportieren (Version 1.0.0, Status verabschiedet).
-
-- [ ] Stand nach dem 19.11. nachtragen: Haube anprobiert und geändert (20.11., 23.11.), Steckplan v2 (21.11.), technische Zeichnung (20. und 23.11.), Gesamtmodell (24.11.)
-- [ ] Tests am Aufbau v2 mit Ergebnissen (Geradeausfahrt, Bremsen, Kipptest mit Ball, Geschwindigkeit auf 200 cm)
-- [ ] Ergebnis der Abnahme (25.11.) und der Abschlusspräsentation (27.11.)
-- [ ] **Eigener Abschnitt „Wer hat was gemacht“** mit allen vier Personen. Bisher steht das nur verteilt im Protokoll, und dort oft als „Team“
+- [ ] **Eigener Abschnitt „Wer hat was gemacht“** mit allen vier Personen. Die Abgabe verlangt das ausdrücklich, im Dokument steht bisher überall nur „wir“. Vorschlag: eine Tabelle Arbeitspaket gegen Person (Elektronik, Programm, Grundplatte v1 und v2, Podest, Halterungen, Haube, Zeichnung, Baugruppe, Doku, Präsentationen, Marketing) und bei jeder Woche eine Zeile „Wer“
+- [ ] Wochen 1 bis 4 ehrlich darstellen: Bis zum 06.11. hat J allein gearbeitet (steht so im Protokoll), im Text steht aber „wir“
+- [ ] Echte Fotos aus der Anfangszeit, falls vorhanden: Steckbrett (20.10.), Frankenstein-Modell (26. bis 29.10.), gedruckte Haube am Roboter (20.11. und 23.11.). Bisher zeigen die frühen Wochen nur Folien, Code und Skizzen, und die Haube nur als CAD-Bild
+- [ ] Fortschrittspräsentation KW 47 am 20.11.: klären, ob sie stattgefunden hat, und den Platzhalter in der Terminübersicht ersetzen
+- [ ] Woche 7 mit Abnahme (25.11.) und Abschlusspräsentation (27.11.) fertig schreiben
+- [ ] Offene Lösungen eintragen: Steckhülsen am Stoßschalter, 47 oder 37 Löcher, Masse der Baugruppe, Räder in der Baugruppe
 - [ ] Fehlende Zeiten und Kürzel im Protokoll (`doku/aenderungsverlauf.md`) nachtragen, jeder seine eigenen ab KW 45
-- [ ] Fotos aus der Zeit nach dem 13.11. einfügen (Haube gedruckt, fertiger Roboter)
-- [ ] Persönliches Fazit von jedem
 
 ### 6. CAD in PTC Creo
 
@@ -135,6 +136,7 @@ Im Repo liegen bisher nur STEP-Exporte. Gefordert ist die Baugruppe als Creo-Dat
 - [ ] Finalen Stand als eigene Datei sichern (z. B. `fahren_v4_drei_sensoren.py`) und als `main.py`
 - [ ] `code/einstellwerte.md` mit den neuen Werten ergänzen
 - [ ] Testprogramme an die neuen Pins anpassen oder vermerken, dass sie zum Stand 29.10. gehören
+- [ ] `taster_test.py` ins Repo (beide Word-Dokumente sagen, dass es fehlt)
 
 ### 9. Schalt- oder Verdrahtungsplan
 
@@ -147,9 +149,9 @@ Im Repo liegen bisher nur STEP-Exporte. Gefordert ist die Baugruppe als Creo-Dat
 
 - [ ] Folien der Fortschrittspräsentationen vom 13.11. (KW 46) und 20.11. (KW 47) als PDF nach `doku/praesentationen/`
 - [ ] Folien der Abschlusspräsentation (27.11.)
-- [ ] Projektkarte fertig machen (Foto, Ablauf nach den Tests)
+- [ ] Projektkarte: Foto vom echten Roboter statt CAD-Bild
 - [ ] Comic: Ø-Tempo auf dem Cover, Uhrzeit und Raum auf dem Strip
-- [ ] Markdown-Dateien als PDF exportieren oder in die Entwicklerdoku übernehmen: Protokoll, Messwerte, Testtabelle, Materialliste, Einstellwerte, Entscheidungen Grundplatte
+- [ ] Markdown-Dateien als PDF exportieren: Protokoll, Messwerte, Testtabelle, Materialliste, Einstellwerte, Entscheidungen Grundplatte
 - [ ] `bom/Grundplatte_Masse_Gewicht_V2.xlsx` zusätzlich als PDF
 - [ ] `elektronik/steckplan.html` ist ein alter Stand, als PNG reicht
 
@@ -163,21 +165,22 @@ TechPioneers_ECHO_Abgabe.zip
 │   ├── Projekttagebuch_Rundt.pdf
 │   ├── Projekttagebuch_Schurwanz.pdf
 │   └── Projekttagebuch_Dogan.pdf
-├── 02_Benutzerdokumentation.pdf
-├── 03_Entwicklerdokumentation.pdf
-├── 04_Projektverlauf.pdf
-├── 05_CAD_Creo/            (alle .prt und die .asm, dazu STL der Druckteile)
-├── 06_Zeichnung_Chassis/   (Zeichnung .pdf und .drw, Laserdatei .dxf)
-├── 07_Programmcode/        (main.py, alle Stände, tests/)
-├── 08_Schaltplan/          (Verdrahtungsplan .svg/.png, Schaltplan .pdf)
-└── 09_Sonstiges/           (Präsentationen, Projektkarte, Protokoll, Messwerte,
+├── 02_Benutzerdokumentation.pdf      (Projektergebnisse: Zusammenfassung und Abschnitt 1)
+├── 03_Entwicklerdokumentation.pdf    (Projektergebnisse: Abschnitte 2 bis 4)
+├── 04_Projektverlauf.pdf             (ECHO-Projektverlauf-Wochen)
+├── 05_Projektergebnisse_komplett.pdf
+├── 06_CAD_Creo/            (alle .prt und die .asm, dazu STL der Druckteile)
+├── 07_Zeichnung_Chassis/   (Zeichnung .pdf und .drw, Laserdatei .dxf)
+├── 08_Programmcode/        (main.py, alle Stände, tests/)
+├── 09_Schaltplan/          (Verdrahtungsplan .svg/.png, Schaltplan .pdf)
+└── 10_Sonstiges/           (Präsentationen, Projektkarte, Protokoll, Messwerte,
                              Testtabelle, Materialliste, Datenblätter, Fotos, Marketing)
 ```
 
 ## Reihenfolge
 
-1. Bis zur Abnahme am 25.11.: Code auf Steckplan v2 umstellen und testen (Punkt 8), damit die Demo läuft
-2. Direkt danach: Ergebnisse in Projektverlauf und Benutzerdoku, Fotos vom fertigen Roboter
-3. Creo-Baugruppe fertig machen und hochladen (Punkt 6), Zeichnung abschließen (Punkt 7)
-4. Entwicklerdoku zusammenschreiben (Punkt 4), Schaltplan exportieren (Punkt 9)
+1. Bis zur Abnahme am 25.11.: Code auf Steckplan v2 umstellen und testen (Punkt 8), damit die Demo läuft. Fotos vom fertigen Roboter machen, auch von Haube, Schalter und Akkufach
+2. Gleich danach: Aufgabenverteilung mit allen vier klären und „Wer hat was gemacht“ schreiben (Punkt 5), solange alle es noch wissen
+3. Creo-Baugruppe fertig machen und hochladen (Punkt 6), Zeichnung abschließen (Punkt 7), daraus den CAD-Abschnitt der Entwicklerdoku schreiben (Punkt 4)
+4. Ergebnisse von Abnahme und Tests in beide Word-Dokumente, Platzhalter füllen, Schaltplan exportieren (Punkt 9)
 5. Tagebücher einsammeln, README schreiben, alles als PDF exportieren, ZIP packen, einer lädt hoch

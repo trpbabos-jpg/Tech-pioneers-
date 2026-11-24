@@ -4,7 +4,7 @@
 | --- | --- |
 | Projekt | ECHO, Mobiler Roboter für den Wall-Sprint (TechPioneers) |
 | Dokument | `doku/aenderungsverlauf.md` |
-| Version | 0.6.3 |
+| Version | 0.6.4 |
 | Datum | 24.11.2026 |
 | Status | Entwurf |
 
@@ -35,7 +35,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 | 11. bis 13.11. | Team | offen | Schalen-Podest in Creo | Konstruktion / Messung | `cad/skizzen/2026-11-11_podest_schnitt.png` |
 | 13.11. | Team | offen | Echo-Halterung, Elektronik verkabelt, CAD-Baugruppe teilweise, Fortschrittspräsentation KW 46 | Montage / Konstruktion / Präsentation | `fotos/2026-11-13_*` |
 | 17. bis 18.11. | J | offen | Haube V4: Entwurf, Befestigung, Anpassung an Quarz und echte Halterungen, fertige STEP für Creo, Druck vorbereitet | Konstruktion / Entscheidung / Fertigung | `cad/haube_v4/` |
-| KW 47, bis 20.11. | Team | offen | Projektkarte, Dokumentation des Projektverlaufs (Entwurf), Marketing: Comic-Cover und Comic-Strip | Dokumentation / Marketing | `doku/ECHO-Projektkarte.pdf`, `doku/ECHO-Projektverlauf.pdf`, `doku/marketing/` |
+| KW 47, bis 20.11. | Team | offen | Projektkarte, Dokumentation des Projektverlaufs (Entwurf), Marketing: Comic-Cover und Comic-Strip | Dokumentation / Marketing | `doku/ECHO-Projektkarte.pdf`, `doku/ECHO-Projektverlauf-Wochen.pdf`, `doku/marketing/` |
 | 20.11. | J | offen | Haube gedruckt und anprobiert, Räder gemessen, Haube geändert: Radkasten offen, Teilung bei x 58 | Fertigung / Messung / Konstruktion | `cad/haube_v4/` |
 | 20.11. | J | offen | Technische Zeichnung Grundplatte begonnen, Rückmeldung Betreuer, Bohrungen im Modell vereinheitlicht und 10 gelöscht | Konstruktion / Dokumentation | `cad/zeichnung/`, `cad/Grundplatte_V2.stp` |
 | 21.11. | J | offen | Steckplan v2 für drei Ultraschallsensoren: alle Widerstände aufs Steckbrett, keine Kabelkreuzungen, Motorkabel in MDD3A-Reihenfolge | Hardware / Entscheidung | `elektronik/steckbrett_v2.png`, `elektronik/pinbelegung.md` |
@@ -43,6 +43,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 | 23.11. | J | offen | Zeichnung Grundplatte ergänzt (Durchmesser, t=5, Halbzeug, Oberfläche, Kanten), falsche Masse der Baugruppe gefunden | Konstruktion / Dokumentation | `cad/zeichnung/2026-11-23_Grundplatte_V2_Zeichnung_Entwurf.pdf` |
 | 24.11. | J | offen | Ganzer Roboter als 3D-Modell ins Repo: STL zum Drehen auf GitHub, GLB mit Farben, STEP, sechs Ansichten | Konstruktion / Dokumentation | `cad/baugruppe/` |
 | 24.11. | J | offen | Checkliste für die Abgabe von Dokumentation und Projektbericht: was gefordert ist, was fehlt | Organisation | `doku/abgabe_checkliste.md` |
+| 24.11. | J | offen | Projektverlauf Woche für Woche (v0.6.0) und Darstellung der Projektergebnisse (v0.5.0) ins Repo, Checkliste danach aktualisiert | Dokumentation | `doku/ECHO-Projektverlauf-Wochen.pdf`, `doku/ECHO-Projektergebnisse.pdf` |
 
 ## Einträge
 
@@ -179,7 +180,7 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 
 **KW 47, bis 20.11.2026: Projektkarte, Projektverlauf, Marketing**
 - Projektkarte mit Beschreibung, Inbetriebnahme, Erste Hilfe und Aufbau erstellt (`doku/ECHO-Projektkarte.pdf`). Offen: Foto des fertigen Roboters, Ablauf nach den letzten Tests prüfen, Rohrblenden nach dem Druck prüfen
-- Dokumentation des Projektverlaufs nach der Vorlage aus Kap. 7 als Entwurf (`doku/ECHO-Projektverlauf.docx`, zum Lesen als PDF daneben): Projektphasen, Teilergebnisse, Herausforderungen, Reflexion. Offen: Tests am Aufbau v2, Ergebnis von Abnahme und Abschlusspräsentation
+- Dokumentation des Projektverlaufs nach der Vorlage aus Kap. 7 als Entwurf (heute `doku/ECHO-Projektverlauf-Wochen.docx`, zum Lesen als PDF daneben): Projektphasen, Teilergebnisse, Herausforderungen, Reflexion. Offen: Tests am Aufbau v2, Ergebnis von Abnahme und Abschlusspräsentation
 - Marketing im eigenen Comic-Look: Cover „ECHO Nr. 1, der Roboter, der die Wand hört“ (A3 hoch) und Comic-Strip „ECHO und die Wand“ in 6 Bildern (A3 quer), in `doku/marketing/`. Offen: Ø-Tempo auf dem Cover, Uhrzeit und Raum der Live-Demo auf dem Strip
 
 **20.11.2026: Haube anprobiert und geändert**
@@ -228,6 +229,12 @@ Gemeinsames Protokoll der Gruppe: was wann passiert ist, wer dran war, wie lange
 - Abgabe über Moodle: eine ZIP pro Gruppe mit README, Projekttagebüchern, Benutzerdoku, Entwicklerdoku, Projektverlauf, Creo-Baugruppe, Zeichnung des Chassis, Programmcode und Schalt- oder Verdrahtungsplan. Text-Dokumente nur als PDF
 - Jede Anforderung mit dem Repo verglichen (`doku/abgabe_checkliste.md`). Ganz fehlen noch: README der ZIP, Entwicklerdokumentation, Programmablaufplan, native Creo-Dateien, Abschnitt „Wer hat was gemacht“ im Projektverlauf
 - `main.py` hat noch die Pins vom 29.10., Zeichnung und Laserdatei passen bei der Lochzahl nicht zusammen (37 und 47)
+
+**24.11.2026: Projektverlauf und Projektergebnisse**
+- Projektverlauf neu aufgebaut, Woche für Woche mit Ziel, Erkenntnis, was gut lief und was besser ginge, dazu Zeitstrahl, Teilergebnisse, Abhängigkeiten und Gesamtfazit (`doku/ECHO-Projektverlauf-Wochen.docx`, ersetzt den Entwurf vom 19.11.)
+- Darstellung der Projektergebnisse nach Vorlage Kap. 7: Benutzerdokumentation, Entwicklerdokumentation mit Programmablaufplan und Code Abschnitt für Abschnitt, bestehende Probleme, Weiterentwicklung (`doku/ECHO-Projektergebnisse.docx`)
+- Projektkarte mit Bild aus dem 3D-Modell aktualisiert
+- Beim Prüfen gegen die Abgabe aufgefallen: „Wer hat was gemacht“ fehlt im Projektverlauf, die Beschreibung der CAD-Entwürfe fehlt in der Entwicklerdoku, der Code-Teil beschreibt noch die Pins vom 29.10. Alles in `doku/abgabe_checkliste.md`
 
 ## Offene Punkte
 
